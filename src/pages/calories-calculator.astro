@@ -1,0 +1,587 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Calories Calculator"
+  description="Estimate your daily metabolic calorie needs (BMR & TDEE) and macronutrient breakdowns based on your physical activity profile and weight targets."
+>
+  <div class="relative min-h-[calc(100vh-16rem)] bg-background py-12">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-20"></div>
+
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs font-mono text-neutral-500">
+        <a href="/" class="hover:text-neutral-600 dark:hover:text-neutral-300">Tools</a>
+        <span>/</span>
+        <span class="text-neutral-600 dark:text-neutral-300">Calories Calculator</span>
+      </nav>
+
+      <!-- Section Header -->
+      <div class="space-y-4">
+        <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white text-pretty">
+          Calories Calculator
+        </h1>
+        <p class="text-neutral-400 max-w-xl text-sm sm:text-base">
+          Determine your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE). Select your fitness goal to unlock a tailored macronutrient guide.
+        </p>
+      </div>
+
+      <!-- Main Columns -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Form Inputs (Left) -->
+        <div class="lg:col-span-5 border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 backdrop-blur-sm rounded-xl p-6 space-y-6">
+          <!-- Unit Toggle (Pill tabs) -->
+          <div class="flex p-1 rounded-lg bg-neutral-100 dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800" role="tablist" aria-label="Measurement Units">
+            <button
+              type="button"
+              id="unit-metric"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-metric"
+              class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-white dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none"
+            >
+              Metric (cm, kg)
+            </button>
+            <button
+              type="button"
+              id="unit-imperial"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-imperial"
+              class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-white dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none"
+            >
+              Imperial (ft, lbs)
+            </button>
+          </div>
+
+          <form id="calorie-form" class="space-y-5" novalidate>
+            <!-- Common Fields: Age and Gender -->
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Age -->
+              <div class="space-y-2">
+                <label for="age" class="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
+                  Age (years) <span class="text-red-500" aria-hidden="true">*</span>
+                </label>
+                <input 
+                  type="number" 
+                  inputmode="numeric"
+                  id="age" 
+                  name="age" 
+                  placeholder="e.g. 28…"
+                  min="15" 
+                  max="120"
+                  required
+                  class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
+                />
+                <span id="age-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+              </div>
+
+              <!-- Gender -->
+              <div class="space-y-2">
+                <label for="gender" class="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
+                  Gender <span class="text-red-500" aria-hidden="true">*</span>
+                </label>
+                <select 
+                  id="gender" 
+                  name="gender"
+                  required
+                  class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Metric Parameters -->
+            <div id="panel-metric" role="tabpanel" class="space-y-5">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <label for="height-metric" class="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
+                    Height (cm) <span class="text-red-500" aria-hidden="true">*</span>
+                  </label>
+                  <input 
+                    type="number" 
+                    inputmode="numeric"
+                    id="height-metric" 
+                    name="heightMetric"
+                    placeholder="e.g. 175…"
+                    min="50"
+                    max="300"
+                    class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
+                  />
+                  <span id="height-metric-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                </div>
+                <div class="space-y-2">
+                  <label for="weight-metric" class="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
+                    Weight (kg) <span class="text-red-500" aria-hidden="true">*</span>
+                  </label>
+                  <input 
+                    type="number" 
+                    inputmode="numeric"
+                    id="weight-metric" 
+                    name="weightMetric"
+                    placeholder="e.g. 70…"
+                    min="10"
+                    max="500"
+                    class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
+                  />
+                  <span id="weight-metric-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Imperial Parameters -->
+            <div id="panel-imperial" role="tabpanel" class="hidden space-y-5">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <span class="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
+                    Height <span class="text-red-500" aria-hidden="true">*</span>
+                  </span>
+                  <div class="grid grid-cols-2 gap-2">
+                    <div class="relative">
+                      <label for="height-ft" class="sr-only">Feet</label>
+                      <input 
+                        type="number" 
+                        inputmode="numeric"
+                        id="height-ft" 
+                        name="heightFt"
+                        placeholder="e.g. 5…"
+                        min="1"
+                        max="10"
+                        class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 pl-3 pr-8 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
+                      />
+                      <span class="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono text-neutral-500">ft</span>
+                    </div>
+                    <div class="relative">
+                      <label for="height-in" class="sr-only">Inches</label>
+                      <input 
+                        type="number" 
+                        inputmode="numeric"
+                        id="height-in" 
+                        name="heightIn"
+                        placeholder="e.g. 9…"
+                        min="0"
+                        max="11"
+                        class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 pl-3 pr-8 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
+                      />
+                      <span class="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono text-neutral-500">in</span>
+                    </div>
+                  </div>
+                  <span id="height-imperial-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                </div>
+                <div class="space-y-2">
+                  <label for="weight-lbs" class="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
+                    Weight (lbs) <span class="text-red-500" aria-hidden="true">*</span>
+                  </label>
+                  <input 
+                    type="number" 
+                    inputmode="numeric"
+                    id="weight-lbs" 
+                    name="weightLbs"
+                    placeholder="e.g. 150…"
+                    min="10"
+                    max="1000"
+                    class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
+                  />
+                  <span id="weight-lbs-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Activity Level Select -->
+            <div class="space-y-2">
+              <label for="activity" class="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
+                Activity Profile <span class="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <select 
+                id="activity" 
+                name="activity"
+                required
+                class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors cursor-pointer"
+              >
+                <option value="sedentary">Sedentary (Little/no exercise)</option>
+                <option value="light">Lightly Active (Exercise 1–3 days/wk)</option>
+                <option value="moderate" selected>Moderately Active (Exercise 3–5 days/wk)</option>
+                <option value="active">Very Active (Hard exercise 6–7 days/wk)</option>
+                <option value="extreme">Extra Active (Hard exercise daily/physical job)</option>
+              </select>
+            </div>
+
+            <!-- Goal Choice -->
+            <div class="space-y-2">
+              <label for="goal" class="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
+                Dietary Goal <span class="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <select 
+                id="goal" 
+                name="goal"
+                required
+                class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors cursor-pointer"
+              >
+                <option value="maintain">Maintain Weight</option>
+                <option value="mild-loss">Mild Weight Loss (~0.25 kg / 0.5 lb per week)</option>
+                <option value="loss">Weight Loss (~0.5 kg / 1 lb per week)</option>
+                <option value="extreme-loss">Extreme Loss (~1 kg / 2 lbs per week)</option>
+                <option value="mild-gain">Mild Weight Gain (~0.25 kg / 0.5 lb per week)</option>
+                <option value="gain">Weight Gain (~0.5 kg / 1 lb per week)</option>
+                <option value="extreme-gain">Extreme Gain (~1 kg / 2 lbs per week)</option>
+              </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              id="calc-btn"
+              class="w-full h-11 bg-neutral-950 dark:bg-white text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors font-semibold text-sm rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neutral-950 dark:focus-visible:ring-white outline-none cursor-pointer"
+            >
+              Calculate Energy Needs
+            </button>
+          </form>
+        </div>
+
+        <!-- Output Display (Right) -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Initial Prompt / Empty State -->
+          <div id="empty-state" class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-xl p-12 text-center space-y-4">
+            <svg class="w-12 h-12 text-neutral-400 dark:text-neutral-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
+            </svg>
+            <div class="space-y-2">
+              <h2 class="text-base font-semibold text-neutral-900 dark:text-white">No energy metrics calculated yet</h2>
+              <p class="text-sm text-neutral-500 max-w-sm mx-auto">
+                Fill in your statistics, gender, activity profile, and main fitness goals on the left to review your daily calorie budget.
+              </p>
+            </div>
+          </div>
+
+          <!-- Calculation Results (Hidden by default) -->
+          <div id="results-panel" class="hidden space-y-6">
+            <!-- Calorie Targets Card -->
+            <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 rounded-xl p-6 grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+              <div class="space-y-1">
+                <h2 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Recommended Calorie Budget</h2>
+                <div class="flex items-baseline gap-1">
+                  <div id="target-calories" class="text-5xl sm:text-6xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">0</div>
+                  <span class="text-sm font-mono text-neutral-500 dark:text-neutral-500">kcal/day</span>
+                </div>
+                <div class="text-xs text-neutral-600 dark:text-neutral-400 mt-2" id="goal-summary-text">To maintain weight.</div>
+              </div>
+
+              <!-- Basal Metabolic Rate BMR -->
+              <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-100/50 dark:bg-neutral-950/40 rounded-lg p-4 space-y-1.5">
+                <h3 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Basal Metabolic Rate (BMR)</h3>
+                <div class="text-lg font-bold font-mono text-neutral-900 dark:text-white tabular-nums" id="bmr-val">0 kcal</div>
+                <p class="text-[10px] text-neutral-500">Calories burned at absolute rest, without activity.</p>
+              </div>
+            </div>
+
+            <!-- Health warning alert for low calories -->
+            <div id="low-cal-warning" class="hidden border border-amber-500/20 bg-amber-500/5 rounded-xl p-4 flex items-start gap-3">
+              <svg class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+              </svg>
+              <div class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
+                <h4 class="font-bold text-neutral-950 dark:text-white">Extremely Low Calorie Target</h4>
+                <p class="text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                  Your budget is lower than typical healthy guidelines (1,200 kcal/day for females, 1,500 kcal/day for males). Proceed with care or consult a doctor.
+                </p>
+              </div>
+            </div>
+
+            <!-- Macronutrient Breakdowns Table Card -->
+            <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/20 rounded-xl p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Daily Macro Estimates</h3>
+                <span class="text-[10px] font-mono text-neutral-500">Balanced Ratio (30% P / 40% C / 30% F)</span>
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm" aria-label="Macronutrient Breakdown">
+                  <thead>
+                    <tr class="border-b border-neutral-200 dark:border-neutral-800 text-[10px] font-mono text-neutral-500 uppercase">
+                      <th class="py-2.5">Nutrient</th>
+                      <th class="py-2.5 text-center">Ratio</th>
+                      <th class="py-2.5 text-right">Target Weight</th>
+                      <th class="py-2.5 text-right">Calorie Contribution</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-neutral-100 dark:divide-neutral-900 font-mono text-xs text-neutral-600 dark:text-neutral-300">
+                    <tr>
+                      <td class="py-3 text-neutral-900 dark:text-white font-sans font-semibold flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                        Protein
+                      </td>
+                      <td class="py-3 text-center">30%</td>
+                      <td class="py-3 text-right text-neutral-900 dark:text-white font-bold tabular-nums" id="macro-protein">0 g</td>
+                      <td class="py-3 text-right text-neutral-500 dark:text-neutral-500 tabular-nums" id="macro-protein-kcal">0 kcal</td>
+                    </tr>
+                    <tr>
+                      <td class="py-3 text-neutral-900 dark:text-white font-sans font-semibold flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                        Carbohydrates
+                      </td>
+                      <td class="py-3 text-center">40%</td>
+                      <td class="py-3 text-right text-neutral-900 dark:text-white font-bold tabular-nums" id="macro-carbs">0 g</td>
+                      <td class="py-3 text-right text-neutral-500 dark:text-neutral-500 tabular-nums" id="macro-carbs-kcal">0 kcal</td>
+                    </tr>
+                    <tr>
+                      <td class="py-3 text-neutral-900 dark:text-white font-sans font-semibold flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                        Fats
+                      </td>
+                      <td class="py-3 text-center">30%</td>
+                      <td class="py-3 text-right text-neutral-900 dark:text-white font-bold tabular-nums" id="macro-fats">0 g</td>
+                      <td class="py-3 text-right text-neutral-500 dark:text-neutral-500 tabular-nums" id="macro-fats-kcal">0 kcal</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Calorie Calculation Logic
+    function initCaloriesCalculator() {
+      let activeUnit: 'metric' | 'imperial' = 'metric';
+
+      const btnMetric = document.getElementById('unit-metric') as HTMLButtonElement;
+      const btnImperial = document.getElementById('unit-imperial') as HTMLButtonElement;
+      const form = document.getElementById('calorie-form') as HTMLFormElement;
+
+      if (!form) return; // Exit if not on calories calculator page
+      
+      const panelMetric = document.getElementById('panel-metric') as HTMLDivElement;
+      const panelImperial = document.getElementById('panel-imperial') as HTMLDivElement;
+
+      // Inputs
+      const ageInput = document.getElementById('age') as HTMLInputElement;
+      const genderSelect = document.getElementById('gender') as HTMLSelectElement;
+      const heightMetric = document.getElementById('height-metric') as HTMLInputElement;
+      const weightMetric = document.getElementById('weight-metric') as HTMLInputElement;
+      const heightFt = document.getElementById('height-ft') as HTMLInputElement;
+      const heightIn = document.getElementById('height-in') as HTMLInputElement;
+      const weightLbs = document.getElementById('weight-lbs') as HTMLInputElement;
+      const activitySelect = document.getElementById('activity') as HTMLSelectElement;
+      const goalSelect = document.getElementById('goal') as HTMLSelectElement;
+
+      // Output DOM
+      const emptyState = document.getElementById('empty-state') as HTMLDivElement;
+      const resultsPanel = document.getElementById('results-panel') as HTMLDivElement;
+      const targetCaloriesText = document.getElementById('target-calories') as HTMLDivElement;
+      const bmrText = document.getElementById('bmr-val') as HTMLDivElement;
+      const goalSummaryText = document.getElementById('goal-summary-text') as HTMLDivElement;
+      const lowCalWarning = document.getElementById('low-cal-warning') as HTMLDivElement;
+
+      const macroProtein = document.getElementById('macro-protein') as HTMLTableCellElement;
+      const macroProteinKcal = document.getElementById('macro-protein-kcal') as HTMLTableCellElement;
+      const macroCarbs = document.getElementById('macro-carbs') as HTMLTableCellElement;
+      const macroCarbsKcal = document.getElementById('macro-carbs-kcal') as HTMLTableCellElement;
+      const macroFats = document.getElementById('macro-fats') as HTMLTableCellElement;
+      const macroFatsKcal = document.getElementById('macro-fats-kcal') as HTMLTableCellElement;
+
+      // Error spans
+      const ageError = document.getElementById('age-error') as HTMLSpanElement;
+      const heightMetricErr = document.getElementById('height-metric-error') as HTMLSpanElement;
+      const weightMetricErr = document.getElementById('weight-metric-error') as HTMLSpanElement;
+      const heightImpErr = document.getElementById('height-imperial-error') as HTMLSpanElement;
+      const weightLbsErr = document.getElementById('weight-lbs-error') as HTMLSpanElement;
+
+      function formatNumber(num: number): string {
+        return new Intl.NumberFormat().format(num);
+      }
+
+      // Switch panels
+      function switchUnit(unit: 'metric' | 'imperial') {
+        activeUnit = unit;
+        if (unit === 'metric') {
+          btnMetric.setAttribute('aria-selected', 'true');
+          btnImperial.setAttribute('aria-selected', 'false');
+          panelMetric.classList.remove('hidden');
+          panelImperial.classList.add('hidden');
+        } else {
+          btnImperial.setAttribute('aria-selected', 'true');
+          btnMetric.setAttribute('aria-selected', 'false');
+          panelImperial.classList.remove('hidden');
+          panelMetric.classList.add('hidden');
+        }
+      }
+
+      btnMetric.addEventListener('click', () => switchUnit('metric'));
+      btnImperial.addEventListener('click', () => switchUnit('imperial'));
+
+      // Handle Form Submit
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Reset error messages
+        ageError.classList.add('hidden');
+        heightMetricErr.classList.add('hidden');
+        weightMetricErr.classList.add('hidden');
+        heightImpErr.classList.add('hidden');
+        weightLbsErr.classList.add('hidden');
+
+        let isValid = true;
+        const ageVal = parseInt(ageInput.value);
+
+        if (!ageVal || ageVal < 15 || ageVal > 120) {
+          ageError.textContent = 'Please enter a valid age between 15 and 120 years.';
+          ageError.classList.remove('hidden');
+          ageInput.focus();
+          isValid = false;
+        }
+
+        let heightCm = 0;
+        let weightKg = 0;
+
+        if (activeUnit === 'metric') {
+          const hVal = parseFloat(heightMetric.value);
+          const wVal = parseFloat(weightMetric.value);
+
+          if (!hVal || hVal < 50 || hVal > 300) {
+            heightMetricErr.textContent = 'Please enter a valid height between 50 and 300 cm.';
+            heightMetricErr.classList.remove('hidden');
+            if (isValid) heightMetric.focus();
+            isValid = false;
+          }
+
+          if (!wVal || wVal < 10 || wVal > 500) {
+            weightMetricErr.textContent = 'Please enter a valid weight between 10 and 500 kg.';
+            weightMetricErr.classList.remove('hidden');
+            if (isValid) weightMetric.focus();
+            isValid = false;
+          }
+
+          if (!isValid) return;
+
+          heightCm = hVal;
+          weightKg = wVal;
+        } else {
+          const ft = parseFloat(heightFt.value) || 0;
+          const inch = parseFloat(heightIn.value) || 0;
+          const wLbs = parseFloat(weightLbs.value);
+
+          const totalInches = (ft * 12) + inch;
+
+          if (totalInches < 20 || totalInches > 120) {
+            heightImpErr.textContent = 'Please enter a valid height (between 1ft 8in and 10ft).';
+            heightImpErr.classList.remove('hidden');
+            if (isValid) heightFt.focus();
+            isValid = false;
+          }
+
+          if (!wLbs || wLbs < 20 || wLbs > 1000) {
+            weightLbsErr.textContent = 'Please enter a valid weight between 20 and 1000 lbs.';
+            weightLbsErr.classList.remove('hidden');
+            if (isValid) weightLbs.focus();
+            isValid = false;
+          }
+
+          if (!isValid) return;
+
+          heightCm = totalInches * 2.54; // inch to cm
+          weightKg = wLbs * 0.45359237; // lbs to kg
+        }
+
+        // Mifflin-St Jeor Equation
+        // Men: BMR = 10W + 6.25H - 5A + 5
+        // Women: BMR = 10W + 6.25H - 5A - 161
+        const gender = genderSelect.value;
+        let bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * ageVal);
+        if (gender === 'male') {
+          bmr += 5;
+        } else {
+          bmr -= 161;
+        }
+
+        // Activity Scale multipliers
+        let activityMultiplier = 1.2;
+        const act = activitySelect.value;
+        if (act === 'sedentary') activityMultiplier = 1.2;
+        else if (act === 'light') activityMultiplier = 1.375;
+        else if (act === 'moderate') activityMultiplier = 1.55;
+        else if (act === 'active') activityMultiplier = 1.725;
+        else if (act === 'extreme') activityMultiplier = 1.9;
+
+        const tdee = bmr * activityMultiplier;
+
+        // Adjust for dietary goal
+        const goal = goalSelect.value;
+        let targetCal = tdee;
+        let goalText = '';
+
+        if (goal === 'maintain') {
+          targetCal = tdee;
+          goalText = 'Daily energy budget to maintain current weight.';
+        } else if (goal === 'mild-loss') {
+          targetCal = tdee - 250;
+          goalText = 'Calorie budget to achieve mild weight loss (~0.25 kg / 0.5 lb weekly).';
+        } else if (goal === 'loss') {
+          targetCal = tdee - 500;
+          goalText = 'Standard calorie budget for safe weight loss (~0.5 kg / 1 lb weekly).';
+        } else if (goal === 'extreme-loss') {
+          targetCal = tdee - 1000;
+          goalText = 'High-deficit budget for weight loss (~1 kg / 2 lbs weekly).';
+        } else if (goal === 'mild-gain') {
+          targetCal = tdee + 250;
+          goalText = 'Mild surplus budget to achieve weight gain (~0.25 kg / 0.5 lb weekly).';
+        } else if (goal === 'gain') {
+          targetCal = tdee + 500;
+          goalText = 'Standard surplus budget for steady weight gain (~0.5 kg / 1 lb weekly).';
+        } else if (goal === 'extreme-gain') {
+          targetCal = tdee + 1000;
+          goalText = 'High-surplus budget for weight/muscle gain (~1 kg / 2 lbs weekly).';
+        }
+
+        // Enforce zero floor
+        if (targetCal < 0) targetCal = 0;
+
+        const finalTargetCal = Math.round(targetCal);
+        const finalBmr = Math.round(bmr);
+
+        // Render details
+        emptyState.classList.add('hidden');
+        resultsPanel.classList.remove('hidden');
+
+        targetCaloriesText.textContent = formatNumber(finalTargetCal);
+        bmrText.textContent = `${formatNumber(finalBmr)} kcal`;
+        goalSummaryText.textContent = goalText;
+
+        // Low calorie targets warnings check
+        const cutoff = (gender === 'female') ? 1200 : 1500;
+        if (finalTargetCal < cutoff) {
+          lowCalWarning.classList.remove('hidden');
+        } else {
+          lowCalWarning.classList.add('hidden');
+        }
+
+        // Macronutrient splits: 30% Protein, 40% Carbs, 30% Fats
+        // Calories: 4 per g of protein/carb, 9 per g of fat
+        const proteinKcalVal = finalTargetCal * 0.30;
+        const carbsKcalVal = finalTargetCal * 0.40;
+        const fatsKcalVal = finalTargetCal * 0.30;
+
+        const proteinG = proteinKcalVal / 4;
+        const carbsG = carbsKcalVal / 4;
+        const fatsG = fatsKcalVal / 9;
+
+        macroProtein.textContent = `${Math.round(proteinG)} g`;
+        macroProteinKcal.textContent = `${Math.round(proteinKcalVal)} kcal`;
+
+        macroCarbs.textContent = `${Math.round(carbsG)} g`;
+        macroCarbsKcal.textContent = `${Math.round(carbsKcalVal)} kcal`;
+
+        macroFats.textContent = `${Math.round(fatsG)} g`;
+        macroFatsKcal.textContent = `${Math.round(fatsKcalVal)} kcal`;
+      });
+    }
+
+    // Initialize on page load and swaps
+    document.addEventListener('astro:page-load', initCaloriesCalculator);
+  </script>
+</Layout>

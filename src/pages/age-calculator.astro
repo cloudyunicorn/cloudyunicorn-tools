@@ -1,0 +1,654 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Age Calculator"
+  description="Determine your exact age down to the second. Calculate months, weeks, days, and seconds lived, and track your next birthday countdown."
+>
+  <div class="relative min-h-[calc(100vh-16rem)] bg-background py-12">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-20"></div>
+
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <!-- Breadcrumbs / Top Nav -->
+      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs font-mono text-neutral-500">
+        <a href="/" class="hover:text-neutral-600 dark:hover:text-neutral-300">Tools</a>
+        <span>/</span>
+        <span class="text-neutral-600 dark:text-neutral-300">Age Calculator</span>
+      </nav>
+
+      <!-- Section Header -->
+      <div class="space-y-4">
+        <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white text-pretty">
+          Age Calculator
+        </h1>
+        <p class="text-neutral-400 max-w-xl text-sm sm:text-base">
+          Enter your birth date and a reference date to compute your exact age, detailed lifespans, and next birthday countdown in real time.
+        </p>
+      </div>
+
+      <!-- Main Columns -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Input Form (Left) -->
+        <div class="lg:col-span-5 border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 backdrop-blur-sm rounded-xl p-6 space-y-6">
+          <form id="age-form" class="space-y-5" novalidate>
+            <!-- Date of Birth -->
+            <div class="space-y-2 relative" id="birth-date-container">
+              <label for="birth-date" class="block text-xs font-mono text-neutral-400 uppercase tracking-widest">
+                Date of Birth <span class="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  id="birth-date" 
+                  name="birthDate" 
+                  readonly
+                  required 
+                  placeholder="Select birth date…"
+                  class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 pl-3 pr-10 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none cursor-pointer transition-colors"
+                />
+                <button
+                  type="button"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-900 dark:hover:text-white focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white outline-none rounded"
+                  aria-label="Open birth date calendar"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </button>
+              </div>
+              <span id="birth-date-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+              
+              <!-- Calendar Popup -->
+              <div class="hidden absolute left-0 mt-2 z-50 w-72 bg-white dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl p-4 space-y-3 calendar-popup" role="dialog" aria-modal="true" aria-label="Birth date calendar picker">
+                <div class="flex items-center justify-between gap-1">
+                  <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white prev-month-btn" aria-label="Previous month">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                  </button>
+                  <div class="flex items-center gap-1.5">
+                    <select class="bg-background border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white px-1.5 py-1 rounded outline-none cursor-pointer month-select" aria-label="Select month"></select>
+                    <select class="bg-background border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white px-1.5 py-1 rounded outline-none cursor-pointer year-select" aria-label="Select year"></select>
+                  </div>
+                  <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white next-month-btn" aria-label="Next month">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </button>
+                </div>
+                <div class="grid grid-cols-7 text-center text-[10px] font-mono text-neutral-400 dark:text-neutral-500 font-bold border-b border-neutral-200 dark:border-neutral-900 pb-1.5">
+                  <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                </div>
+                <div class="grid grid-cols-7 gap-1 text-center text-xs days-grid"></div>
+                <div class="flex items-center justify-between border-t border-neutral-200 dark:border-neutral-900 pt-2.5">
+                  <button type="button" class="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white today-btn font-semibold px-1 py-0.5 rounded">Today</button>
+                  <button type="button" class="text-[10px] font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white close-btn font-semibold px-1 py-0.5 rounded">Close</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Reference Date -->
+            <div class="space-y-2 relative" id="ref-date-container">
+              <label for="ref-date" class="block text-xs font-mono text-neutral-400 uppercase tracking-widest">
+                Age at the Date of
+              </label>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  id="ref-date" 
+                  name="refDate" 
+                  readonly
+                  placeholder="Select reference date…"
+                  class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 pl-3 pr-10 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none cursor-pointer transition-colors"
+                />
+                <button
+                  type="button"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-900 dark:hover:text-white focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white outline-none rounded"
+                  aria-label="Open reference date calendar"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </button>
+              </div>
+              <span id="ref-date-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+              
+              <!-- Calendar Popup -->
+              <div class="hidden absolute left-0 mt-2 z-50 w-72 bg-white dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl p-4 space-y-3 calendar-popup" role="dialog" aria-modal="true" aria-label="Reference date calendar picker">
+                <div class="flex items-center justify-between gap-1">
+                  <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white prev-month-btn" aria-label="Previous month">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                  </button>
+                  <div class="flex items-center gap-1.5">
+                    <select class="bg-background border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white px-1.5 py-1 rounded outline-none cursor-pointer month-select" aria-label="Select month"></select>
+                    <select class="bg-background border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white px-1.5 py-1 rounded outline-none cursor-pointer year-select" aria-label="Select year"></select>
+                  </div>
+                  <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white next-month-btn" aria-label="Next month">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </button>
+                </div>
+                <div class="grid grid-cols-7 text-center text-[10px] font-mono text-neutral-400 dark:text-neutral-500 font-bold border-b border-neutral-200 dark:border-neutral-900 pb-1.5">
+                  <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                </div>
+                <div class="grid grid-cols-7 gap-1 text-center text-xs days-grid"></div>
+                <div class="flex items-center justify-between border-t border-neutral-200 dark:border-neutral-900 pt-2.5">
+                  <button type="button" class="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white today-btn font-semibold px-1 py-0.5 rounded">Today</button>
+                  <button type="button" class="text-[10px] font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white close-btn font-semibold px-1 py-0.5 rounded">Close</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Calculate Button -->
+            <button
+              type="submit"
+              id="calc-btn"
+              class="w-full h-11 bg-neutral-950 dark:bg-white text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors font-semibold text-sm rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-neutral-950 dark:focus-visible:ring-white outline-none"
+            >
+              Calculate Age
+            </button>
+          </form>
+        </div>
+
+        <!-- Output Display (Right) -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Initial Prompt / Empty State -->
+          <div id="empty-state" class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-xl p-12 text-center space-y-4">
+            <svg class="w-12 h-12 text-neutral-400 dark:text-neutral-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <div class="space-y-2">
+              <h2 class="text-base font-semibold text-neutral-900 dark:text-white">No age calculated yet</h2>
+              <p class="text-sm text-neutral-500 max-w-sm mx-auto">
+                Fill in your date of birth in the form on the left and click calculate to compute your detailed metrics.
+              </p>
+            </div>
+          </div>
+
+          <!-- Calculation Results (Hidden by default) -->
+          <div id="results-panel" class="hidden space-y-6">
+            <!-- Primary Age Card -->
+            <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/20 rounded-xl p-6 space-y-4">
+              <h2 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Calculated Age</h2>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="border border-neutral-200 dark:border-neutral-800/80 bg-neutral-100/40 dark:bg-neutral-950/40 rounded-lg p-4 text-center">
+                  <div id="age-years" class="text-3xl sm:text-4xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">0</div>
+                  <div class="text-[11px] font-mono text-neutral-500 uppercase mt-1">Years</div>
+                </div>
+                <div class="border border-neutral-200 dark:border-neutral-800/80 bg-neutral-100/40 dark:bg-neutral-950/40 rounded-lg p-4 text-center">
+                  <div id="age-months" class="text-3xl sm:text-4xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">0</div>
+                  <div class="text-[11px] font-mono text-neutral-500 uppercase mt-1">Months</div>
+                </div>
+                <div class="border border-neutral-200 dark:border-neutral-800/80 bg-neutral-100/40 dark:bg-neutral-950/40 rounded-lg p-4 text-center">
+                  <div id="age-days" class="text-3xl sm:text-4xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">0</div>
+                  <div class="text-[11px] font-mono text-neutral-500 uppercase mt-1">Days</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Counter Banner (if current date is selected as reference) -->
+            <div id="live-banner" class="hidden border border-brand-green/30 bg-brand-green/5 rounded-xl p-5 flex items-center justify-between">
+              <div class="space-y-1">
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-brand-green/10 border border-brand-green/20 text-[10px] font-mono text-brand-green">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-ping"></span>
+                  <span>Live Counter</span>
+                </span>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400">Total seconds lived, ticking in real time:</p>
+              </div>
+              <div id="live-seconds" class="text-xl sm:text-2xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">
+                0
+              </div>
+            </div>
+
+            <!-- Next Birthday Countdown Card -->
+            <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/20 rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div class="space-y-1">
+                <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Next Birthday Countdown</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-400">Time remaining until your next celebration:</p>
+              </div>
+              <div class="flex items-baseline gap-1.5">
+                <span id="countdown-months" class="text-3xl font-bold font-mono text-neutral-900 dark:text-white tabular-nums">0</span>
+                <span class="text-xs font-mono text-neutral-500 uppercase mr-2">mo</span>
+                <span id="countdown-days" class="text-3xl font-bold font-mono text-neutral-900 dark:text-white tabular-nums">0</span>
+                <span class="text-xs font-mono text-neutral-500 uppercase">days</span>
+              </div>
+            </div>
+
+            <!-- Detailed Lifespan Grid -->
+            <div class="space-y-4">
+              <h3 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Lifespan Breakdown</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-lg p-4 flex items-center justify-between">
+                  <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Total Months Lived</span>
+                  <span id="total-months" class="text-sm font-bold font-mono text-neutral-900 dark:text-white tabular-nums">0</span>
+                </div>
+                <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-lg p-4 flex items-center justify-between">
+                  <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Total Weeks Lived</span>
+                  <span id="total-weeks" class="text-sm font-bold font-mono text-neutral-900 dark:text-white tabular-nums">0</span>
+                </div>
+                <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-lg p-4 flex items-center justify-between">
+                  <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Total Days Lived</span>
+                  <span id="total-days" class="text-sm font-bold font-mono text-neutral-900 dark:text-white tabular-nums">0</span>
+                </div>
+                <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-lg p-4 flex items-center justify-between">
+                  <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Total Hours Lived</span>
+                  <span id="total-hours" class="text-sm font-bold font-mono text-neutral-900 dark:text-white tabular-nums">0</span>
+                </div>
+                <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-lg p-4 flex items-center justify-between sm:col-span-2">
+                  <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Total Minutes Lived</span>
+                  <span id="total-minutes" class="text-sm font-bold font-mono text-neutral-900 dark:text-white tabular-nums">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Reusable Custom Vercel-style Date Picker Calendar
+    class CustomDatePicker {
+      container: HTMLDivElement;
+      input: HTMLInputElement;
+      button: HTMLButtonElement;
+      popup: HTMLDivElement;
+      monthSelect: HTMLSelectElement;
+      yearSelect: HTMLSelectElement;
+      prevBtn: HTMLButtonElement;
+      nextBtn: HTMLButtonElement;
+      daysGrid: HTMLDivElement;
+      todayBtn: HTMLButtonElement;
+      closeBtn: HTMLButtonElement;
+
+      selectedDate: Date | null;
+      viewDate: Date;
+      months: string[];
+
+      constructor(containerId: string, initialDateStr: string | null) {
+        this.container = document.getElementById(containerId) as HTMLDivElement;
+        this.input = this.container.querySelector('input') as HTMLInputElement;
+        this.button = this.container.querySelector('button') as HTMLButtonElement;
+        this.popup = this.container.querySelector('.calendar-popup') as HTMLDivElement;
+        this.monthSelect = this.container.querySelector('.month-select') as HTMLSelectElement;
+        this.yearSelect = this.container.querySelector('.year-select') as HTMLSelectElement;
+        this.prevBtn = this.container.querySelector('.prev-month-btn') as HTMLButtonElement;
+        this.nextBtn = this.container.querySelector('.next-month-btn') as HTMLButtonElement;
+        this.daysGrid = this.container.querySelector('.days-grid') as HTMLDivElement;
+        this.todayBtn = this.container.querySelector('.today-btn') as HTMLButtonElement;
+        this.closeBtn = this.container.querySelector('.close-btn') as HTMLButtonElement;
+
+        this.selectedDate = initialDateStr ? new Date(initialDateStr) : null;
+        this.viewDate = this.selectedDate ? new Date(this.selectedDate) : new Date();
+
+        this.months = [
+          'January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        this.init();
+      }
+
+      init() {
+        // Populate months select
+        this.months.forEach((m, idx) => {
+          const opt = document.createElement('option');
+          opt.value = idx.toString();
+          opt.textContent = m.slice(0, 3);
+          this.monthSelect.appendChild(opt);
+        });
+
+        // Populate years select (1900 to current year + 10)
+        const currentYear = new Date().getFullYear();
+        for (let y = currentYear + 10; y >= 1900; y--) {
+          const opt = document.createElement('option');
+          opt.value = y.toString();
+          opt.textContent = y.toString();
+          this.yearSelect.appendChild(opt);
+        }
+
+        // Bind click events
+        this.input.addEventListener('click', () => this.togglePopup());
+        this.button.addEventListener('click', () => this.togglePopup());
+        
+        this.prevBtn.addEventListener('click', () => this.navigateMonth(-1));
+        this.nextBtn.addEventListener('click', () => this.navigateMonth(1));
+        
+        this.monthSelect.addEventListener('change', () => {
+          this.viewDate.setMonth(parseInt(this.monthSelect.value));
+          this.render();
+        });
+
+        this.yearSelect.addEventListener('change', () => {
+          this.viewDate.setFullYear(parseInt(this.yearSelect.value));
+          this.render();
+        });
+
+        this.todayBtn.addEventListener('click', () => {
+          const today = new Date();
+          this.selectDate(today);
+          this.closePopup();
+        });
+
+        this.closeBtn.addEventListener('click', () => this.closePopup());
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!this.container.contains(e.target as Node)) {
+            this.closePopup();
+          }
+        });
+
+        // Set initial value
+        if (this.selectedDate) {
+          this.updateInputValue();
+        }
+        this.render();
+      }
+
+      togglePopup() {
+        const isHidden = this.popup.classList.contains('hidden');
+        // Hide all other popups
+        document.querySelectorAll('.calendar-popup').forEach((p) => p.classList.add('hidden'));
+
+        if (isHidden) {
+          this.popup.classList.remove('hidden');
+          this.input.setAttribute('aria-expanded', 'true');
+          if (this.selectedDate) {
+            this.viewDate = new Date(this.selectedDate);
+          } else {
+            this.viewDate = new Date();
+          }
+          this.render();
+        } else {
+          this.closePopup();
+        }
+      }
+
+      closePopup() {
+        this.popup.classList.add('hidden');
+        this.input.setAttribute('aria-expanded', 'false');
+      }
+
+      navigateMonth(offset: number) {
+        this.viewDate.setMonth(this.viewDate.getMonth() + offset);
+        this.render();
+      }
+
+      selectDate(date: Date) {
+        this.selectedDate = new Date(date);
+        this.updateInputValue();
+        // Fire input event for the form listeners
+        const event = new Event('input', { bubbles: true });
+        this.input.dispatchEvent(event);
+      }
+
+      updateInputValue() {
+        if (!this.selectedDate) return;
+        const y = this.selectedDate.getFullYear();
+        const m = String(this.selectedDate.getMonth() + 1).padStart(2, '0');
+        const d = String(this.selectedDate.getDate()).padStart(2, '0');
+        this.input.value = `${y}-${m}-${d}`;
+      }
+
+      render() {
+        const year = this.viewDate.getFullYear();
+        const month = this.viewDate.getMonth();
+
+        // Update selects
+        this.monthSelect.value = month.toString();
+        this.yearSelect.value = year.toString();
+
+        // Clear grid
+        this.daysGrid.innerHTML = '';
+
+        // Day offsets
+        const firstDayIdx = new Date(year, month, 1).getDay();
+        const totalDays = new Date(year, month + 1, 0).getDate();
+        const prevTotalDays = new Date(year, month, 0).getDate();
+
+        // Render previous month days padding
+        for (let i = firstDayIdx; i > 0; i--) {
+          const dayNum = prevTotalDays - i + 1;
+          const btn = this.createDayButton(dayNum, new Date(year, month - 1, dayNum), true);
+          this.daysGrid.appendChild(btn);
+        }
+
+        // Render current month days
+        for (let i = 1; i <= totalDays; i++) {
+          const btn = this.createDayButton(i, new Date(year, month, i), false);
+          this.daysGrid.appendChild(btn);
+        }
+
+        // Next month padding to keep grid consistent (6 rows of 7 = 42 cells)
+        const totalCells = 42;
+        const cellsFilled = firstDayIdx + totalDays;
+        const cellsRemaining = totalCells - cellsFilled;
+        for (let i = 1; i <= cellsRemaining; i++) {
+          const btn = this.createDayButton(i, new Date(year, month + 1, i), true);
+          this.daysGrid.appendChild(btn);
+        }
+      }
+
+      createDayButton(dayNum: number, date: Date, isNeighbor: boolean): HTMLButtonElement {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = dayNum.toString();
+        btn.className = 'w-8 h-8 flex items-center justify-center text-center font-mono rounded-md outline-none transition-all focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white ';
+
+        if (isNeighbor) {
+          btn.className += 'text-neutral-400 dark:text-neutral-600 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800';
+        } else {
+          btn.className += 'text-neutral-800 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800';
+        }
+
+        // Active highlighted selected state
+        if (this.selectedDate && 
+            this.selectedDate.getFullYear() === date.getFullYear() &&
+            this.selectedDate.getMonth() === date.getMonth() &&
+            this.selectedDate.getDate() === date.getDate()) {
+          btn.className += ' !bg-neutral-950 dark:!bg-white !text-white dark:!text-black font-semibold';
+        }
+
+        // Border outline for today
+        const today = new Date();
+        if (today.getFullYear() === date.getFullYear() &&
+            today.getMonth() === date.getMonth() &&
+            today.getDate() === date.getDate()) {
+          btn.className += ' border border-neutral-300 dark:border-neutral-700';
+        }
+
+        btn.addEventListener('click', () => {
+          this.selectDate(date);
+          this.closePopup();
+        });
+
+        return btn;
+      }
+    }
+
+    // Client-side calculations
+    let liveIntervalId: number | null = null;
+    let birthTimestamp: number = 0;
+
+    function initAgeCalculator() {
+      const birthInput = document.getElementById('birth-date') as HTMLInputElement;
+      const refInput = document.getElementById('ref-date') as HTMLInputElement;
+      const form = document.getElementById('age-form') as HTMLFormElement;
+
+      if (!form) return; // Exit if not on age calculator page
+
+      const calcBtn = document.getElementById('calc-btn') as HTMLButtonElement;
+      const emptyState = document.getElementById('empty-state') as HTMLDivElement;
+      const resultsPanel = document.getElementById('results-panel') as HTMLDivElement;
+      
+      // Result fields
+      const resYears = document.getElementById('age-years') as HTMLDivElement;
+      const resMonths = document.getElementById('age-months') as HTMLDivElement;
+      const resDays = document.getElementById('age-days') as HTMLDivElement;
+      
+      const liveBanner = document.getElementById('live-banner') as HTMLDivElement;
+      const liveSeconds = document.getElementById('live-seconds') as HTMLDivElement;
+
+      const bdayMonths = document.getElementById('countdown-months') as HTMLSpanElement;
+      const bdayDays = document.getElementById('countdown-days') as HTMLSpanElement;
+
+      const totalMonthsField = document.getElementById('total-months') as HTMLSpanElement;
+      const totalWeeksField = document.getElementById('total-weeks') as HTMLSpanElement;
+      const totalDaysField = document.getElementById('total-days') as HTMLSpanElement;
+      const totalHoursField = document.getElementById('total-hours') as HTMLSpanElement;
+      const totalMinutesField = document.getElementById('total-minutes') as HTMLSpanElement;
+
+      // Errors
+      const birthDateError = document.getElementById('birth-date-error') as HTMLSpanElement;
+      const refDateError = document.getElementById('ref-date-error') as HTMLSpanElement;
+
+      // Set default value for ref-date to today's date
+      const todayStr = new Date().toISOString().split('T')[0];
+
+      // Initialize custom date pickers
+      const birthDatePicker = new CustomDatePicker('birth-date-container', null);
+      const refDatePicker = new CustomDatePicker('ref-date-container', todayStr);
+
+      function formatNumber(num: number): string {
+        return new Intl.NumberFormat().format(num);
+      }
+
+      function calculateAge(e: Event) {
+        e.preventDefault();
+        
+        // Clear previous error messages
+        birthDateError.classList.add('hidden');
+        birthDateError.textContent = '';
+        refDateError.classList.add('hidden');
+        refDateError.textContent = '';
+
+        const birthVal = birthInput.value;
+        const refVal = refInput.value;
+
+        if (!birthVal) {
+          birthDateError.textContent = 'Please enter a valid Date of Birth.';
+          birthDateError.classList.remove('hidden');
+          return;
+        }
+
+        const birthDate = new Date(birthVal);
+        const refDate = refVal ? new Date(refVal) : new Date();
+
+        if (isNaN(birthDate.getTime())) {
+          birthDateError.textContent = 'Invalid date format.';
+          birthDateError.classList.remove('hidden');
+          return;
+        }
+
+        if (isNaN(refDate.getTime())) {
+          refDateError.textContent = 'Invalid reference date format.';
+          refDateError.classList.remove('hidden');
+          return;
+        }
+
+        if (birthDate > refDate) {
+          birthDateError.textContent = 'Date of birth cannot be in the future relative to reference date.';
+          birthDateError.classList.remove('hidden');
+          return;
+        }
+
+        // Hide empty state, show results
+        emptyState.classList.add('hidden');
+        resultsPanel.classList.remove('hidden');
+
+        // 1. Core age calculations (Years, Months, Days)
+        let years = refDate.getFullYear() - birthDate.getFullYear();
+        let months = refDate.getMonth() - birthDate.getMonth();
+        let days = refDate.getDate() - birthDate.getDate();
+
+        if (days < 0) {
+          // Get days in previous month relative to refDate
+          const prevMonth = new Date(refDate.getFullYear(), refDate.getMonth(), 0);
+          days += prevMonth.getDate();
+          months--;
+        }
+
+        if (months < 0) {
+          months += 12;
+          years--;
+        }
+
+        resYears.textContent = String(years);
+        resMonths.textContent = String(months);
+        resDays.textContent = String(days);
+
+        // 2. Lifespan Breakdowns
+        const diffMs = refDate.getTime() - birthDate.getTime();
+        const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        const totalWeeks = Math.floor(totalDays / 7);
+        
+        const totalMonths = (refDate.getFullYear() - birthDate.getFullYear()) * 12 + (refDate.getMonth() - birthDate.getMonth());
+        const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const totalMinutes = Math.floor(diffMs / (1000 * 60));
+
+        totalMonthsField.textContent = formatNumber(totalMonths >= 0 ? totalMonths : 0);
+        totalWeeksField.textContent = formatNumber(totalWeeks);
+        totalDaysField.textContent = formatNumber(totalDays);
+        totalHoursField.textContent = formatNumber(totalHours);
+        totalMinutesField.textContent = formatNumber(totalMinutes);
+
+        // 3. Next Birthday Countdown
+        let bdayTarget = new Date(refDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+        if (bdayTarget < refDate) {
+          bdayTarget.setFullYear(refDate.getFullYear() + 1);
+        }
+
+        let bdayMonthsVal = bdayTarget.getMonth() - refDate.getMonth();
+        let bdayDaysVal = bdayTarget.getDate() - refDate.getDate();
+
+        if (bdayDaysVal < 0) {
+          const prevMonth = new Date(bdayTarget.getFullYear(), bdayTarget.getMonth(), 0);
+          bdayDaysVal += prevMonth.getDate();
+          bdayMonthsVal--;
+        }
+        if (bdayMonthsVal < 0) {
+          bdayMonthsVal += 12;
+        }
+
+        bdayMonths.textContent = String(bdayMonthsVal);
+        bdayDays.textContent = String(bdayDaysVal);
+
+        // 4. Live Counter (ticking only if reference date is today or blank)
+        if (liveIntervalId) {
+          clearInterval(liveIntervalId);
+          liveIntervalId = null;
+        }
+
+        const isToday = refInput.value === todayStr;
+        if (isToday) {
+          birthTimestamp = birthDate.getTime();
+          liveBanner.classList.remove('hidden');
+          
+          updateLiveCounter();
+          liveIntervalId = window.setInterval(updateLiveCounter, 1000);
+        } else {
+          liveBanner.classList.add('hidden');
+        }
+      }
+
+      function updateLiveCounter() {
+        const now = new Date().getTime();
+        const diffSecs = Math.floor((now - birthTimestamp) / 1000);
+        if (diffSecs >= 0) {
+          liveSeconds.textContent = formatNumber(diffSecs);
+        }
+      }
+
+      // Bind form submission
+      form.addEventListener('submit', calculateAge);
+
+      // Clean up interval on page change / unmount
+      document.addEventListener('astro:before-swap', () => {
+        if (liveIntervalId) {
+          clearInterval(liveIntervalId);
+          liveIntervalId = null;
+        }
+      }, { once: true });
+    }
+
+    // Initialize on load and page swaps
+    document.addEventListener('astro:page-load', initAgeCalculator);
+  </script>
+</Layout>

@@ -1,17 +1,215 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout 
+  title="CloudyUnicorn Tools — Premium High-Precision Online Calculators"
+  description="Free, instant, and privacy-first online tools for developers and builders. Calculate exact age, body mass index (BMI), and daily calorie requirements (BMR/TDEE)."
+>
+  <!-- Hero Section with Vercel-style geometric grid background -->
+  <section class="relative overflow-hidden border-b border-neutral-200 dark:border-neutral-800 bg-background bg-hero-glow py-20 lg:py-28" aria-labelledby="hero-title">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-40"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+      <!-- Tag / Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50 backdrop-blur-sm text-xs font-mono text-neutral-600 dark:text-neutral-400 select-none animate-pulse-subtle">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span>
+        <span>Version 1.0.0 Alpha Released</span>
+      </div>
+
+      <!-- Main Heading -->
+      <div class="max-w-4xl mx-auto space-y-4">
+        <h1 id="hero-title" class="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-neutral-900 dark:text-white leading-none text-wrap-balance">
+          Premium calculations,<br />
+          <span class="animate-text-gradient">without the clutter.</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto text-wrap-balance font-light">
+          A clean, privacy-first suite of online calculators. Your data remains on your device and never leaves it. No signups or accounts required.
+        </p>
+      </div>
+
+      <!-- Hero Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a 
+          href="#explore-tools" 
+          class="w-full sm:w-auto px-6 py-3 rounded-md bg-neutral-950 dark:bg-white text-white dark:text-black font-semibold text-sm hover:bg-neutral-900 dark:hover:bg-neutral-200 transition-colors duration-150 text-center shadow-lg hover:shadow-black/5 dark:hover:shadow-white/5 cursor-pointer"
+        >
+          Explore Tools
+        </a>
+        <a 
+          href="https://github.com" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="w-full sm:w-auto px-6 py-3 rounded-md bg-neutral-100 dark:bg-neutral-950 text-neutral-700 dark:text-neutral-300 font-medium text-sm hover:text-neutral-900 dark:hover:text-white border border-neutral-200 dark:border-neutral-850 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors duration-150 text-center cursor-pointer"
+        >
+          View Source
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Section -->
+  <section id="explore-tools" class="py-20 bg-background" aria-labelledby="tools-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-12">
+        <!-- Section Header -->
+        <div class="max-w-3xl space-y-4">
+          <h2 id="tools-heading" class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Available Utilities</h2>
+          <p class="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+            Choose a calculator to get started
+          </p>
+          <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
+            Each utility runs completely client-side. Your inputs never touch our servers, ensuring your metrics and records remain 100% private.
+          </p>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Tool 1: Age Calculator -->
+          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px]">
+            <div class="space-y-4">
+              <!-- Icon/Header -->
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 flex items-center justify-center text-neutral-900 dark:text-white" aria-hidden="true">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <span class="text-[11px] font-mono text-neutral-500 uppercase py-0.5 px-2 border border-neutral-200 dark:border-neutral-900 rounded bg-neutral-50 dark:bg-neutral-950">High Precision</span>
+              </div>
+              
+              <!-- Title & Info -->
+              <div class="space-y-2">
+                <h3 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">Age Calculator</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Calculate your precise age in years, months, weeks, and days. Includes birthday count downs and a real-time running counter of seconds lived.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-neutral-100 dark:border-neutral-900 flex items-center justify-between">
+              <span class="text-xs text-neutral-500 font-mono">Input: Date of Birth</span>
+              <a 
+                href="/age-calculator" 
+                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer"
+                aria-label="Use the Age Calculator tool"
+              >
+                Launch Tool
+              </a>
+            </div>
+          </div>
+
+          <!-- Tool 2: BMI Calculator -->
+          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px]">
+            <div class="space-y-4">
+              <!-- Icon/Header -->
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 flex items-center justify-center text-neutral-900 dark:text-white" aria-hidden="true">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"></path>
+                  </svg>
+                </div>
+                <span class="text-[11px] font-mono text-neutral-500 uppercase py-0.5 px-2 border border-neutral-200 dark:border-neutral-900 rounded bg-neutral-50 dark:bg-neutral-950">Dual Mode</span>
+              </div>
+              
+              <!-- Title & Info -->
+              <div class="space-y-2">
+                <h3 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">BMI Calculator</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Compute your Body Mass Index (BMI) instantly. Supports Metric and Imperial standards, and provides a clear graphical classification scale with healthy weight advice.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-neutral-100 dark:border-neutral-900 flex items-center justify-between">
+              <span class="text-xs text-neutral-500 font-mono">Input: Height & Weight</span>
+              <a 
+                href="/bmi-calculator" 
+                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer"
+                aria-label="Use the BMI Calculator tool"
+              >
+                Launch Tool
+              </a>
+            </div>
+          </div>
+
+          <!-- Tool 3: Calories Calculator -->
+          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px]">
+            <div class="space-y-4">
+              <!-- Icon/Header -->
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 flex items-center justify-center text-neutral-900 dark:text-white" aria-hidden="true">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
+                  </svg>
+                </div>
+                <span class="text-[11px] font-mono text-neutral-500 uppercase py-0.5 px-2 border border-neutral-200 dark:border-neutral-900 rounded bg-neutral-50 dark:bg-neutral-950">Nutritional Breakdowns</span>
+              </div>
+              
+              <!-- Title & Info -->
+              <div class="space-y-2">
+                <h3 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">Calories Calculator</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Estimate daily metabolic calorie needs (BMR & TDEE) matching your specific activity profiles and weight targets. Provides personalized macronutrient guides.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-neutral-100 dark:border-neutral-900 flex items-center justify-between">
+              <span class="text-xs text-neutral-500 font-mono">Input: Stats & Activity</span>
+              <a 
+                href="/calories-calculator" 
+                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer"
+                aria-label="Use the Calories Calculator tool"
+              >
+                Launch Tool
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform Principles Section -->
+  <section class="py-20 border-t border-neutral-200 dark:border-neutral-900 bg-neutral-50/50 dark:bg-[#080808]" aria-labelledby="principles-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div class="space-y-4">
+          <h2 id="principles-heading" class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Architectural Pillars</h2>
+          <p class="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white tracking-tight">Built for builders</p>
+          <p class="text-sm text-neutral-600 dark:text-neutral-400">
+            A developer-focused approach to everyday consumer tools.
+          </p>
+        </div>
+        
+        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div class="space-y-2">
+            <h3 class="text-base font-semibold text-neutral-900 dark:text-white">100% Client-Side</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              We do not collect or log your entries. All parameters and calculations are calculated locally inside your browser context. Secure, fast, and offline-ready.
+            </p>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-base font-semibold text-neutral-900 dark:text-white">No Ads or Prompts</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Tired of websites layered with banner advertisements, cookie modals, and newsletter signups? CloudyUnicorn Tools features a clean canvas focused strictly on tools.
+            </p>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-base font-semibold text-neutral-900 dark:text-white">Responsive & High-Contrast</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Optimized for developer desktops, mobile devices, and screen readers. Access the utilities you need, wherever you are, on any viewport.
+            </p>
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-base font-semibold text-neutral-900 dark:text-white">Geist Mono Numbers</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Mathematical results are presented in clean monospace fonts (`Geist Mono`) using `tabular-nums` alignment, allowing direct, clear comparisons without letter-width layout shifts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

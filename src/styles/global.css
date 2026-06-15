@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+:root {
+  --bg-color: #ffffff;
+  --fg-color: #0c0c0e;
+  --card-color: #f7f7f9;
+  --card-fg-color: #0c0c0e;
+  --border-color: #e4e4e7;
+  --input-color: #ffffff;
+  --sec-color: #f4f4f5;
+  --sec-fg-color: #0c0c0e;
+  
+  --grid-line-color: rgba(0, 0, 0, 0.05);
+  --text-glow-shadow: 0 0 12px rgba(0, 0, 0, 0.04);
+  --scrollbar-track: #ffffff;
+  --scrollbar-thumb: #d4d4d8;
+  --scrollbar-thumb-hover: #a1a1aa;
+}
+
+:root.dark {
+  --bg-color: #0a0a0a;
+  --fg-color: #ffffff;
+  --card-color: #1c1c1e;
+  --card-fg-color: #ffffff;
+  --border-color: #1f1f1f;
+  --input-color: #0a0a0a;
+  --sec-color: #1f1f1f;
+  --sec-fg-color: #ffffff;
+
+  --grid-line-color: rgba(255, 255, 255, 0.05);
+  --text-glow-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+  --scrollbar-track: #0a0a0a;
+  --scrollbar-thumb: #2e2e2e;
+  --scrollbar-thumb-hover: #3e3e3e;
+}
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  
+  /* Softryt Color Theme Tokens */
+  --color-background: var(--bg-color);
+  --color-foreground: var(--fg-color);
+  --color-card: var(--card-color);
+  --color-card-foreground: var(--card-fg-color);
+  
+  --color-primary: #7fcb64;
+  --color-primary-foreground: #0a0a0a;
+  --color-secondary: var(--sec-color);
+  --color-secondary-foreground: var(--sec-fg-color);
+
+  --color-border: var(--border-color);
+  --color-input: var(--input-color);
+  --color-ring: #7fcb64;
+
+  /* Brand Logo & Design Colors */
+  --color-brand-red: #da6868;
+  --color-brand-green: #7fcb64;
+  --color-brand-blue: #6468cb;
+  --color-brand-yellow: #dacf68;
+
+  --color-brand-green-deep: #5ca844;
+  --color-brand-green-soft: #a5e192;
+  --color-brand-tag: var(--color-brand-blue);
+  --color-brand-warn: var(--color-brand-yellow);
+  --color-brand-annotate: var(--color-brand-green);
+  --color-brand-error: var(--color-brand-red);
+  --color-brand-cursor: #888888;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Set custom dark-mode scrollbars */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+
+  /* Accessibility focus ring replacements */
+  :focus-visible {
+    outline: 2px solid var(--fg-color);
+    outline-offset: 2px;
+  }
+}
+
+/* Custom Vercel-style geometric grid background */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+}
+
+/* Vignette gradient mask to fade the grid */
+.bg-grid-fade {
+  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+}
+
+/* Keyframe for subtle heartbeat animation for secondary metrics */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Vercel card glow effect */
+.vercel-glow-card {
+  position: relative;
+  background: var(--card-color);
+  border: 1px solid var(--border-color);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vercel-glow-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(to bottom right, var(--border-color), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.vercel-glow-card:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+:root.dark .vercel-glow-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.02);
+}
+
+/* Glow details on numbers */
+.text-glow {
+  text-shadow: var(--text-glow-shadow);
+}
+
+/* Softryt Hero Glow Gradient */
+.bg-hero-glow {
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(100, 104, 203, 0.15), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(218, 104, 104, 0.12), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(127, 203, 100, 0.10), transparent 45%);
+}
+
+/* Softryt Gradient Text Animation */
+@keyframes text-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-text-gradient {
+  background-image: linear-gradient(90deg, #6468cb, #da6868, #dacf68, #7fcb64, #6468cb);
+  background-size: 200% auto;
+  animation: text-gradient 6s linear infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
