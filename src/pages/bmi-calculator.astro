@@ -33,6 +33,24 @@ for (let inches = 36; inches <= 90; inches += 2) {
   title="BMI Calculator — Body Mass Index (BMI) Calculator"
   description="Calculate your Body Mass Index (BMI) online using metric (kg) or imperial (lbs) units. Get your ideal weight range, BMI scale category, and healthy body weight charts."
 >
+  <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "BMI Calculator",
+      "url": "https://www.cloudyunicorn.com/bmi-calculator",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "description": "Compute your Body Mass Index (BMI) instantly. Supports Metric and Imperial standards, and provides a clear graphical classification scale.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+
   <div class="relative min-h-[calc(100vh-16rem)] bg-background py-12">
     <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-20"></div>
 

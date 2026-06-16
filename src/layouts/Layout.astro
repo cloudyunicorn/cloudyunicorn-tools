@@ -10,6 +10,9 @@ interface Props {
 const { title, description } = Astro.props;
 const pathname = new URL(Astro.request.url).pathname;
 
+const canonicalURL = Astro.url.href;
+const ogImageURL = new URL('/logo.png', Astro.url).href;
+
 const mobileLinks = [
   { href: '/', label: 'Home' },
   { href: '/age-calculator', label: 'Age Calculator' },
@@ -27,6 +30,8 @@ const mobileLinks = [
     <meta name="generator" content={Astro.generator} />
     <title>{title} — CloudyUnicorn Tools</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
     
     <!-- Google Fonts: Inter & Geist Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -35,10 +40,17 @@ const mobileLinks = [
 
     <!-- Open Graph / SEO -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.cloudyunicorn.com/" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={`${title} — CloudyUnicorn Tools`} />
     <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
     <meta property="og:site_name" content="CloudyUnicorn Tools" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} — CloudyUnicorn Tools`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
     <ClientRouter />
     <script is:inline>
       const getThemePreference = () => {

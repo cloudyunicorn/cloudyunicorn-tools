@@ -6,6 +6,24 @@ import Layout from '../layouts/Layout.astro';
   title="Calorie Calculator — Calorie Deficit, BMR & TDEE Calculator"
   description="Estimate your daily metabolic calorie needs (BMR & TDEE) and macronutrient breakdowns. Determine calorie deficit formulas or maintenance calories easily online."
 >
+  <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calories Calculator",
+      "url": "https://www.cloudyunicorn.com/calories-calculator",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "description": "Estimate daily metabolic calorie needs (BMR & TDEE) matching your specific activity profiles and weight targets. Provides personalized macronutrient guides.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+
   <div class="relative min-h-[calc(100vh-16rem)] bg-background py-12">
     <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-20"></div>
 
