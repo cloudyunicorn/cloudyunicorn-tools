@@ -35,10 +35,13 @@ const mobileLinks = [
     <link rel="canonical" href={canonicalURL} />
     <meta name="robots" content="index, follow" />
     
-    <!-- Google Fonts: Inter & Geist Mono -->
+    <!-- Google Fonts: Inter & Geist Mono (Asynchronous Preload) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    </noscript>
 
     <!-- Open Graph / SEO -->
     <meta property="og:type" content="website" />
@@ -54,18 +57,52 @@ const mobileLinks = [
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RSSCEMH5MP" is:inline></script>
+    <!-- Google tag (gtag.js) - Deferred loading to optimize TBT/FCP/LCP -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      let analyticsLoaded = false;
+      function loadAnalytics() {
+        if (analyticsLoaded) return;
+        analyticsLoaded = true;
 
-      document.addEventListener('astro:page-load', () => {
+        // Create script tag dynamically
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-RSSCEMH5MP';
+        document.head.appendChild(script);
+
+        // Initialize dataLayer and gtag
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        
+        // Initial page view config
         gtag('config', 'G-RSSCEMH5MP', {
           page_path: window.location.pathname
         });
-      });
+
+        // Track subsequent page loads (Astro ClientRouter transitions)
+        document.addEventListener('astro:page-load', () => {
+          if (typeof window.gtag === 'function') {
+            window.gtag('config', 'G-RSSCEMH5MP', {
+              page_path: window.location.pathname
+            });
+          }
+        });
+      }
+
+      // Defer loading until user interaction or after load event
+      if (typeof window !== 'undefined') {
+        const triggerEvents = ['mouseover', 'keydown', 'touchmove', 'touchstart', 'scroll', 'click', 'mousedown'];
+        triggerEvents.forEach(event => {
+          window.addEventListener(event, loadAnalytics, { once: true, passive: true });
+        });
+        
+        // Fallback after window load delay
+        window.addEventListener('load', () => {
+          setTimeout(loadAnalytics, 3000);
+        });
+      }
     </script>
 
     <ClientRouter />
