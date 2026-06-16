@@ -9,10 +9,43 @@ import Layout from '../layouts/Layout.astro';
   <script type="application/ld+json" is:inline>
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "CloudyUnicorn Tools",
-      "url": "https://www.cloudyunicorn.com/",
-      "description": "Free, instant, and privacy-first online tools for developers and builders."
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "name": "CloudyUnicorn Tools",
+          "url": "https://www.cloudyunicorn.com/",
+          "description": "Free, instant, and privacy-first online tools for developers and builders."
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is CloudyUnicorn Tools?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "CloudyUnicorn Tools is a suite of premium, ad-free, and privacy-first online calculators designed for everyday use. Our focus is on clean, high-precision developer utilities."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are calculations on this site private?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, 100%. All calculations are done locally in your browser using JavaScript. No input parameters or results are ever sent to a server or stored in a database."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What tools are currently available?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Currently, we offer a precise Age Calculator, a BMI Calculator (with metric and imperial support), and a Calories Calculator (BMR/TDEE). More standalone tools are launched regularly."
+              }
+            }
+          ]
+        }
+      ]
     }
   </script>
 
@@ -390,6 +423,74 @@ import Layout from '../layouts/Layout.astro';
             </p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 border-t border-neutral-200 dark:border-neutral-900 bg-background" aria-labelledby="faq-heading">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <!-- Section Header -->
+      <div class="text-center space-y-4">
+        <h2 id="faq-heading" class="text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 font-light">
+          Everything you need to know about CloudyUnicorn Tools privacy, precision, and architecture.
+        </p>
+      </div>
+
+      <!-- Interactive Accordion List -->
+      <div class="divide-y divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
+        
+        <!-- Question 1 -->
+        <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+          <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+            <span class="flex items-center gap-3">
+              <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">01</span>
+              What is CloudyUnicorn Tools?
+            </span>
+            <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4 font-light">
+            CloudyUnicorn Tools is a suite of premium, ad-free, and privacy-first online calculators designed for everyday use. Our focus is on clean, high-precision developer utilities.
+          </div>
+        </details>
+
+        <!-- Question 2 -->
+        <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+          <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+            <span class="flex items-center gap-3">
+              <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">02</span>
+              Are calculations on this site private?
+            </span>
+            <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4 font-light">
+            Yes, 100%. All calculations are done locally in your browser using JavaScript. No input parameters or results are ever sent to a server or stored in a database.
+          </div>
+        </details>
+
+        <!-- Question 3 -->
+        <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+          <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+            <span class="flex items-center gap-3">
+              <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">03</span>
+              What tools are currently available?
+            </span>
+            <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4 font-light">
+            Currently, we offer a precise Age Calculator, a BMI Calculator (with metric and imperial support), and a Calories Calculator (BMR/TDEE). More standalone tools are launched regularly.
+          </div>
+        </details>
+
       </div>
     </div>
   </section>
