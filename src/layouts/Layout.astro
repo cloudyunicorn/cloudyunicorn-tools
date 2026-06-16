@@ -41,6 +41,16 @@ const mobileLinks = [
     <meta property="og:site_name" content="CloudyUnicorn Tools" />
     <ClientRouter />
     <script is:inline>
+      const getThemePreference = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      };
+      
+      const isDark = getThemePreference() === 'dark';
+      document.documentElement.classList.toggle('dark', isDark);
+
       if (window.hasLoadedSplash) {
         document.documentElement.classList.add('splash-loaded');
       }
@@ -69,7 +79,7 @@ const mobileLinks = [
           />
         </div>
 
-        <div class="text-2xl font-bold tracking-tight text-neutral-900 flex flex-col items-center gap-2">
+        <div class="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white flex flex-col items-center gap-2">
           <span>
             cloudyunicorn{" "}
             <span class="animate-text-gradient">
@@ -80,7 +90,7 @@ const mobileLinks = [
 
         <!-- Custom premium color-wheel spinner -->
         <div class="relative w-10 h-10 mt-4" aria-live="polite" aria-label="Loading…">
-          <div class="absolute inset-0 rounded-full border-2 border-neutral-900/5"></div>
+          <div class="absolute inset-0 rounded-full border-2 border-neutral-900/5 dark:border-white/10"></div>
           <div class="absolute inset-0 rounded-full border-2 border-t-brand-blue border-r-brand-red border-b-brand-green border-l-brand-yellow animate-spin duration-1000"></div>
         </div>
       </div>
@@ -135,6 +145,32 @@ const mobileLinks = [
               </div>
             </div>
           </div>
+
+          <!-- Theme Toggle Button -->
+          <button
+            type="button"
+            id="theme-toggle"
+            class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-300 cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-white"
+            aria-label="Toggle theme"
+          >
+            <!-- Sun icon (visible in dark mode) -->
+            <svg class="w-4.5 h-4.5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <!-- Moon icon (visible in light mode) -->
+            <svg class="w-4.5 h-4.5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+
 
           <!-- Mobile Nav Toggle button (Explore pill matching softryt) -->
           <div class="md:hidden relative flex items-center" id="mobile-menu-container">
@@ -322,16 +358,38 @@ const mobileLinks = [
             }, 450); // 450ms initial delay
           }
         }
+
+        // Theme Toggle Button click handler
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            document.documentElement.classList.toggle('dark', newTheme === 'dark');
+          });
+        }
       }
 
       // Initialize on page load (including view transition loads)
-      document.addEventListener('astro:page-load', initLayout);
+      document.addEventListener('astro:page-load', () => {
+        initLayout();
+        
+        // Listen to system theme changes dynamically if no localStorage preference is set
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+          if (!localStorage.getItem('theme')) {
+            document.documentElement.classList.toggle('dark', e.matches);
+          }
+        });
+      });
 
-      // Force splash loaded class on html after swap
+      // Restore splash status and theme preference after swap
       document.addEventListener('astro:after-swap', () => {
         if ((window as any).hasLoadedSplash) {
           document.documentElement.classList.add('splash-loaded');
         }
+        const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.classList.toggle('dark', theme === 'dark');
       });
     </script>
   </body>
