@@ -66,7 +66,7 @@ for (let inches = 36; inches <= 90; inches += 2) {
               role="tab"
               aria-selected="true"
               aria-controls="panel-metric"
-              class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-white dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none"
+              class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-neutral-50 dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none"
             >
               Metric (cm, kg)
             </button>
@@ -76,7 +76,7 @@ for (let inches = 36; inches <= 90; inches += 2) {
               role="tab"
               aria-selected="false"
               aria-controls="panel-imperial"
-              class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-white dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none"
+              class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-neutral-50 dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none"
             >
               Imperial (ft, lbs)
             </button>
@@ -103,7 +103,7 @@ for (let inches = 36; inches <= 90; inches += 2) {
                   />
                   <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-neutral-400 dark:text-neutral-500">cm</span>
                 </div>
-                <span id="height-metric-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                <span id="height-metric-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
               </div>
 
               <!-- Weight (kg) -->
@@ -124,7 +124,7 @@ for (let inches = 36; inches <= 90; inches += 2) {
                   />
                   <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-neutral-400 dark:text-neutral-500">kg</span>
                 </div>
-                <span id="weight-metric-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                <span id="weight-metric-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
               </div>
             </div>
 
@@ -165,7 +165,7 @@ for (let inches = 36; inches <= 90; inches += 2) {
                     <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-neutral-400 dark:text-neutral-500">in</span>
                   </div>
                 </div>
-                <span id="height-imperial-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                <span id="height-imperial-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
               </div>
 
               <!-- Weight (lbs) -->
@@ -186,7 +186,7 @@ for (let inches = 36; inches <= 90; inches += 2) {
                   />
                   <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-neutral-400 dark:text-neutral-500">lbs</span>
                 </div>
-                <span id="weight-lbs-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                <span id="weight-lbs-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
               </div>
             </div>
 
@@ -246,8 +246,8 @@ for (let inches = 36; inches <= 90; inches += 2) {
                     class="absolute top-0 -translate-x-1/2 flex flex-col items-center transition-all duration-500 opacity-0" 
                     style="left: 50%"
                   >
-                    <span id="marker-val" class="text-[11px] font-bold font-mono text-neutral-900 dark:text-white bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 px-1.5 py-0.5 rounded leading-none shadow-md">—</span>
-                    <span class="w-1.5 h-1.5 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-900 rotate-45 -mt-0.5 shadow-md"></span>
+                    <span id="marker-val" class="text-[11px] font-bold font-mono text-neutral-900 dark:text-white bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 px-1.5 py-0.5 rounded leading-none shadow-md">—</span>
+                    <span class="w-1.5 h-1.5 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-900 rotate-45 -mt-0.5 shadow-md"></span>
                   </div>
 
                   <!-- Color Bar Segment Blocks -->
@@ -319,7 +319,7 @@ for (let inches = 36; inches <= 90; inches += 2) {
               role="tab"
               aria-selected="true"
               aria-controls="chart-panel-ranges"
-              class="flex-1 text-center text-[11px] font-semibold py-1.5 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-white dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none animate-fade-in"
+              class="flex-1 text-center text-[11px] font-semibold py-1.5 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-neutral-50 dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none animate-fade-in"
             >
               BMI Classifications
             </button>
@@ -329,7 +329,7 @@ for (let inches = 36; inches <= 90; inches += 2) {
               role="tab"
               aria-selected="false"
               aria-controls="chart-panel-table"
-              class="flex-1 text-center text-[11px] font-semibold py-1.5 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-white dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none animate-fade-in"
+              class="flex-1 text-center text-[11px] font-semibold py-1.5 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-neutral-50 dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none animate-fade-in"
             >
               Height &amp; Weight Chart
             </button>
@@ -341,13 +341,13 @@ for (let inches = 36; inches <= 90; inches += 2) {
           <!-- Underweight -->
           <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider">Underweight</span>
-              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/15">&lt; 18.5</span>
+              <span class="text-xs font-bold font-mono text-blue-700 uppercase tracking-wider">Underweight</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-blue-500/10 text-blue-700 border border-blue-500/15">&lt; 18.5</span>
             </div>
-            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+            <p class="text-xs text-neutral-500 leading-relaxed">
               Below the optimal ratio. May indicate nutritional deficiencies, high metabolism, or other factors.
             </p>
-            <div class="text-[10px] text-neutral-400 dark:text-neutral-500 italic pt-1 border-t border-neutral-100 dark:border-neutral-900">
+            <div class="text-[10px] text-neutral-400 italic pt-1 border-t border-neutral-100 dark:border-neutral-900">
               Healthy target weight is typically higher.
             </div>
           </div>
@@ -355,13 +355,13 @@ for (let inches = 36; inches <= 90; inches += 2) {
           <!-- Normal -->
           <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Normal Range</span>
-              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/15">18.5 – 24.9</span>
+              <span class="text-xs font-bold font-mono text-emerald-700 uppercase tracking-wider">Normal Range</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-700 border border-emerald-500/15">18.5 – 24.9</span>
             </div>
-            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+            <p class="text-xs text-neutral-500 leading-relaxed">
               Associated with the lowest risk of cardiovascular issues and other metabolic conditions.
             </p>
-            <div class="text-[10px] text-neutral-400 dark:text-neutral-500 italic pt-1 border-t border-neutral-100 dark:border-neutral-900">
+            <div class="text-[10px] text-neutral-400 italic pt-1 border-t border-neutral-100 dark:border-neutral-900">
               Optimal weight range for general longevity.
             </div>
           </div>
@@ -369,13 +369,13 @@ for (let inches = 36; inches <= 90; inches += 2) {
           <!-- Overweight -->
           <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold font-mono text-amber-600 dark:text-amber-400 uppercase tracking-wider">Overweight</span>
-              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/15">25.0 – 29.9</span>
+              <span class="text-xs font-bold font-mono text-amber-800 uppercase tracking-wider">Overweight</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-amber-500/10 text-amber-800 border border-amber-500/15">25.0 – 29.9</span>
             </div>
-            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+            <p class="text-xs text-neutral-500 leading-relaxed">
               Increased body weight relative to height. Incorporating physical activity and balanced nutrition is recommended.
             </p>
-            <div class="text-[10px] text-neutral-400 dark:text-neutral-500 italic pt-1 border-t border-neutral-100 dark:border-neutral-900">
+            <div class="text-[10px] text-neutral-400 italic pt-1 border-t border-neutral-100 dark:border-neutral-900">
               Muscle mass in athletes can sometimes push scores here.
             </div>
           </div>
@@ -383,10 +383,10 @@ for (let inches = 36; inches <= 90; inches += 2) {
           <!-- Obese I -->
           <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold font-mono text-rose-600 dark:text-rose-400 uppercase tracking-wider">Obese Class I</span>
-              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/15">30.0 – 34.9</span>
+              <span class="text-xs font-bold font-mono text-rose-700 uppercase tracking-wider">Obese Class I</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-rose-500/10 text-rose-700 border border-rose-500/15">30.0 – 34.9</span>
             </div>
-            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+            <p class="text-xs text-neutral-500 leading-relaxed">
               Moderately high fat volume relative to height. Advised to evaluate health risks with a medical practitioner.
             </p>
           </div>
@@ -394,10 +394,10 @@ for (let inches = 36; inches <= 90; inches += 2) {
           <!-- Obese II -->
           <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold font-mono text-red-600 dark:text-red-400 uppercase tracking-wider">Obese Class II</span>
-              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/15">35.0 – 39.9</span>
+              <span class="text-xs font-bold font-mono text-red-700 uppercase tracking-wider">Obese Class II</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-red-500/10 text-red-700 border border-red-500/15">35.0 – 39.9</span>
             </div>
-            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+            <p class="text-xs text-neutral-500 leading-relaxed">
               High risk of obesity-related comorbidities (hypertension, diabetes, heart disease). Focus on metabolic health.
             </p>
           </div>
@@ -405,10 +405,10 @@ for (let inches = 36; inches <= 90; inches += 2) {
           <!-- Obese III -->
           <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold font-mono text-purple-600 dark:text-purple-400 uppercase tracking-wider">Obese Class III</span>
-              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/15">&ge; 40.0</span>
+              <span class="text-xs font-bold font-mono text-purple-700 uppercase tracking-wider">Obese Class III</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-purple-500/10 text-purple-700 border border-purple-500/15">&ge; 40.0</span>
             </div>
-            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+            <p class="text-xs text-neutral-500 leading-relaxed">
               Severe/morbid obesity. Therapeutic lifestyle interventions, diet adjustments, or clinical consultations are recommended.
             </p>
           </div>
@@ -439,10 +439,10 @@ for (let inches = 36; inches <= 90; inches += 2) {
               <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800 text-neutral-600 dark:text-neutral-400 font-mono">
                 {heightRows.map((row) => (
                   <tr class="hover:bg-neutral-100/30 dark:hover:bg-neutral-900/20">
-                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">{row.heightStr}</td>
+                    <td class="py-3 px-4 font-semibold text-neutral-900">{row.heightStr}</td>
                     <td class="py-3 px-4">{row.who}</td>
-                    <td class="py-3 px-4 text-brand-blue dark:text-neutral-300">{row.men}</td>
-                    <td class="py-3 px-4 text-rose-500 dark:text-neutral-300">{row.women}</td>
+                    <td class="py-3 px-4 text-neutral-600">{row.men}</td>
+                    <td class="py-3 px-4 text-neutral-600">{row.women}</td>
                   </tr>
                 ))}
               </tbody>
@@ -801,30 +801,30 @@ for (let inches = 36; inches <= 90; inches += 2) {
 
         if (bmi < 18.5) {
           category = 'Underweight';
-          colorClass = 'text-blue-600 dark:text-blue-400 bg-blue-500/5';
-          borderClass = 'border-blue-500/20 dark:border-blue-500/10';
-          dotBg = 'bg-blue-600 dark:bg-blue-400';
+          colorClass = 'text-blue-700 bg-blue-500/5';
+          borderClass = 'border-blue-500/20';
+          dotBg = 'bg-blue-700';
           adviceTitleStr = 'Underweight Recommendations';
           adviceTextStr = 'Focus on nutrient-dense foods, lean protein, healthy fats, and strength exercises to build healthy muscle mass.';
         } else if (bmi >= 18.5 && bmi <= 24.9) {
           category = 'Normal Weight';
-          colorClass = 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/5';
-          borderClass = 'border-emerald-500/20 dark:border-emerald-500/10';
-          dotBg = 'bg-emerald-600 dark:bg-emerald-400';
+          colorClass = 'text-emerald-700 bg-emerald-500/5';
+          borderClass = 'border-emerald-500/20';
+          dotBg = 'bg-emerald-700';
           adviceTitleStr = 'Optimal Weight Range';
           adviceTextStr = 'Excellent work. Maintain your current lifestyle, focusing on a balanced diet of whole foods and at least 150 minutes of exercise per week.';
         } else if (bmi >= 25.0 && bmi <= 29.9) {
           category = 'Overweight';
-          colorClass = 'text-amber-600 dark:text-amber-400 bg-amber-500/5';
-          borderClass = 'border-amber-500/20 dark:border-amber-500/10';
-          dotBg = 'bg-amber-600 dark:bg-amber-400';
+          colorClass = 'text-amber-800 bg-amber-500/5';
+          borderClass = 'border-amber-500/20';
+          dotBg = 'bg-amber-800';
           adviceTitleStr = 'Overweight Recommendations';
           adviceTextStr = 'Consider slight calorie deficits alongside a blend of aerobic cardio and resistance training. Emphasize fibers and unprocessed items.';
         } else {
           category = 'Obese';
-          colorClass = 'text-red-600 dark:text-red-400 bg-red-500/5';
-          borderClass = 'border-red-500/20 dark:border-red-500/10';
-          dotBg = 'bg-red-600 dark:bg-red-400';
+          colorClass = 'text-red-700 bg-red-500/5';
+          borderClass = 'border-red-500/20';
+          dotBg = 'bg-red-700';
           adviceTitleStr = 'Clinical Health Advice';
           adviceTextStr = 'Consult with a practitioner or nutritionist to design a sustainable nutrition and physical plan that supports cardiovascular health and joint integrity.';
         }

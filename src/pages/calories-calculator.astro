@@ -39,7 +39,7 @@ import Layout from '../layouts/Layout.astro';
               role="tab"
               aria-selected="true"
               aria-controls="panel-metric"
-              class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-white dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none"
+              class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-neutral-50 dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none"
             >
               Metric (cm, kg)
             </button>
@@ -49,7 +49,7 @@ import Layout from '../layouts/Layout.astro';
               role="tab"
               aria-selected="false"
               aria-controls="panel-imperial"
-              class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-white dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none"
+              class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-neutral-50 dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none"
             >
               Imperial (ft, lbs)
             </button>
@@ -74,7 +74,7 @@ import Layout from '../layouts/Layout.astro';
                   required
                   class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
                 />
-                <span id="age-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                <span id="age-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
               </div>
 
               <!-- Gender -->
@@ -111,7 +111,7 @@ import Layout from '../layouts/Layout.astro';
                     max="300"
                     class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
                   />
-                  <span id="height-metric-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                  <span id="height-metric-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
                 </div>
                 <div class="space-y-2">
                   <label for="weight-metric" class="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
@@ -127,7 +127,7 @@ import Layout from '../layouts/Layout.astro';
                     max="500"
                     class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
                   />
-                  <span id="weight-metric-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                  <span id="weight-metric-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
                 </div>
               </div>
             </div>
@@ -169,7 +169,7 @@ import Layout from '../layouts/Layout.astro';
                       <span class="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-mono text-neutral-500">in</span>
                     </div>
                   </div>
-                  <span id="height-imperial-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                  <span id="height-imperial-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
                 </div>
                 <div class="space-y-2">
                   <label for="weight-lbs" class="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
@@ -185,7 +185,7 @@ import Layout from '../layouts/Layout.astro';
                     max="1000"
                     class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 px-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
                   />
-                  <span id="weight-lbs-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+                  <span id="weight-lbs-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
                 </div>
               </div>
             </div>
@@ -274,8 +274,8 @@ import Layout from '../layouts/Layout.astro';
             </div>
 
             <!-- Health warning alert for low calories -->
-            <div id="low-cal-warning" class="hidden border border-amber-500/20 bg-amber-500/5 rounded-xl p-4 flex items-start gap-3">
-              <svg class="w-5 h-5 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <div id="low-cal-warning" class="hidden border border-amber-500/20 dark:border-amber-500/30 bg-amber-500/5 dark:bg-amber-500/10 rounded-xl p-4 flex items-start gap-3">
+              <svg class="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
               </svg>
               <div class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 space-y-1">

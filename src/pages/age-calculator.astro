@@ -57,10 +57,10 @@ import Layout from '../layouts/Layout.astro';
                   </svg>
                 </button>
               </div>
-              <span id="birth-date-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+              <span id="birth-date-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
               
               <!-- Calendar Popup -->
-              <div class="hidden absolute left-0 mt-2 z-50 w-72 bg-white dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl p-4 space-y-3 calendar-popup" role="dialog" aria-modal="true" aria-label="Birth date calendar picker">
+              <div class="hidden absolute left-0 mt-2 z-50 w-72 bg-neutral-50 dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl p-4 space-y-3 calendar-popup" role="dialog" aria-modal="true" aria-label="Birth date calendar picker">
                 <div class="flex items-center justify-between gap-1">
                   <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white prev-month-btn" aria-label="Previous month">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -108,10 +108,10 @@ import Layout from '../layouts/Layout.astro';
                   </svg>
                 </button>
               </div>
-              <span id="ref-date-error" class="hidden text-xs text-red-500 font-medium" role="alert"></span>
+              <span id="ref-date-error" class="hidden text-xs text-red-700 dark:text-red-400 font-medium" role="alert"></span>
               
               <!-- Calendar Popup -->
-              <div class="hidden absolute left-0 mt-2 z-50 w-72 bg-white dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl p-4 space-y-3 calendar-popup" role="dialog" aria-modal="true" aria-label="Reference date calendar picker">
+              <div class="hidden absolute left-0 mt-2 z-50 w-72 bg-neutral-50 dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl p-4 space-y-3 calendar-popup" role="dialog" aria-modal="true" aria-label="Reference date calendar picker">
                 <div class="flex items-center justify-between gap-1">
                   <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white prev-month-btn" aria-label="Previous month">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -179,13 +179,13 @@ import Layout from '../layouts/Layout.astro';
             </div>
 
             <!-- Live Counter Banner (if current date is selected as reference) -->
-            <div id="live-banner" class="hidden border border-brand-green/30 bg-brand-green/5 rounded-xl p-5 flex items-center justify-between">
+            <div id="live-banner" class="hidden border border-primary/30 bg-primary/5 rounded-xl p-5 flex items-center justify-between">
               <div class="space-y-1">
-                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-brand-green/10 border border-brand-green/20 text-[10px] font-mono text-brand-green">
-                  <span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-ping"></span>
+                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-mono text-primary">
+                  <span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
                   <span>Live Counter</span>
                 </span>
-                <p class="text-xs text-neutral-500 dark:text-neutral-400">Total seconds lived, ticking in real time:</p>
+                <p class="text-xs text-neutral-500">Total seconds lived, ticking in real time:</p>
               </div>
               <div id="live-seconds" class="text-xl sm:text-2xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">
                 0
