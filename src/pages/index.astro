@@ -65,10 +65,36 @@ import Layout from '../layouts/Layout.astro';
           </p>
         </div>
 
+        <!-- Search and Filter Controls -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pt-4 border-b border-neutral-200 dark:border-neutral-800/80 pb-6">
+          <!-- Search Bar -->
+          <div class="relative w-full md:max-w-md">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400 dark:text-neutral-500">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+            <input 
+              type="text" 
+              id="tool-search" 
+              placeholder="Search tools by name or description..." 
+              class="w-full bg-neutral-50/50 dark:bg-neutral-950/50 border border-neutral-200 dark:border-neutral-800 rounded-full h-10 pl-10 pr-4 text-xs text-neutral-900 dark:text-white focus:border-neutral-950 dark:focus:border-white focus:ring-1 focus:ring-neutral-950 dark:focus:ring-white outline-none transition-all"
+            />
+          </div>
+
+          <!-- Tabs -->
+          <div class="flex items-center gap-2 overflow-x-auto scrollbar-none pb-2 md:pb-0">
+            <button data-filter="all" class="category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all bg-neutral-950 dark:bg-white text-white dark:text-black border border-neutral-300 dark:border-neutral-700 cursor-pointer whitespace-nowrap shadow-sm">All Utilities</button>
+            <button data-filter="fitness" class="category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer whitespace-nowrap border border-transparent">⚡ Fitness & Diet</button>
+            <button data-filter="time" class="category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer whitespace-nowrap border border-transparent">📅 Time & Milestones</button>
+            <button data-filter="digital" class="category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer whitespace-nowrap border border-transparent">💼 Digital Utilities</button>
+          </div>
+        </div>
+
         <!-- Tools Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div id="tools-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Tool 1: Age Calculator -->
-          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px]">
+          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px] tool-card" data-category="time">
             <div class="space-y-4">
               <!-- Icon/Header -->
               <div class="flex items-center justify-between">
@@ -102,7 +128,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <!-- Tool 2: BMI Calculator -->
-          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px]">
+          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px] tool-card" data-category="fitness">
             <div class="space-y-4">
               <!-- Icon/Header -->
               <div class="flex items-center justify-between">
@@ -136,7 +162,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <!-- Tool 3: Calories Calculator -->
-          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px]">
+          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px] tool-card" data-category="fitness">
             <div class="space-y-4">
               <!-- Icon/Header -->
               <div class="flex items-center justify-between">
@@ -168,7 +194,124 @@ import Layout from '../layouts/Layout.astro';
               </a>
             </div>
           </div>
+
+          <!-- Tool 4: SaaS Cost Burn Calculator (Coming Soon) -->
+          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px] opacity-70 tool-card" data-category="digital">
+            <div class="space-y-4">
+              <!-- Icon/Header -->
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 flex items-center justify-center text-neutral-400 dark:text-neutral-600" aria-hidden="true">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <span class="text-[10px] font-mono text-brand-blue uppercase py-0.5 px-2 border border-brand-blue/20 rounded bg-brand-blue/5">In Development</span>
+              </div>
+              
+              <!-- Title & Info -->
+              <div class="space-y-2">
+                <h3 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">SaaS Cost Burn Calculator</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-500 leading-relaxed font-light">
+                  Track runtime SaaS expenses, employee costs, and general runway estimations for early-stage startups and indie builders.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-neutral-100 dark:border-neutral-900 flex items-center justify-between">
+              <span class="text-xs text-neutral-500 font-mono">Input: Expenses & Runway</span>
+              <button 
+                disabled
+                class="px-4 py-2 rounded-md bg-neutral-200 dark:bg-neutral-900 text-neutral-400 dark:text-neutral-600 font-medium text-xs border border-neutral-200 dark:border-neutral-800 cursor-not-allowed"
+              >
+                Coming Soon
+              </button>
+            </div>
+          </div>
         </div>
+
+        <!-- No Results State -->
+        <div id="no-results" class="hidden py-16 text-center space-y-2">
+          <p class="text-sm text-neutral-500 dark:text-neutral-400 font-light">
+            No tools match your search criteria.
+          </p>
+        </div>
+
+  <style>
+    .tool-card {
+      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+  </style>
+
+  <script is:inline>
+    function initHomeFilters() {
+      const tabs = document.querySelectorAll('.category-tab');
+      const cards = document.querySelectorAll('.tool-card');
+      const searchInput = document.getElementById('tool-search');
+      const noResults = document.getElementById('no-results');
+
+      let activeFilter = 'all';
+      let searchQuery = '';
+
+      function filterTools() {
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          const title = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+          const description = card.querySelector('p')?.textContent?.toLowerCase() || '';
+          
+          const matchesCategory = activeFilter === 'all' || category === activeFilter;
+          const matchesSearch = title.includes(searchQuery) || description.includes(searchQuery);
+
+          if (matchesCategory && matchesSearch) {
+            card.classList.remove('hidden');
+            // Force browser layout reflow before opacity change to trigger transition
+            card.style.opacity = '0';
+            setTimeout(() => {
+              card.style.opacity = '1';
+            }, 50);
+            visibleCount++;
+          } else {
+            card.style.opacity = '0';
+            card.classList.add('hidden');
+          }
+        });
+
+        if (noResults) {
+          if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+          } else {
+            noResults.classList.add('hidden');
+          }
+        }
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Reset styling for all tabs
+          tabs.forEach(t => {
+            t.className = "category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer whitespace-nowrap border border-transparent";
+          });
+          
+          // Set active styling for the clicked tab
+          tab.className = "category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all bg-neutral-950 dark:bg-white text-white dark:text-black border border-neutral-300 dark:border-neutral-700 cursor-pointer whitespace-nowrap shadow-sm";
+
+          activeFilter = tab.getAttribute('data-filter') || 'all';
+          filterTools();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value.toLowerCase().trim();
+          filterTools();
+        });
+      }
+    }
+
+    // Initialize on page load and swaps
+    document.addEventListener('astro:page-load', initHomeFilters);
+  </script>
       </div>
     </div>
   </section>
