@@ -1,0 +1,184 @@
+---
+interface Props {
+  shareText?: string;
+  shareUrl?: string;
+}
+
+const { 
+  shareText = "Check out this free, privacy-first online calculator!", 
+  shareUrl 
+} = Astro.props;
+---
+
+<div class="social-share-container border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/10 rounded-2xl p-5 space-y-4 max-w-lg mx-auto">
+  <div class="flex items-center justify-between">
+    <h3 class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest">
+      Share this tool
+    </h3>
+    <span class="text-[10px] font-mono text-neutral-400 dark:text-neutral-500 bg-neutral-100 dark:bg-neutral-900 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800">
+      Privacy-First Share
+    </span>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-2">
+    <!-- Twitter / X -->
+    <a
+      href="#"
+      id="share-x"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-950 dark:hover:border-white bg-background text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all cursor-pointer"
+      title="Share on X (formerly Twitter)"
+      data-text={shareText}
+      data-custom-url={shareUrl}
+    >
+      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+      <span class="sr-only">X</span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a
+      href="#"
+      id="share-linkedin"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-950 dark:hover:border-white bg-background text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all cursor-pointer"
+      title="Share on LinkedIn"
+      data-custom-url={shareUrl}
+    >
+      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+
+    <!-- Facebook -->
+    <a
+      href="#"
+      id="share-facebook"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-950 dark:hover:border-white bg-background text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all cursor-pointer"
+      title="Share on Facebook"
+      data-custom-url={shareUrl}
+    >
+      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+      </svg>
+      <span class="sr-only">Facebook</span>
+    </a>
+
+    <!-- WhatsApp -->
+    <a
+      href="#"
+      id="share-whatsapp"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-950 dark:hover:border-white bg-background text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all cursor-pointer"
+      title="Share on WhatsApp"
+      data-text={shareText}
+      data-custom-url={shareUrl}
+    >
+      <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.965C16.528 2.028 14.066 1.002 11.993 1.002c-5.438 0-9.863 4.372-9.867 9.802-.002 1.73.467 3.424 1.358 4.97L2.48 20.355l4.167-1.201z"/>
+      </svg>
+      <span class="sr-only">WhatsApp</span>
+    </a>
+
+    <!-- Copy Link Divider -->
+    <div class="h-6 w-px bg-neutral-200 dark:bg-neutral-800 mx-1"></div>
+
+    <!-- Copy Link Button -->
+    <button
+      id="copy-share-link"
+      type="button"
+      class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-800 hover:border-neutral-950 dark:hover:border-white bg-background text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-all cursor-pointer shrink-0"
+      title="Copy page link to clipboard"
+      data-custom-url={shareUrl}
+    >
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+      </svg>
+      <span id="copy-share-text">Copy Link</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  function initSocialShare() {
+    const defaultUrl = window.location.href;
+    
+    // Select share links
+    const shareX = document.getElementById('share-x') as HTMLAnchorElement;
+    const shareLinkedin = document.getElementById('share-linkedin') as HTMLAnchorElement;
+    const shareFacebook = document.getElementById('share-facebook') as HTMLAnchorElement;
+    const shareWhatsapp = document.getElementById('share-whatsapp') as HTMLAnchorElement;
+    const copyBtn = document.getElementById('copy-share-link') as HTMLButtonElement;
+    const copyText = document.getElementById('copy-share-text');
+
+    if (!shareX && !shareLinkedin && !shareFacebook && !shareWhatsapp && !copyBtn) return;
+
+    // Get URL and text
+    const getTargetUrl = (el: HTMLElement | null) => {
+      if (!el) return defaultUrl;
+      const custom = el.getAttribute('data-custom-url');
+      if (custom) {
+        return new URL(custom, window.location.origin).href;
+      }
+      return defaultUrl;
+    };
+
+    const getShareText = (el: HTMLElement | null) => {
+      return el?.getAttribute('data-text') || "Check out this free, privacy-first online calculator!";
+    };
+
+    // Update X/Twitter link
+    if (shareX) {
+      const url = encodeURIComponent(getTargetUrl(shareX));
+      const text = encodeURIComponent(getShareText(shareX));
+      shareX.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+    }
+
+    // Update LinkedIn link
+    if (shareLinkedin) {
+      const url = encodeURIComponent(getTargetUrl(shareLinkedin));
+      shareLinkedin.href = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+    }
+
+    // Update Facebook link
+    if (shareFacebook) {
+      const url = encodeURIComponent(getTargetUrl(shareFacebook));
+      shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    }
+
+    // Update WhatsApp link
+    if (shareWhatsapp) {
+      const url = encodeURIComponent(getTargetUrl(shareWhatsapp));
+      const text = encodeURIComponent(getShareText(shareWhatsapp));
+      shareWhatsapp.href = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+    }
+
+    // Clipboard Copy integration
+    if (copyBtn && copyText) {
+      copyBtn.addEventListener('click', () => {
+        const urlToCopy = getTargetUrl(copyBtn);
+        navigator.clipboard.writeText(urlToCopy).then(() => {
+          copyText.textContent = 'Copied!';
+          copyBtn.classList.add('border-brand-green', 'text-brand-green');
+          
+          setTimeout(() => {
+            copyText.textContent = 'Copy Link';
+            copyBtn.classList.remove('border-brand-green', 'text-brand-green');
+          }, 2000);
+        }).catch((err) => {
+          console.error('Failed to copy link: ', err);
+        });
+      });
+    }
+  }
+
+  // Hook layout transitions
+  document.addEventListener('astro:page-load', initSocialShare);
+</script>

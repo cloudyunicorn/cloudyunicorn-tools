@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SocialShare from '../components/SocialShare.astro';
 ---
 
 <Layout 
@@ -29,8 +30,12 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <!-- Main Content Block -->
-      <div class="prose prose-neutral dark:prose-invert max-w-none text-sm text-neutral-600 dark:text-neutral-400 space-y-8 leading-relaxed">
+      <div class="prose prose-neutral dark:prose-invert max-w-none text-sm text-neutral-600 dark:text-neutral-400 space-y-8 leading-relaxed font-light">
         
+        <p>
+          Welcome to CloudyUnicorn Tools. Your privacy is of paramount importance to us. This privacy policy describes the practices, terms, and guidelines regarding how we handle data on our web platform. We believe in absolute transparency, and our primary goal is to provide useful utilities without harvesting your personal information.
+        </p>
+
         <!-- Crucial Callout -->
         <div class="border border-dashed border-neutral-300 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/10 p-5 rounded-xl flex items-start gap-4">
           <svg class="w-5 h-5 text-brand-green shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -45,48 +50,79 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <section class="space-y-3">
-          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">1. Data We Do Not Collect</h2>
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">1. Data We Do Not Collect (Local Processing)</h2>
           <p>
-            When you use our Age Calculator, BMI Calculator, or Calories Calculator, all processing is done locally via JavaScript on your machine.
+            The core architecture of our website relies on localized client-side execution. When you calculate metrics using the Age Calculator, BMI Calculator, or Calories Calculator, the inputs are processed in real-time by JavaScript running directly on your computer, tablet, or smartphone.
+          </p>
+          <p>
+            Because we do not use server-side script pipelines for calculating your results, the following parameters remain entirely private:
           </p>
           <ul class="list-disc pl-5 space-y-1.5 text-neutral-500">
-            <li><strong>No Inputs Logged:</strong> Your input data (dates, metrics, stats) is never sent to our servers.</li>
-            <li><strong>No Database Storage:</strong> We do not operate databases that store user-specific records.</li>
-            <li><strong>No Authentication:</strong> We do not require accounts, logins, or social profile attachments.</li>
+            <li><strong>No Input Logs:</strong> Input parameters such as dates of birth, exact weights, daily calorie targets, height metrics, or health stats are never transmitted over the internet to our systems.</li>
+            <li><strong>No Database Storage:</strong> We do not operate database servers to log, profile, or retain histories of your calculation logs.</li>
+            <li><strong>No Account Creation:</strong> You can access all calculator features without creating an account, registering an email, or linking a social media profile.</li>
           </ul>
         </section>
 
         <section class="space-y-3">
-          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">2. Server Logs & Analytics</h2>
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">2. Server Logs and Hosting Infrastructure</h2>
           <p>
-            Like most website providers, our hosting infrastructure may collect standard, non-identifying server request logs (such as IP addresses, user agents, page requests, and timestamps). This data is strictly utilized to analyze technical performance, prevent abuse, and maintain overall security.
+            Like almost all websites on the internet, our hosting infrastructure automatically collects standard, non-identifying server request logs. This is necessary to deliver the static website files (HTML, CSS, JS, and image assets) to your browser.
           </p>
           <p>
-            We may use privacy-centric, cookieless analytical tools to monitor aggregate user trends (such as which calculators are visited most frequently). This data is entirely anonymous and cannot be tied back to individual inputs.
-          </p>
-        </section>
-
-        <section class="space-y-3">
-          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">3. Cookies & Local Storage</h2>
-          <p>
-            We do not use advertising tracking cookies. We may use standard browser `localStorage` solely to remember your UI layout preferences (for example, keeping dark mode enabled if you toggle it). You can clear this data at any time through your browser settings.
+            These server logs may record basic metadata such as your IP address, browser user agent, requested pages, reference links, and the date and time of the request. We use this technical data strictly to monitor infrastructure health, optimize assets loading speeds, prevent DDoS attacks, and block malicious traffic. This server-level logging is completely separate from the calculators and cannot be linked to any numerical inputs you enter.
           </p>
         </section>
 
         <section class="space-y-3">
-          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">4. Third-Party Integrations</h2>
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">3. Cookies and Browser Storage Policy</h2>
           <p>
-            Our site does not include external ad networks, tracking pixels, or dynamic social sharing widgets that harvest user habits. Any links to third-party web assets are provided strictly for educational purposes, and we encourage you to review the privacy documentation of those specific domains.
+            Our privacy policy dictates that we do not deploy advertising cookies, behavioral tracking scripts, or cross-site tracking systems. We value a clean web experience.
+          </p>
+          <p>
+            However, we may utilize standard web browser local storage (`localStorage`) to remember your visual style preferences. For instance, when you toggle the dark mode button on the interface, your preference is saved locally on your device so that subsequent visits default to your chosen theme. This theme state is never sent to our servers and can be wiped instantly by clearing your browser cache or site data.
           </p>
         </section>
 
         <section class="space-y-3">
-          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">5. Contact Information</h2>
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">4. Third-Party Integrations and Links</h2>
           <p>
-            If you have questions regarding our privacy framework, please reach out to us at <!--email_off--><a href="mailto:privacy@cloudyunicorn.com" class="text-neutral-905 dark:text-white hover:underline font-medium">privacy@cloudyunicorn.com</a><!--/email_off-->.
+            We do not load third-party ad networks, marketing trackers, or social sharing plugins that collect background metrics. Any social sharing options presented on our site are built locally using clean outbound HTML sharing templates that do not track you.
+          </p>
+          <p>
+            Our web pages may contain outbound links to other standalone projects or digital assets in our ecosystem (such as `alcoholdetect.com`). When you leave our domain, this privacy policy no longer applies. We recommend reviewing the individual privacy policies of external sites to understand their data collection methods.
           </p>
         </section>
 
+        <section class="space-y-3">
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">5. User Rights (GDPR & CCPA Compliance)</h2>
+          <p>
+            Under frameworks like the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA), users are granted rights regarding their personal data, including the right to view, modify, or erase their stored details.
+          </p>
+          <p>
+            Because CloudyUnicorn Tools processes calculations entirely inside your local browser context and stores no personal records on server databases, we do not possess any of your private information. Consequently, we cannot retrieve, export, delete, or modify your calculation history on your behalf, as we do not have access to it. Your data is owned and held exclusively by you on your local machine.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">6. Revisions to this Policy</h2>
+          <p>
+            We may update our privacy guidelines from time to time as we roll out new calculators, tools, and updates. Any changes will be published directly on this page, and the revision timestamp at the top of the policy will be updated accordingly. We encourage users to check this page periodically to remain informed about our privacy standards.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">7. Contact and Support Details</h2>
+          <p>
+            If you have any questions, concerns, or inquiries regarding our data handling or this privacy policy, please contact our support desk via email at <!--email_off--><a href="mailto:privacy@cloudyunicorn.com" class="text-neutral-950 dark:text-white hover:underline font-medium">privacy@cloudyunicorn.com</a><!--/email_off-->.
+          </p>
+        </section>
+
+      </div>
+
+      <!-- Social Sharing Options -->
+      <div class="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+        <SocialShare shareText="Check out this privacy-first, ad-free online tools platform by CloudyUnicorn Tools!" />
       </div>
     </div>
   </div>

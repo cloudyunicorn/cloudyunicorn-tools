@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SocialShare from '../components/SocialShare.astro';
 ---
 
 <Layout 
@@ -169,7 +170,7 @@ import Layout from '../layouts/Layout.astro';
                 rel="noopener" 
                 class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-neutral-950 dark:bg-white text-white dark:text-black font-semibold text-xs shadow-sm hover:shadow transition-all duration-200 gap-2 group/btn cursor-pointer"
               >
-                Launch Tool
+                Launch Alcohol Detector
                 <span class="text-neutral-400 group-hover/btn:translate-x-0.5 transition-transform text-xs">↗</span>
               </a>
             </div>
@@ -207,7 +208,7 @@ import Layout from '../layouts/Layout.astro';
                 class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer"
                 aria-label="Use the Age Calculator tool"
               >
-                Launch Tool
+                Calculate Age
               </a>
             </div>
           </div>
@@ -241,7 +242,7 @@ import Layout from '../layouts/Layout.astro';
                 class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer"
                 aria-label="Use the BMI Calculator tool"
               >
-                Launch Tool
+                Calculate BMI
               </a>
             </div>
           </div>
@@ -275,7 +276,7 @@ import Layout from '../layouts/Layout.astro';
                 class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer"
                 aria-label="Use the Calories Calculator tool"
               >
-                Launch Tool
+                Calculate Calories
               </a>
             </div>
           </div>
@@ -397,6 +398,11 @@ import Layout from '../layouts/Layout.astro';
     // Initialize on page load and swaps
     document.addEventListener('astro:page-load', initHomeFilters);
   </script>
+
+        <!-- Social Sharing -->
+        <div class="pt-8 border-t border-neutral-200 dark:border-neutral-800">
+          <SocialShare shareText="Check out CloudyUnicorn Tools — a premium suite of distraction-free, privacy-first online calculators." />
+        </div>
       </div>
     </div>
   </section>

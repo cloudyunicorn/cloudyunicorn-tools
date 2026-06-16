@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SocialShare from '../components/SocialShare.astro';
 
 // Generate height & weight chart rows dynamically (3'0" to 7'6" in 2-inch increments)
 const heightRows = [];
@@ -656,6 +657,11 @@ for (let inches = 36; inches <= 90; inches += 2) {
           </div>
         </div>
       </section>
+
+      <!-- Social Sharing Options -->
+      <div class="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+        <SocialShare shareText="Check out this free, client-side BMI Calculator on CloudyUnicorn Tools!" />
+      </div>
     </div>
   </div>
 
