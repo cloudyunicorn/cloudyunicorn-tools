@@ -52,6 +52,21 @@ const mobileLinks = [
     <meta name="twitter:title" content={`${title} — CloudyUnicorn Tools`} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RSSCEMH5MP" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      document.addEventListener('astro:page-load', () => {
+        gtag('config', 'G-RSSCEMH5MP', {
+          page_path: window.location.pathname
+        });
+      });
+    </script>
+
     <ClientRouter />
     <script is:inline>
       const getThemePreference = () => {
