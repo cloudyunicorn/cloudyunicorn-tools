@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="404 — Page Not Found"
+  description="The page you are looking for does not exist or has been moved. Explore our suite of premium online calculators."
+>
+  <div class="relative min-h-[calc(100vh-16rem)] bg-background py-20 flex flex-col justify-center items-center overflow-hidden">
+    <!-- Grid Background -->
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-20"></div>
+    <div class="absolute inset-0 bg-hero-glow opacity-30 pointer-events-none"></div>
+
+    <div class="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 animate-fade-in">
+      <!-- 404 Status Code -->
+      <div class="space-y-4">
+        <div class="relative inline-block">
+          <span class="text-8xl sm:text-9xl font-extrabold font-mono tracking-tighter animate-text-gradient select-none">404</span>
+          <!-- Soft blurred glow behind 404 -->
+          <div class="absolute inset-0 bg-gradient-to-tr from-brand-blue via-brand-red to-brand-green opacity-25 blur-2xl -z-10 scale-75"></div>
+        </div>
+        
+        <h1 class="text-2xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white">
+          Lost in the clouds.
+        </h1>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm sm:text-base max-w-md mx-auto leading-relaxed text-pretty font-light">
+          The page or tool you are trying to access does not exist, has been moved, or is temporarily unavailable.
+        </p>
+      </div>
+
+      <!-- Navigation shortcuts -->
+      <div class="premium-glass-card rounded-xl p-6 text-left space-y-4 max-w-md mx-auto">
+        <h2 class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-widest">Available Utilities</h2>
+        <div class="divide-y divide-neutral-200 dark:divide-neutral-800">
+          <a href="/age-calculator" class="flex items-center justify-between py-3 group">
+            <div>
+              <span class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-glow block transition-colors">Age Calculator</span>
+              <span class="text-[11px] text-neutral-500">Chronological age down to the second and milestones.</span>
+            </div>
+            <svg class="w-4 h-4 text-neutral-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+          <a href="/bmi-calculator" class="flex items-center justify-between py-3 group">
+            <div>
+              <span class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-glow block transition-colors">BMI Calculator</span>
+              <span class="text-[11px] text-neutral-500">Body mass index, healthy ranges, and weight curves.</span>
+            </div>
+            <svg class="w-4 h-4 text-neutral-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+          <a href="/calories-calculator" class="flex items-center justify-between py-3 group">
+            <div>
+              <span class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-glow block transition-colors">Calories Calculator</span>
+              <span class="text-[11px] text-neutral-500">BMR, TDEE, weight targets, and macro distribution.</span>
+            </div>
+            <svg class="w-4 h-4 text-neutral-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a 
+          href="/" 
+          class="w-full sm:w-auto px-6 py-2.5 rounded-md bg-neutral-950 dark:bg-white text-white dark:text-black font-semibold text-sm hover:bg-neutral-900 dark:hover:bg-neutral-200 transition-colors duration-150 text-center cursor-pointer shadow-lg hover:shadow-black/5 dark:hover:shadow-white/5"
+        >
+          Return Home
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+</style>
