@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Privacy Policy"
+  description="Privacy Policy for CloudyUnicorn Tools. Learn how we protect your data with our 100% client-side calculation philosophy."
+>
+  <div class="relative min-h-[calc(100vh-16rem)] bg-background py-16 sm:py-24">
+    <!-- Grid Background -->
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-20"></div>
+
+    <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 animate-fade-in">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs font-mono text-neutral-500">
+        <a href="/" class="hover:text-neutral-600 dark:hover:text-neutral-300">Tools</a>
+        <span>/</span>
+        <span class="text-neutral-600 dark:text-neutral-300">Privacy Policy</span>
+      </nav>
+
+      <!-- Page Header -->
+      <div class="space-y-4">
+        <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white">
+          Privacy Policy
+        </h1>
+        <p class="text-neutral-400 text-xs sm:text-sm font-mono">
+          Last Updated: June 16, 2026 &bull; Effective Immediately
+        </p>
+      </div>
+
+      <!-- Main Content Block -->
+      <div class="prose prose-neutral dark:prose-invert max-w-none text-sm text-neutral-600 dark:text-neutral-400 space-y-8 leading-relaxed">
+        
+        <!-- Crucial Callout -->
+        <div class="border border-dashed border-neutral-300 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/10 p-5 rounded-xl flex items-start gap-4">
+          <svg class="w-5 h-5 text-brand-green shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+          <div class="space-y-1">
+            <h3 class="font-semibold text-neutral-900 dark:text-white text-xs font-mono uppercase tracking-wider">Our Privacy Guarantee</h3>
+            <p class="text-xs">
+              CloudyUnicorn Tools is designed to run <strong>100% client-side</strong>. We do not store, collect, or transmit any variables (such as age, birthdates, heights, weights, or daily habits) that you input into our calculators. All calculations happen inside your browser context.
+            </p>
+          </div>
+        </div>
+
+        <section class="space-y-3">
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">1. Data We Do Not Collect</h2>
+          <p>
+            When you use our Age Calculator, BMI Calculator, or Calories Calculator, all processing is done locally via JavaScript on your machine.
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-neutral-500">
+            <li><strong>No Inputs Logged:</strong> Your input data (dates, metrics, stats) is never sent to our servers.</li>
+            <li><strong>No Database Storage:</strong> We do not operate databases that store user-specific records.</li>
+            <li><strong>No Authentication:</strong> We do not require accounts, logins, or social profile attachments.</li>
+          </ul>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">2. Server Logs & Analytics</h2>
+          <p>
+            Like most website providers, our hosting infrastructure may collect standard, non-identifying server request logs (such as IP addresses, user agents, page requests, and timestamps). This data is strictly utilized to analyze technical performance, prevent abuse, and maintain overall security.
+          </p>
+          <p>
+            We may use privacy-centric, cookieless analytical tools to monitor aggregate user trends (such as which calculators are visited most frequently). This data is entirely anonymous and cannot be tied back to individual inputs.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">3. Cookies & Local Storage</h2>
+          <p>
+            We do not use advertising tracking cookies. We may use standard browser `localStorage` solely to remember your UI layout preferences (for example, keeping dark mode enabled if you toggle it). You can clear this data at any time through your browser settings.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">4. Third-Party Integrations</h2>
+          <p>
+            Our site does not include external ad networks, tracking pixels, or dynamic social sharing widgets that harvest user habits. Any links to third-party web assets are provided strictly for educational purposes, and we encourage you to review the privacy documentation of those specific domains.
+          </p>
+        </section>
+
+        <section class="space-y-3">
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white tracking-tight">5. Contact Information</h2>
+          <p>
+            If you have questions regarding our privacy framework, please reach out to us at <a href="mailto:privacy@cloudyunicorn.com" class="text-neutral-905 dark:text-white hover:underline font-medium">privacy@cloudyunicorn.com</a>.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+</style>
