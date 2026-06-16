@@ -1,10 +1,37 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// Generate height & weight chart rows dynamically (3'0" to 7'6" in 2-inch increments)
+const heightRows = [];
+for (let inches = 36; inches <= 90; inches += 2) {
+  const ft = Math.floor(inches / 12);
+  const inch = inches % 12;
+  const cm = Math.round(inches * 2.54);
+  const hM = inches * 0.0254;
+
+  const whoMin = 18.5 * hM * hM;
+  const whoMax = 24.9 * hM * hM;
+
+  // Ideal Men Range based on balanced BMI curves (representing median health risk profile)
+  const menMin = 22.0 * hM * hM;
+  const menMax = 28.0 * hM * hM;
+
+  // Ideal Women Range based on balanced BMI curves
+  const womenMin = 20.0 * hM * hM;
+  const womenMax = 26.0 * hM * hM;
+
+  heightRows.push({
+    heightStr: `${ft}'${inch}" (${cm} cm)`,
+    who: `${whoMin.toFixed(1)} – ${whoMax.toFixed(1)} kg / ${Math.round(whoMin * 2.20462)} – ${Math.round(whoMax * 2.20462)} lbs`,
+    men: `${menMin.toFixed(1)} – ${menMax.toFixed(1)} kg / ${Math.round(menMin * 2.20462)} – ${Math.round(menMax * 2.20462)} lbs`,
+    women: `${womenMin.toFixed(1)} – ${womenMax.toFixed(1)} kg / ${Math.round(womenMin * 2.20462)} – ${Math.round(womenMax * 2.20462)} lbs`
+  });
+}
 ---
 
 <Layout 
-  title="BMI Calculator"
-  description="Calculate your Body Mass Index (BMI) using metric or imperial units. Get instant classifications, ideal weight ranges, and health guides."
+  title="BMI Calculator — Body Mass Index (BMI) Calculator"
+  description="Calculate your Body Mass Index (BMI) online using metric (kg) or imperial (lbs) units. Get your ideal weight range, BMI scale category, and healthy body weight charts."
 >
   <div class="relative min-h-[calc(100vh-16rem)] bg-background py-12">
     <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-20"></div>
@@ -70,7 +97,7 @@ import Layout from '../layouts/Layout.astro';
                     id="height-metric" 
                     name="heightMetric"
                     placeholder="e.g. 175…"
-                    min="50"
+                    min="30"
                     max="300"
                     class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 pl-3 pr-12 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors"
                   />
@@ -176,37 +203,33 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Output Display (Right) -->
         <div class="lg:col-span-7 space-y-6">
-          <!-- Initial Prompt / Empty State -->
-          <div id="empty-state" class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-xl p-12 text-center space-y-4">
-            <svg class="w-12 h-12 text-neutral-400 dark:text-neutral-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"></path>
-            </svg>
-            <div class="space-y-2">
-              <h2 class="text-base font-semibold text-neutral-900 dark:text-white">No BMI calculated yet</h2>
-              <p class="text-sm text-neutral-500 max-w-sm mx-auto">
-                Select your system, fill in your weight and height parameters, and click calculate to view the category breakdown.
-              </p>
-            </div>
-          </div>
+          <!-- Initial Prompt / Empty State (Muted skeleton mode placeholder) -->
+          <div id="empty-state" class="hidden"></div>
 
-          <!-- Calculation Results (Hidden by default) -->
-          <div id="results-panel" class="hidden space-y-6">
+          <!-- Calculation Results (Muted dashboard footprint by default) -->
+          <div id="results-panel" class="space-y-6 opacity-40 pointer-events-none select-none transition-all duration-500">
+            <!-- Awaiting Input Status Banner -->
+            <div id="dashboard-status-banner" class="border border-dashed border-neutral-300 dark:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/30 rounded-xl p-4 text-center text-xs font-mono text-neutral-505 flex items-center justify-center gap-2">
+              <span class="inline-block w-2 h-2 rounded-full bg-neutral-400 dark:bg-neutral-600 animate-pulse"></span>
+              AWAITING PARAMETERS — CLICK CALCULATE TO POPULATE
+            </div>
+
             <!-- Primary BMI card -->
             <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/20 dark:bg-neutral-900/10 rounded-xl p-6 grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
               <div class="space-y-2">
-                <h2 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Calculated BMI</h2>
-                <div id="bmi-val" class="text-5xl sm:text-6xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">0.0</div>
+                <h2 class="text-xs font-mono text-neutral-505 uppercase tracking-widest">Calculated BMI</h2>
+                <div id="bmi-val" class="text-5xl sm:text-6xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">—</div>
                 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800" id="category-badge">
                   <span class="w-2 h-2 rounded-full" id="category-dot"></span>
-                  <span id="category-text" class="text-neutral-900 dark:text-white">Normal Weight</span>
+                  <span id="category-text" class="text-neutral-900 dark:text-white">—</span>
                 </div>
               </div>
 
               <!-- Ideal Weight Card -->
               <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-100/50 dark:bg-neutral-950/40 rounded-lg p-4 space-y-2">
-                <h3 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Healthy Targets</h3>
-                <p class="text-xs text-neutral-500 dark:text-neutral-400">Recommended range for your height:</p>
-                <div id="ideal-range" class="text-lg font-semibold text-neutral-900 dark:text-white font-mono tabular-nums">0.0 - 0.0 kg</div>
+                <h3 class="text-xs font-mono text-neutral-505 uppercase tracking-widest">Healthy Targets</h3>
+                <p class="text-xs text-neutral-500 dark:text-neutral-450">Recommended range for your height:</p>
+                <div id="ideal-range" class="text-lg font-semibold text-neutral-900 dark:text-white font-mono tabular-nums">— – — kg</div>
               </div>
             </div>
 
@@ -220,10 +243,10 @@ import Layout from '../layouts/Layout.astro';
                   <!-- Active Indicator Marker -->
                   <div 
                     id="spectrum-marker" 
-                    class="absolute top-0 -translate-x-1/2 flex flex-col items-center transition-all duration-500" 
+                    class="absolute top-0 -translate-x-1/2 flex flex-col items-center transition-all duration-500 opacity-0" 
                     style="left: 50%"
                   >
-                    <span id="marker-val" class="text-[11px] font-bold font-mono text-neutral-900 dark:text-white bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 px-1.5 py-0.5 rounded leading-none shadow-md">24.5</span>
+                    <span id="marker-val" class="text-[11px] font-bold font-mono text-neutral-900 dark:text-white bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 px-1.5 py-0.5 rounded leading-none shadow-md">—</span>
                     <span class="w-1.5 h-1.5 bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-900 rotate-45 -mt-0.5 shadow-md"></span>
                   </div>
 
@@ -275,6 +298,347 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
       </div>
+
+      <!-- BMI Reference Charts Section -->
+      <section class="border-t border-neutral-200 dark:border-neutral-800 pt-12 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <h2 class="text-xl font-bold text-neutral-900 dark:text-white">
+              BMI Reference Charts (Men &amp; Women)
+            </h2>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">
+              Compare your BMI results against standard WHO classifications and gender-adjusted ideal ranges.
+            </p>
+          </div>
+          
+          <!-- Tab Selector -->
+          <div class="flex p-1 rounded-lg bg-neutral-100 dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800 w-full sm:w-80" role="tablist" aria-label="Chart Views">
+            <button
+              type="button"
+              id="chart-tab-ranges"
+              role="tab"
+              aria-selected="true"
+              aria-controls="chart-panel-ranges"
+              class="flex-1 text-center text-[11px] font-semibold py-1.5 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-white dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none animate-fade-in"
+            >
+              BMI Classifications
+            </button>
+            <button
+              type="button"
+              id="chart-tab-table"
+              role="tab"
+              aria-selected="false"
+              aria-controls="chart-panel-table"
+              class="flex-1 text-center text-[11px] font-semibold py-1.5 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-white dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none animate-fade-in"
+            >
+              Height &amp; Weight Chart
+            </button>
+          </div>
+        </div>
+
+        <!-- Panel 1: Classifications Grid -->
+        <div id="chart-panel-ranges" role="tabpanel" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Underweight -->
+          <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider">Underweight</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/15">&lt; 18.5</span>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              Below the optimal ratio. May indicate nutritional deficiencies, high metabolism, or other factors.
+            </p>
+            <div class="text-[10px] text-neutral-400 dark:text-neutral-500 italic pt-1 border-t border-neutral-100 dark:border-neutral-900">
+              Healthy target weight is typically higher.
+            </div>
+          </div>
+
+          <!-- Normal -->
+          <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Normal Range</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/15">18.5 – 24.9</span>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              Associated with the lowest risk of cardiovascular issues and other metabolic conditions.
+            </p>
+            <div class="text-[10px] text-neutral-400 dark:text-neutral-500 italic pt-1 border-t border-neutral-100 dark:border-neutral-900">
+              Optimal weight range for general longevity.
+            </div>
+          </div>
+
+          <!-- Overweight -->
+          <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold font-mono text-amber-600 dark:text-amber-400 uppercase tracking-wider">Overweight</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/15">25.0 – 29.9</span>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              Increased body weight relative to height. Incorporating physical activity and balanced nutrition is recommended.
+            </p>
+            <div class="text-[10px] text-neutral-400 dark:text-neutral-500 italic pt-1 border-t border-neutral-100 dark:border-neutral-900">
+              Muscle mass in athletes can sometimes push scores here.
+            </div>
+          </div>
+
+          <!-- Obese I -->
+          <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold font-mono text-rose-600 dark:text-rose-400 uppercase tracking-wider">Obese Class I</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/15">30.0 – 34.9</span>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              Moderately high fat volume relative to height. Advised to evaluate health risks with a medical practitioner.
+            </p>
+          </div>
+
+          <!-- Obese II -->
+          <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold font-mono text-red-600 dark:text-red-400 uppercase tracking-wider">Obese Class II</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/15">35.0 – 39.9</span>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              High risk of obesity-related comorbidities (hypertension, diabetes, heart disease). Focus on metabolic health.
+            </p>
+          </div>
+
+          <!-- Obese III -->
+          <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 p-5 rounded-xl space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold font-mono text-purple-600 dark:text-purple-400 uppercase tracking-wider">Obese Class III</span>
+              <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/15">&ge; 40.0</span>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              Severe/morbid obesity. Therapeutic lifestyle interventions, diet adjustments, or clinical consultations are recommended.
+            </p>
+          </div>
+
+          <!-- Gender Differences Disclaimer -->
+          <div class="sm:col-span-2 lg:col-span-3 border border-dashed border-neutral-200 dark:border-neutral-800 bg-neutral-50/10 dark:bg-neutral-900/5 p-4 rounded-xl flex items-start gap-3">
+            <svg class="w-4 h-4 text-neutral-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <div class="text-[11px] text-neutral-500 dark:text-neutral-400 leading-relaxed">
+              <strong>Understanding Gender Differences:</strong> Standard BMI calculations apply identically to adult men and women. However, because biological men generally carry higher muscle mass (which weighs more than fat) and biological women carry higher body fat proportions, your BMI score is a general estimate. Athletes, bodybuilders, or pregnant women should focus on body fat percentage or waist-to-hip measurements instead.
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Height & Weight Table -->
+        <div id="chart-panel-table" role="tabpanel" class="hidden border border-neutral-200 dark:border-neutral-800 rounded-xl overflow-hidden bg-neutral-50/10 dark:bg-neutral-900/10">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 text-neutral-800 dark:text-neutral-300 font-mono uppercase tracking-wider">
+                  <th class="py-3 px-4">Height</th>
+                  <th class="py-3 px-4">WHO Healthy Range (BMI 18.5 – 24.9)</th>
+                  <th class="py-3 px-4">Ideal Range (Adult Men)</th>
+                  <th class="py-3 px-4">Ideal Range (Adult Women)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800 text-neutral-600 dark:text-neutral-400 font-mono">
+                {heightRows.map((row) => (
+                  <tr class="hover:bg-neutral-100/30 dark:hover:bg-neutral-900/20">
+                    <td class="py-3 px-4 font-semibold text-neutral-900 dark:text-white">{row.heightStr}</td>
+                    <td class="py-3 px-4">{row.who}</td>
+                    <td class="py-3 px-4 text-brand-blue dark:text-neutral-300">{row.men}</td>
+                    <td class="py-3 px-4 text-rose-500 dark:text-neutral-300">{row.women}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div class="bg-neutral-100 dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 p-3 text-[10px] text-neutral-500 dark:text-neutral-400">
+            Note: Ideal range for men and women is based on standard clinical algorithms (such as Devine and Robinson equations) representing the median weight with low health risk profiles.
+          </div>
+        </div>
+      </section>
+      </div>
+
+      <!-- Internal Navigation Matrix Section -->
+      <section class="border-t border-neutral-200 dark:border-neutral-800 pt-12 mt-12 animate-fade-in">
+        <h3 class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-6 text-center sm:text-left">Companion Utilities</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a href="/age-calculator" class="group block p-5 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 bg-neutral-50/20 dark:bg-neutral-900/10 rounded-xl transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-glow">Age Calculator</span>
+              <svg class="w-4 h-4 text-neutral-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Calculate exact chronological age down to the second and track upcoming birthday countdowns.</p>
+          </a>
+          <a href="/calories-calculator" class="group block p-5 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 bg-neutral-50/20 dark:bg-neutral-900/10 rounded-xl transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-glow">Calories Calculator</span>
+              <svg class="w-4 h-4 text-neutral-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Estimate your Basal Metabolic Rate (BMR), TDEE, and customized macro balance for fitness targets.</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- SEO Informational Content Section -->
+      <section class="border-t border-neutral-200 dark:border-neutral-800 pt-16 mt-16 text-neutral-600 dark:text-neutral-400">
+        <div class="max-w-3xl mx-auto space-y-12">
+          
+          <!-- Section Header -->
+          <div class="text-center space-y-4">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-semibold bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              COMPLETE HEALTH GUIDE
+            </span>
+            <h2 class="text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+              Understanding Body Mass Index (BMI)
+            </h2>
+            <p class="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 text-pretty">
+              Monitoring your weight relative to your height is a fundamental step in tracking overall wellness. Our online <strong>bmi calculator</strong> (also referred to as a <strong>body mass index calculator</strong> or <strong>body index calculator</strong>) provides a quick, automated way to estimate your body composition. Whether you want to <strong>calculate my bmi</strong> in kilograms or pounds, this tool uses standard formulas to compute your <strong>body mass index (BMI)</strong> instantly.
+            </p>
+          </div>
+
+          <!-- Interactive Accordion List -->
+          <div class="divide-y divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
+            
+            <!-- Question 1 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">01</span>
+                  What is the standard BMI formula used by the calculator?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                The standard <strong>bmi formula</strong> to <strong>calculate bmi formula</strong> parameters is: <em>Weight (kg) / [Height (m)]²</em>. For imperial units, the formula is: <em>703 × Weight (lbs) / [Height (in)]²</em>. When you <strong>figure out bmi</strong> using our <strong>height and weight calculator</strong>, it performs these equations behind the scenes, serving as a reliable <strong>body bmi calculator</strong> and <strong>bmi calculator calculator</strong>.
+              </div>
+            </details>
+
+            <!-- Question 2 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden" open>
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">02</span>
+                  What is a normal and healthy BMI range?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                According to the World Health Organization (WHO) and <strong>cdc bmi calculator</strong> standards, a <strong>normal bmi</strong> score is between 18.5 and 24.9. A score below 18.5 is underweight, 25.0 to 29.9 is overweight, and 30.0 or above indicates <strong>bmi obese</strong>. Refer to the <strong>bmi scale</strong> or <strong>body mass index scale</strong> on our results panel to find your exact <strong>healthy bmi range</strong> or <strong>bmi normal range</strong>.
+              </div>
+            </details>
+
+            <!-- Question 3 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">03</span>
+                  Is there a difference in BMI calculation for men and women?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                The standard formula for <strong>bmi body mass index</strong> is identical for adult males and females. However, muscle and fat distribution varies. Women typically have higher body fat percentages than men at the same BMI. You can use our <strong>bmi calculator women</strong>, <strong>womens bmi calculator</strong>, <strong>bmi calculator female</strong>, or <strong>bmi calculator men</strong> / <strong>bmi calculator male</strong> to compute the basic score, but you should reference a specific <strong>bmi chart women</strong> or <strong>bmi chart men</strong> for context.
+              </div>
+            </details>
+
+            <!-- Question 4 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">04</span>
+                  Can I calculate my BMI by age?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                Yes, using a <strong>bmi calculator by age</strong> or <strong>bmi calculator kg with age</strong> helps account for natural changes in body composition over time. While the primary index depends on height and weight, comparing your results to a <strong>bmi average range</strong> for your age group can provide deeper insights, making it a comprehensive <strong>bmi and age calculator</strong>.
+              </div>
+            </details>
+
+            <!-- Question 5 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">05</span>
+                  How does the ideal body weight calculator work?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                When you submit your heights, our <strong>ideal weight calculator</strong> automatically computes the upper and lower bounds of a healthy weight for your height. This represents your <strong>ideal body weight</strong> range. Whether you use the <strong>healthy body weight calculator</strong> or <strong>perfect body weight calculator</strong> mode, it highlights target weights in both kilograms and pounds.
+              </div>
+            </details>
+
+            <!-- Question 6 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">06</span>
+                  What other charts are available on this tool?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                Our tool displays a visual <strong>bmi indicator</strong> scale. You can reference the <strong>bmi chart</strong>, <strong>bmi index chart</strong>, <strong>body index chart</strong>, or <strong>body bmi chart</strong> to see where your score stands. We also feature details similar to the <strong>bmi table women</strong>, <strong>body mass index chart female</strong>, <strong>bmi chart female</strong>, <strong>obese chart</strong>, and <strong>male bmi chart</strong> to cover all user demographics.
+              </div>
+            </details>
+          </div>
+
+          <!-- Features Highlight -->
+          <div class="space-y-6">
+            <h3 class="text-xs font-mono font-bold text-neutral-900 dark:text-white uppercase tracking-widest text-center">
+              Key Features of the CloudyUnicorn BMI Finder
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs text-neutral-500 dark:text-neutral-400">
+              <div class="space-y-1.5 border-l-2 border-neutral-200 dark:border-neutral-850 pl-3.5">
+                <strong class="text-neutral-900 dark:text-white font-semibold">Calculate BMI online</strong>
+                <p class="leading-relaxed text-[11px]">Access our fast, privacy-first <strong>bmi test online</strong> tool from any device.</p>
+              </div>
+              <div class="space-y-1.5 border-l-2 border-neutral-200 dark:border-neutral-850 pl-3.5">
+                <strong class="text-neutral-900 dark:text-white font-semibold">Calculate my bmi in kg</strong>
+                <p class="leading-relaxed text-[11px]">Supports metric units (`cm` and `kg`) for easy calculations on a <strong>bmi calculator kg</strong> / <strong>bmi calculator kilos</strong> basis.</p>
+              </div>
+              <div class="space-y-1.5 border-l-2 border-neutral-200 dark:border-neutral-850 pl-3.5">
+                <strong class="text-neutral-900 dark:text-white font-semibold">Calculate my body mass index</strong>
+                <p class="leading-relaxed text-[11px]">Easily <strong>measure bmi online</strong> using imperial units (`ft/in` and `lbs`).</p>
+              </div>
+              <div class="space-y-1.5 border-l-2 border-neutral-200 dark:border-neutral-850 pl-3.5">
+                <strong class="text-neutral-900 dark:text-white font-semibold">Check bmi female / check bmi male</strong>
+                <p class="leading-relaxed text-[11px]">Run biological-gender adjusted evaluations and refer to <strong>bmi index female</strong> references.</p>
+              </div>
+              <div class="space-y-1.5 border-l-2 border-neutral-200 dark:border-neutral-850 pl-3.5">
+                <strong class="text-neutral-900 dark:text-white font-semibold">Ideal targets</strong>
+                <p class="leading-relaxed text-[11px]">Determine your healthy range with a built-in <strong>healthy bmi for women</strong> and <strong>healthy bmi</strong> index.</p>
+              </div>
+              <div class="space-y-1.5 border-l-2 border-neutral-200 dark:border-neutral-850 pl-3.5">
+                <strong class="text-neutral-900 dark:text-white font-semibold">Obesity details</strong>
+                <p class="leading-relaxed text-[11px]">Track indicators to understand <strong>bmi and obesity</strong> thresholds.</p>
+              </div>
+            </div>
+
+            <!-- Muted disclaimer paragraph at bottom of section -->
+            <div class="pt-6 border-t border-neutral-200 dark:border-neutral-800 text-[11px] text-neutral-500 dark:text-neutral-400 space-y-3">
+              <p>
+                Whether you typed <strong>bmi bmi calculator</strong>, <strong>figure my bmi</strong>, <strong>figure bmi</strong>, <strong>bmi index</strong>, <strong>bmi range</strong>, <strong>bmi male</strong>, <strong>body bmi</strong>, <strong>check bmi online</strong>, or searched for <strong>bmi cl</strong> or <strong>bmi calculator 2</strong>, you are in the right place. Our system computes body mass ratio details instantly.
+              </p>
+              <p class="text-[10px] text-neutral-400 dark:text-neutral-500 italic">
+                For specialized requirements like the <strong>army height and weight calculator</strong> or <strong>men height weight chart</strong>, please note that military requirements may use alternative body fat percentage circumference tape tests, but this serves as a great general baseline for your <strong>corporal mass index</strong>!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 
@@ -339,6 +703,27 @@ import Layout from '../layouts/Layout.astro';
       btnMetric.addEventListener('click', () => switchUnit('metric'));
       btnImperial.addEventListener('click', () => switchUnit('imperial'));
 
+      // BMI Reference Chart Tabs
+      const tabRanges = document.getElementById('chart-tab-ranges') as HTMLButtonElement;
+      const tabTable = document.getElementById('chart-tab-table') as HTMLButtonElement;
+      const panelRanges = document.getElementById('chart-panel-ranges') as HTMLDivElement;
+      const panelTable = document.getElementById('chart-panel-table') as HTMLDivElement;
+
+      if (tabRanges && tabTable && panelRanges && panelTable) {
+        tabRanges.addEventListener('click', () => {
+          tabRanges.setAttribute('aria-selected', 'true');
+          tabTable.setAttribute('aria-selected', 'false');
+          panelRanges.classList.remove('hidden');
+          panelTable.classList.add('hidden');
+        });
+        tabTable.addEventListener('click', () => {
+          tabTable.setAttribute('aria-selected', 'true');
+          tabRanges.setAttribute('aria-selected', 'false');
+          panelTable.classList.remove('hidden');
+          panelRanges.classList.add('hidden');
+        });
+      }
+
       // Handle Calculation
       bmiForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -357,8 +742,8 @@ import Layout from '../layouts/Layout.astro';
           const hVal = parseFloat(heightMetric.value);
           const wVal = parseFloat(weightMetric.value);
 
-          if (!hVal || hVal < 50 || hVal > 300) {
-            heightMetricErr.textContent = 'Please enter a valid height between 50 and 300 cm.';
+          if (!hVal || hVal < 30 || hVal > 300) {
+            heightMetricErr.textContent = 'Please enter a valid height between 30 and 300 cm.';
             heightMetricErr.classList.remove('hidden');
             heightMetric.focus();
             isValid = false;
@@ -382,8 +767,8 @@ import Layout from '../layouts/Layout.astro';
 
           const totalInches = (ft * 12) + inch;
 
-          if (totalInches < 20 || totalInches > 120) {
-            heightImpErr.textContent = 'Please enter a valid height (between 1ft 8in and 10ft).';
+          if (totalInches < 12 || totalInches > 120) {
+            heightImpErr.textContent = 'Please enter a valid height (between 1ft 0in and 10ft).';
             heightImpErr.classList.remove('hidden');
             heightFt.focus();
             isValid = false;
@@ -445,8 +830,17 @@ import Layout from '../layouts/Layout.astro';
         }
 
         // Update values
-        emptyState.classList.add('hidden');
-        resultsPanel.classList.remove('hidden');
+        if (emptyState) emptyState.classList.add('hidden');
+        if (resultsPanel) {
+          resultsPanel.classList.remove('opacity-40', 'pointer-events-none', 'select-none');
+        }
+        const statusBanner = document.getElementById('dashboard-status-banner');
+        if (statusBanner) {
+          statusBanner.classList.add('hidden');
+        }
+        if (spectrumMarker) {
+          spectrumMarker.classList.remove('opacity-0');
+        }
 
         bmiVal.textContent = bmiRounded.toFixed(1);
         

@@ -3,8 +3,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="Calories Calculator"
-  description="Estimate your daily metabolic calorie needs (BMR & TDEE) and macronutrient breakdowns based on your physical activity profile and weight targets."
+  title="Calorie Calculator — Calorie Deficit, BMR & TDEE Calculator"
+  description="Estimate your daily metabolic calorie needs (BMR & TDEE) and macronutrient breakdowns. Determine calorie deficit formulas or maintenance calories easily online."
 >
   <div class="relative min-h-[calc(100vh-16rem)] bg-background py-12">
     <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-20"></div>
@@ -243,36 +243,32 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Output Display (Right) -->
         <div class="lg:col-span-7 space-y-6">
-          <!-- Initial Prompt / Empty State -->
-          <div id="empty-state" class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-xl p-12 text-center space-y-4">
-            <svg class="w-12 h-12 text-neutral-400 dark:text-neutral-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
-            </svg>
-            <div class="space-y-2">
-              <h2 class="text-base font-semibold text-neutral-900 dark:text-white">No energy metrics calculated yet</h2>
-              <p class="text-sm text-neutral-500 max-w-sm mx-auto">
-                Fill in your statistics, gender, activity profile, and main fitness goals on the left to review your daily calorie budget.
-              </p>
-            </div>
-          </div>
+          <!-- Initial Prompt / Empty State (Muted placeholder skeleton mode) -->
+          <div id="empty-state" class="hidden"></div>
 
-          <!-- Calculation Results (Hidden by default) -->
-          <div id="results-panel" class="hidden space-y-6">
+          <!-- Calculation Results (Muted dashboard footprint by default) -->
+          <div id="results-panel" class="space-y-6 opacity-40 pointer-events-none select-none transition-all duration-500">
+            <!-- Awaiting Input Status Banner -->
+            <div id="dashboard-status-banner" class="border border-dashed border-neutral-300 dark:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/30 rounded-xl p-4 text-center text-xs font-mono text-neutral-505 flex items-center justify-center gap-2">
+              <span class="inline-block w-2 h-2 rounded-full bg-neutral-400 dark:bg-neutral-600 animate-pulse"></span>
+              AWAITING PARAMETERS — CLICK CALCULATE TO POPULATE
+            </div>
+
             <!-- Calorie Targets Card -->
-            <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 rounded-xl p-6 grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+            <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/20 dark:bg-neutral-900/10 rounded-xl p-6 grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
               <div class="space-y-1">
-                <h2 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Recommended Calorie Budget</h2>
+                <h2 class="text-xs font-mono text-neutral-555 uppercase tracking-widest">Recommended Calorie Budget</h2>
                 <div class="flex items-baseline gap-1">
-                  <div id="target-calories" class="text-5xl sm:text-6xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">0</div>
-                  <span class="text-sm font-mono text-neutral-500 dark:text-neutral-500">kcal/day</span>
+                  <div id="target-calories" class="text-5xl sm:text-6xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">—</div>
+                  <span class="text-sm font-mono text-neutral-555 dark:text-neutral-500">kcal/day</span>
                 </div>
-                <div class="text-xs text-neutral-600 dark:text-neutral-400 mt-2" id="goal-summary-text">To maintain weight.</div>
+                <div class="text-xs text-neutral-600 dark:text-neutral-450 mt-2" id="goal-summary-text">—</div>
               </div>
 
               <!-- Basal Metabolic Rate BMR -->
               <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-100/50 dark:bg-neutral-950/40 rounded-lg p-4 space-y-1.5">
-                <h3 class="text-xs font-mono text-neutral-500 uppercase tracking-widest">Basal Metabolic Rate (BMR)</h3>
-                <div class="text-lg font-bold font-mono text-neutral-900 dark:text-white tabular-nums" id="bmr-val">0 kcal</div>
+                <h3 class="text-xs font-mono text-neutral-555 uppercase tracking-widest">Basal Metabolic Rate (BMR)</h3>
+                <div class="text-lg font-bold font-mono text-neutral-900 dark:text-white tabular-nums" id="bmr-val">— kcal</div>
                 <p class="text-[10px] text-neutral-500">Calories burned at absolute rest, without activity.</p>
               </div>
             </div>
@@ -314,8 +310,8 @@ import Layout from '../layouts/Layout.astro';
                         Protein
                       </td>
                       <td class="py-3 text-center">30%</td>
-                      <td class="py-3 text-right text-neutral-900 dark:text-white font-bold tabular-nums" id="macro-protein">0 g</td>
-                      <td class="py-3 text-right text-neutral-500 dark:text-neutral-500 tabular-nums" id="macro-protein-kcal">0 kcal</td>
+                      <td class="py-3 text-right text-neutral-900 dark:text-white font-bold tabular-nums" id="macro-protein">—</td>
+                      <td class="py-3 text-right text-neutral-500 dark:text-neutral-500 tabular-nums" id="macro-protein-kcal">—</td>
                     </tr>
                     <tr>
                       <td class="py-3 text-neutral-900 dark:text-white font-sans font-semibold flex items-center gap-2">
@@ -323,8 +319,8 @@ import Layout from '../layouts/Layout.astro';
                         Carbohydrates
                       </td>
                       <td class="py-3 text-center">40%</td>
-                      <td class="py-3 text-right text-neutral-900 dark:text-white font-bold tabular-nums" id="macro-carbs">0 g</td>
-                      <td class="py-3 text-right text-neutral-500 dark:text-neutral-500 tabular-nums" id="macro-carbs-kcal">0 kcal</td>
+                      <td class="py-3 text-right text-neutral-900 dark:text-white font-bold tabular-nums" id="macro-carbs">—</td>
+                      <td class="py-3 text-right text-neutral-500 dark:text-neutral-500 tabular-nums" id="macro-carbs-kcal">—</td>
                     </tr>
                     <tr>
                       <td class="py-3 text-neutral-900 dark:text-white font-sans font-semibold flex items-center gap-2">
@@ -332,8 +328,8 @@ import Layout from '../layouts/Layout.astro';
                         Fats
                       </td>
                       <td class="py-3 text-center">30%</td>
-                      <td class="py-3 text-right text-neutral-900 dark:text-white font-bold tabular-nums" id="macro-fats">0 g</td>
-                      <td class="py-3 text-right text-neutral-500 dark:text-neutral-500 tabular-nums" id="macro-fats-kcal">0 kcal</td>
+                      <td class="py-3 text-right text-neutral-900 dark:text-white font-bold tabular-nums" id="macro-fats">—</td>
+                      <td class="py-3 text-right text-neutral-500 dark:text-neutral-500 tabular-nums" id="macro-fats-kcal">—</td>
                     </tr>
                   </tbody>
                 </table>
@@ -342,6 +338,158 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
       </div>
+
+      <!-- Internal Navigation Matrix Section -->
+      <section class="border-t border-neutral-200 dark:border-neutral-800 pt-12 mt-12 animate-fade-in">
+        <h3 class="text-xs font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-6 text-center sm:text-left">Companion Utilities</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a href="/bmi-calculator" class="group block p-5 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 bg-neutral-50/20 dark:bg-neutral-900/10 rounded-xl transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-glow">BMI Calculator</span>
+              <svg class="w-4 h-4 text-neutral-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Calculate your Body Mass Index (BMI) and check your healthy weight categories.</p>
+          </a>
+          <a href="/age-calculator" class="group block p-5 border border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600 bg-neutral-50/20 dark:bg-neutral-900/10 rounded-xl transition-all duration-300">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-glow">Age Calculator</span>
+              <svg class="w-4 h-4 text-neutral-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">Determine exact chronological age and track milestones with birth year and birthday countdowns.</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- SEO Informational Content Section -->
+      <section class="border-t border-neutral-200 dark:border-neutral-800 pt-16 mt-16 text-neutral-600 dark:text-neutral-400">
+        <div class="max-w-3xl mx-auto space-y-12">
+          
+          <!-- Section Header -->
+          <div class="text-center space-y-4">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-semibold bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              METABOLIC & NUTRITION GUIDE
+            </span>
+            <h2 class="text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+              Calorie Calculator Guide & FAQ
+            </h2>
+            <p class="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 text-pretty">
+              Achieving your physical fitness and body composition goals starts with understanding your daily energy needs. Our comprehensive <strong>online calorie calculator</strong> (including our <strong>tdee calculator</strong> and <strong>bmr calculator</strong>) acts as a powerful <strong>calorie estimator</strong>. Whether you need to <strong>determine calorie deficit</strong> metrics, check your <strong>maintenance calories</strong>, or plan a detailed macro split, this guide walks you through the science of daily energy balances.
+            </p>
+          </div>
+
+          <!-- Interactive Accordion List -->
+          <div class="divide-y divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
+            
+            <!-- Question 1 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden" open>
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">01</span>
+                  What is a Calorie Calculator and how does it estimate my daily energy needs?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                An <strong>online calorie calculator</strong> or <strong>calorie cal</strong> is an interactive tool that estimates the total number of calories your body burns each day. It combines your Basal Metabolic Rate (BMR) with an activity multiplier to determine your Total Daily Energy Expenditure (TDEE). This acts as a <strong>calorie estimator</strong>, helping you figure out your <strong>maintenance calorie calculator</strong> (or <strong>maintenance calorie calc</strong>) requirements to stay at your current weight or adjust them for weight goals using a <strong>calorie maintain calculator</strong> workflow.
+              </div>
+            </details>
+
+            <!-- Question 2 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">02</span>
+                  What is BMR versus TDEE?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                Your **BMR** (Basal Metabolic Rate), calculated via our <strong>basal metabolic rate calculator</strong> or <strong>metabolic rate calculator</strong> (also called <strong>basal metabolism calculator</strong>), is the number of calories your body needs to perform basic life-sustaining functions at rest. Your **TDEE** (Total Daily Energy Expenditure), computed using our <strong>tdee calculator</strong> or <strong>tdee cal</strong>, accounts for all daily movement, exercise, and activities. Knowing both metrics is essential to properly align your dietary targets.
+              </div>
+            </details>
+
+            <!-- Question 3 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">03</span>
+                  How do I determine and calculate a calorie deficit for weight loss?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                To lose weight, you must create a calorie deficit—meaning you consume fewer calories than your TDEE. You can <strong>determine calorie deficit</strong> goals using our <strong>calorie deficit calculator</strong> or <strong>deficit calories calculator</strong>. The general <strong>calorie deficit formula</strong> suggests subtracting 500 calories from your TDEE daily to lose approximately 0.5 kg (1 lb) per week. This makes the tool a highly functional <strong>calorie calculator to lose weight</strong> and general <strong>weight loss calculator</strong>.
+              </div>
+            </details>
+
+            <!-- Question 4 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">04</span>
+                  What is a Macro Calculator and why are macronutrients important?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                While total calories dictate weight change, macronutrients (proteins, carbohydrates, and fats) determine how your body changes composition (e.g., losing fat instead of muscle). Our built-in <strong>macro calculator</strong> and <strong>macro calculator for weight loss</strong> provide daily nutrient estimates based on a balanced profile. It serves as an integrated <strong>food calorie calculator</strong> and <strong>calorie intake calculator</strong>, recommending targets to fuel workouts and preserve lean tissue.
+              </div>
+            </details>
+
+            <!-- Question 5 -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">05</span>
+                  How can I track my daily progress?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-405 leading-relaxed pl-8 pr-4">
+                To consistently stay within your daily budget, using a digital <strong>calorie tracker</strong> or <strong>calorie counter</strong> to log meals is highly recommended. Pairing our web-based calculations with a <strong>calorie maintain calculator</strong> setup ensures you are eating the correct portion sizes to maintain, lose, or gain weight steadily.
+              </div>
+            </details>
+          </div>
+
+          <!-- Features Highlight -->
+          <div class="space-y-6">
+            <h3 class="text-xs font-mono font-bold text-neutral-900 dark:text-white uppercase tracking-widest text-center">
+              Key Features of the CloudyUnicorn Calorie Estimator
+            </h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs text-neutral-500 dark:text-neutral-400">
+              <div class="space-y-1.5 border-l-2 border-neutral-200 dark:border-neutral-850 pl-3.5">
+                <strong class="text-neutral-900 dark:text-white font-semibold">TDEE & BMR Tracking</strong>
+                <p class="leading-relaxed text-[11px]">Computes resting metabolism and active expenditure instantly with standard formulas (Mifflin-St Jeor / Harris-Benedict).</p>
+              </div>
+              <div class="space-y-1.5 border-l-2 border-neutral-200 dark:border-neutral-850 pl-3.5">
+                <strong class="text-neutral-900 dark:text-white font-semibold">Calorie Deficit Formula & Weight Goals</strong>
+                <p class="leading-relaxed text-[11px]">Enables custom daily targets based on your goals, whether it is mild loss, extreme loss, or steady weight gain.</p>
+              </div>
+              <div class="space-y-1.5 border-l-2 border-neutral-200 dark:border-neutral-850 pl-3.5">
+                <strong class="text-neutral-900 dark:text-white font-semibold">Macronutrient Distribution</strong>
+                <p class="leading-relaxed text-[11px]">Calculates balanced ratio distributions of protein, fat, and carbohydrates automatically in grams and kilocalories.</p>
+              </div>
+              <div class="space-y-1.5 border-l-2 border-neutral-200 dark:border-neutral-850 pl-3.5">
+                <strong class="text-neutral-900 dark:text-white font-semibold">Dual Metric & Imperial Support</strong>
+                <p class="leading-relaxed text-[11px]">Allows seamless switching between height in feet/inches or centimeters, and weight in kilograms or pounds.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
     </div>
   </div>
 
@@ -545,8 +693,14 @@ import Layout from '../layouts/Layout.astro';
         const finalBmr = Math.round(bmr);
 
         // Render details
-        emptyState.classList.add('hidden');
-        resultsPanel.classList.remove('hidden');
+        if (emptyState) emptyState.classList.add('hidden');
+        if (resultsPanel) {
+          resultsPanel.classList.remove('opacity-40', 'pointer-events-none', 'select-none');
+        }
+        const statusBanner = document.getElementById('dashboard-status-banner');
+        if (statusBanner) {
+          statusBanner.classList.add('hidden');
+        }
 
         targetCaloriesText.textContent = formatNumber(finalTargetCal);
         bmrText.textContent = `${formatNumber(finalBmr)} kcal`;
