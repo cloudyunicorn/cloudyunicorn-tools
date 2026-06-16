@@ -30,7 +30,7 @@ import Layout from '../layouts/Layout.astro';
       <!-- Main Columns -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <!-- Input Form (Left) -->
-        <div class="lg:col-span-5 relative z-20 border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 backdrop-blur-sm rounded-xl p-6 space-y-6">
+        <div class="lg:col-span-5 relative z-20 premium-glass-card rounded-xl p-6 space-y-6">
           <form id="age-form" class="space-y-5" novalidate>
             <!-- Date of Birth -->
             <div class="space-y-2 relative" id="birth-date-container">
@@ -160,18 +160,18 @@ import Layout from '../layouts/Layout.astro';
             </div>
 
             <!-- Primary Age Card -->
-            <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/20 rounded-xl p-6 space-y-4">
+            <div class="premium-glass-card rounded-xl p-6 space-y-4">
               <h2 class="text-xs font-mono text-neutral-505 uppercase tracking-widest">Calculated Age</h2>
               <div class="grid grid-cols-3 gap-4">
-                <div class="border border-neutral-200 dark:border-neutral-800/80 bg-neutral-100/40 dark:bg-neutral-950/40 rounded-lg p-4 text-center">
+                <div class="premium-glass-card-subtle rounded-lg p-4 text-center">
                   <div id="age-years" class="text-3xl sm:text-4xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">—</div>
                   <div class="text-[11px] font-mono text-neutral-505 uppercase mt-1">Years</div>
                 </div>
-                <div class="border border-neutral-200 dark:border-neutral-800/80 bg-neutral-100/40 dark:bg-neutral-950/40 rounded-lg p-4 text-center">
+                <div class="premium-glass-card-subtle rounded-lg p-4 text-center">
                   <div id="age-months" class="text-3xl sm:text-4xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">—</div>
                   <div class="text-[11px] font-mono text-neutral-505 uppercase mt-1">Months</div>
                 </div>
-                <div class="border border-neutral-200 dark:border-neutral-800/80 bg-neutral-100/40 dark:bg-neutral-950/40 rounded-lg p-4 text-center">
+                <div class="premium-glass-card-subtle rounded-lg p-4 text-center">
                   <div id="age-days" class="text-3xl sm:text-4xl font-bold font-mono text-neutral-900 dark:text-white text-glow tabular-nums">—</div>
                   <div class="text-[11px] font-mono text-neutral-505 uppercase mt-1">Days</div>
                 </div>
@@ -193,7 +193,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
 
             <!-- Next Birthday Countdown Card -->
-            <div class="border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/20 rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="premium-glass-card rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div class="space-y-1">
                 <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">Next Birthday Countdown</h3>
                 <p class="text-xs text-neutral-500 dark:text-neutral-400">Time remaining until your next celebration:</p>
@@ -210,23 +210,23 @@ import Layout from '../layouts/Layout.astro';
             <div class="space-y-4">
               <h3 class="text-xs font-mono text-neutral-505 uppercase tracking-widest">Lifespan Breakdown</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-lg p-4 flex items-center justify-between">
+                <div class="premium-glass-card-subtle rounded-lg p-4 flex items-center justify-between">
                   <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Total Months Lived</span>
                   <span id="total-months" class="text-sm font-bold font-mono text-neutral-900 dark:text-white tabular-nums">—</span>
                 </div>
-                <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-lg p-4 flex items-center justify-between">
+                <div class="premium-glass-card-subtle rounded-lg p-4 flex items-center justify-between">
                   <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Total Weeks Lived</span>
                   <span id="total-weeks" class="text-sm font-bold font-mono text-neutral-900 dark:text-white tabular-nums">—</span>
                 </div>
-                <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-lg p-4 flex items-center justify-between">
+                <div class="premium-glass-card-subtle rounded-lg p-4 flex items-center justify-between">
                   <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Total Days Lived</span>
                   <span id="total-days" class="text-sm font-bold font-mono text-neutral-900 dark:text-white tabular-nums">—</span>
                 </div>
-                <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-lg p-4 flex items-center justify-between">
+                <div class="premium-glass-card-subtle rounded-lg p-4 flex items-center justify-between">
                   <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Total Hours Lived</span>
                   <span id="total-hours" class="text-sm font-bold font-mono text-neutral-900 dark:text-white tabular-nums">—</span>
                 </div>
-                <div class="border border-neutral-200 dark:border-neutral-850 bg-neutral-50/10 dark:bg-neutral-900/10 rounded-lg p-4 flex items-center justify-between sm:col-span-2">
+                <div class="premium-glass-card-subtle rounded-lg p-4 flex items-center justify-between sm:col-span-2">
                   <span class="text-xs font-medium text-neutral-500 dark:text-neutral-400">Total Minutes Lived</span>
                   <span id="total-minutes" class="text-sm font-bold font-mono text-neutral-900 dark:text-white tabular-nums">—</span>
                 </div>
