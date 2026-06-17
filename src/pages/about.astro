@@ -45,13 +45,13 @@ import Layout from '../layouts/Layout.astro';
           <!-- Key Principles Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
             <div class="p-5 border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 rounded-xl space-y-2">
-              <span class="inline-block p-2 rounded-lg bg-brand-green/10 border border-brand-green/15 text-brand-green font-mono text-xs font-bold uppercase tracking-wider">01. Privacy First</span>
+              <span class="inline-block p-2 rounded-lg bg-brand-green/10 border border-brand-green/15 text-brand-green-text font-mono text-xs font-bold uppercase tracking-wider">01. Privacy First</span>
               <p class="text-xs text-neutral-500">
                 100% of our code runs directly in your browser. None of your input data is ever stored, analyzed, or sent to a remote database.
               </p>
             </div>
             <div class="p-5 border border-neutral-200 dark:border-neutral-800 bg-neutral-50/20 dark:bg-neutral-900/10 rounded-xl space-y-2">
-              <span class="inline-block p-2 rounded-lg bg-brand-blue/10 border border-brand-blue/15 text-brand-blue font-mono text-xs font-bold uppercase tracking-wider">02. High Precision</span>
+              <span class="inline-block p-2 rounded-lg bg-brand-blue/10 border border-brand-blue/15 text-brand-blue-text font-mono text-xs font-bold uppercase tracking-wider">02. High Precision</span>
               <p class="text-xs text-neutral-500">
                 We implement verified clinical and mathematical models (WHO guidelines, Harris-Benedict formula) ensuring developer-grade precision.
               </p>
@@ -175,11 +175,11 @@ import Layout from '../layouts/Layout.astro';
       copyBtn.addEventListener('click', () => {
         navigator.clipboard.writeText(supportEmail).then(() => {
           copyBtnText.textContent = 'Copied!';
-          copyBtn.classList.add('border-brand-green', 'text-brand-green');
+          copyBtn.classList.add('border-brand-green', 'text-brand-green-text');
           
           setTimeout(() => {
             copyBtnText.textContent = 'Copy';
-            copyBtn.classList.remove('border-brand-green', 'text-brand-green');
+            copyBtn.classList.remove('border-brand-green', 'text-brand-green-text');
           }, 2000);
         }).catch((err) => {
           console.error('Failed to copy text: ', err);

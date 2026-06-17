@@ -166,11 +166,11 @@ const {
         const urlToCopy = getTargetUrl(copyBtn);
         navigator.clipboard.writeText(urlToCopy).then(() => {
           copyText.textContent = 'Copied!';
-          copyBtn.classList.add('border-brand-green', 'text-brand-green');
+          copyBtn.classList.add('border-brand-green', 'text-brand-green-text');
           
           setTimeout(() => {
             copyText.textContent = 'Copy Link';
-            copyBtn.classList.remove('border-brand-green', 'text-brand-green');
+            copyBtn.classList.remove('border-brand-green', 'text-brand-green-text');
           }, 2000);
         }).catch((err) => {
           console.error('Failed to copy link: ', err);
