@@ -26,6 +26,21 @@ const mobileLinks = [
 <html lang="en" class="selection:bg-neutral-200 selection:text-neutral-900 antialiased">
   <head>
     <meta charset="utf-8" />
+    <script is:inline>
+      const getThemePreference = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      };
+      
+      const isDark = getThemePreference() === 'dark';
+      document.documentElement.classList.toggle('dark', isDark);
+
+      if (window.hasLoadedSplash) {
+        document.documentElement.classList.add('splash-loaded');
+      }
+    </script>
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="apple-touch-icon" href="/logo.png" />
     <meta name="viewport" content="width=device-width" />
@@ -61,69 +76,9 @@ const mobileLinks = [
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="rWnLOK8mx87MKL+V0p+BdQ" async></script>
 
     <!-- Google tag (gtag.js) - Deferred loading to optimize TBT/FCP/LCP -->
-    <script is:inline>
-      let analyticsLoaded = false;
-      function loadAnalytics() {
-        if (analyticsLoaded) return;
-        analyticsLoaded = true;
-
-        // Create script tag dynamically
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-RSSCEMH5MP';
-        document.head.appendChild(script);
-
-        // Initialize dataLayer and gtag
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){window.dataLayer.push(arguments);}
-        window.gtag = gtag;
-        gtag('js', new Date());
-        
-        // Initial page view config
-        gtag('config', 'G-RSSCEMH5MP', {
-          page_path: window.location.pathname
-        });
-
-        // Track subsequent page loads (Astro ClientRouter transitions)
-        document.addEventListener('astro:page-load', () => {
-          if (typeof window.gtag === 'function') {
-            window.gtag('config', 'G-RSSCEMH5MP', {
-              page_path: window.location.pathname
-            });
-          }
-        });
-      }
-
-      // Defer loading until user interaction or after load event
-      if (typeof window !== 'undefined') {
-        const triggerEvents = ['mouseover', 'keydown', 'touchmove', 'touchstart', 'scroll', 'click', 'mousedown'];
-        triggerEvents.forEach(event => {
-          window.addEventListener(event, loadAnalytics, { once: true, passive: true });
-        });
-        
-        // Fallback after window load delay
-        window.addEventListener('load', () => {
-          setTimeout(loadAnalytics, 3000);
-        });
-      }
-    </script>
+    <!-- Removed from head and moved to body bottom -->
 
     <ClientRouter />
-    <script is:inline>
-      const getThemePreference = () => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      };
-      
-      const isDark = getThemePreference() === 'dark';
-      document.documentElement.classList.toggle('dark', isDark);
-
-      if (window.hasLoadedSplash) {
-        document.documentElement.classList.add('splash-loaded');
-      }
-    </script>
     <style is:global>
       .splash-loaded #initial-splash-loader {
         display: none !important;
@@ -461,6 +416,53 @@ const mobileLinks = [
         const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.classList.toggle('dark', theme === 'dark');
       });
+    </script>
+    <!-- Google tag (gtag.js) - Deferred loading to optimize TBT/FCP/LCP -->
+    <script is:inline>
+      let analyticsLoaded = false;
+      function loadAnalytics() {
+        if (analyticsLoaded) return;
+        analyticsLoaded = true;
+
+        // Create script tag dynamically
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-RSSCEMH5MP';
+        document.head.appendChild(script);
+
+        // Initialize dataLayer and gtag
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        
+        // Initial page view config
+        gtag('config', 'G-RSSCEMH5MP', {
+          page_path: window.location.pathname
+        });
+
+        // Track subsequent page loads (Astro ClientRouter transitions)
+        document.addEventListener('astro:page-load', () => {
+          if (typeof window.gtag === 'function') {
+            window.gtag('config', 'G-RSSCEMH5MP', {
+              page_path: window.location.pathname
+            });
+          }
+        });
+      }
+
+      // Defer loading until user interaction or after load event
+      if (typeof window !== 'undefined') {
+        const triggerEvents = ['mouseover', 'keydown', 'touchmove', 'touchstart', 'scroll', 'click', 'mousedown'];
+        triggerEvents.forEach(event => {
+          window.addEventListener(event, loadAnalytics, { once: true, passive: true });
+        });
+        
+        // Fallback after window load delay
+        window.addEventListener('load', () => {
+          setTimeout(loadAnalytics, 3000);
+        });
+      }
     </script>
   </body>
 </html>
