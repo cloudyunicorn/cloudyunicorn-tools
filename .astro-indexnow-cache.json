@@ -1,0 +1,9 @@
+{
+  "https://www.cloudyunicorn.com/about/": "sha256:8a46696888e870d32ea64bab7e28b48e91c58aa66ff0e8ece2f96c6a43022130",
+  "https://www.cloudyunicorn.com/age-calculator/": "sha256:d04dfde9ff57fc116dd12fef523e166f3a8ffea96d10a8f83bb623bfadea2f3b",
+  "https://www.cloudyunicorn.com/bmi-calculator/": "sha256:d54184002359f0fb8e9444f7953d6322559b22fed058f1dfacebbfeed470a1d7",
+  "https://www.cloudyunicorn.com/calories-calculator/": "sha256:b6c96c6f4c999cbd3e5cac86ddb97da43bdac854a0d06c83c902252058a49a17",
+  "https://www.cloudyunicorn.com/": "sha256:f96096dd757495e21be7bf9f25a557086f1f9e7d7a70fa8e3a2a07fb3fb95239",
+  "https://www.cloudyunicorn.com/privacy-policy/": "sha256:117a3bc2bcbb0e7ca7dc6fe411c2c9cdf269aae7bf768b160fd19239a36270ab",
+  "https://www.cloudyunicorn.com/terms-of-service/": "sha256:01c4f44c2d4643f9871a7747a5863406766f91b681394f40dcafcfb6db17de1f"
+}
