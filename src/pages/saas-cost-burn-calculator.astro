@@ -1,0 +1,1211 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SocialShare from '../components/SocialShare.astro';
+---
+
+<Layout 
+  title="SaaS Cost Burn & Runway Calculator"
+  description="Calculate your startup runway, gross monthly burn, net burn, and default alive/dead status. Manage itemized SaaS expenses and model growth projections interactively."
+>
+  <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SaaS Cost Burn & Runway Calculator",
+      "url": "https://www.cloudyunicorn.com/saas-cost-burn-calculator",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "description": "Calculate SaaS startup runway, gross burn, net burn, and default alive/dead status. Interactive projections and expense manager.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+
+  <div class="relative min-h-[calc(100vh-16rem)] bg-background py-12">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-20"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs font-mono text-neutral-500">
+        <a href="/" class="hover:text-neutral-600 dark:hover:text-neutral-300">Tools</a>
+        <span>/</span>
+        <span class="text-neutral-600 dark:text-neutral-300">SaaS Cost Burn Calculator</span>
+      </nav>
+
+      <!-- Section Header -->
+      <div class="space-y-4">
+        <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white text-pretty">
+          SaaS Cost Burn & Runway Calculator
+        </h1>
+        <p class="text-neutral-400 max-w-2xl text-sm sm:text-base">
+          Evaluate your startup’s financial coordinates. Input your cash balance and MRR, add itemized operational expenses, and model scenarios to verify if you are Default Alive.
+        </p>
+      </div>
+
+      <!-- Main Columns -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Inputs & Expense Manager (Left) -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Financial Coordinates -->
+          <div class="premium-glass-card rounded-xl p-6 space-y-5">
+            <h2 class="text-lg font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+              <svg class="w-5 h-5 text-neutral-400 dark:text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+              </svg>
+              Financial Coordinates
+            </h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Starting Cash -->
+              <div class="space-y-2">
+                <label for="starting-cash" class="block text-xs font-mono text-neutral-400 uppercase tracking-widest">
+                  Starting Cash ($)
+                </label>
+                <div class="relative">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-neutral-500 font-mono">$</span>
+                  <input 
+                    type="number" 
+                    id="starting-cash" 
+                    min="0" 
+                    step="1000" 
+                    value="150000"
+                    placeholder="e.g. 150000"
+                    class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 pl-8 pr-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors font-mono"
+                  />
+                </div>
+              </div>
+
+              <!-- Starting MRR -->
+              <div class="space-y-2">
+                <label for="starting-mrr" class="block text-xs font-mono text-neutral-400 uppercase tracking-widest">
+                  Current MRR ($)
+                </label>
+                <div class="relative">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-neutral-500 font-mono">$</span>
+                  <input 
+                    type="number" 
+                    id="starting-mrr" 
+                    min="0" 
+                    step="100" 
+                    value="8000"
+                    placeholder="e.g. 8000"
+                    class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 pl-8 pr-3 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none transition-colors font-mono"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- MRR Growth Rate -->
+            <div class="space-y-3 pt-2">
+              <div class="flex justify-between items-center text-xs font-mono text-neutral-400 uppercase tracking-widest">
+                <span>Monthly MRR Growth Rate</span>
+                <span class="text-neutral-900 dark:text-white font-bold text-sm" id="mrr-growth-val">6.5%</span>
+              </div>
+              <div class="flex items-center gap-4">
+                <input 
+                  type="range" 
+                  id="mrr-growth" 
+                  min="0" 
+                  max="40" 
+                  step="0.5" 
+                  value="6.5" 
+                  class="flex-1 accent-neutral-900 dark:accent-white cursor-pointer h-1.5 bg-neutral-200 dark:bg-neutral-800 rounded-lg appearance-none"
+                  aria-label="Monthly MRR Growth Rate Slider"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Expense Manager -->
+          <div class="premium-glass-card rounded-xl p-6 space-y-6">
+            <div class="flex items-center justify-between">
+              <h2 class="text-lg font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+                <svg class="w-5 h-5 text-neutral-400 dark:text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+                Operational Expense Builder
+              </h2>
+              <span class="text-xs font-mono text-neutral-500" id="expense-count">0 items</span>
+            </div>
+
+            <!-- Expense List -->
+            <div class="space-y-2 max-h-[300px] overflow-y-auto pr-1 scrollbar-thin" id="expense-list">
+              <!-- Dynamically populated -->
+            </div>
+
+            <div class="border-t border-neutral-200 dark:border-neutral-800 pt-5 space-y-4">
+              <h3 class="text-xs font-mono text-neutral-400 uppercase tracking-widest">Add Custom or Preset Expense</h3>
+              
+              <!-- Quick presets -->
+              <div class="flex flex-wrap gap-1.5" id="expense-presets">
+                <span class="text-[10px] font-mono text-neutral-500 self-center mr-1">Presets:</span>
+                <button type="button" data-preset="aws" class="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors cursor-pointer">AWS</button>
+                <button type="button" data-preset="supabase" class="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors cursor-pointer">Supabase</button>
+                <button type="button" data-preset="vercel" class="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors cursor-pointer">Vercel</button>
+                <button type="button" data-preset="openai" class="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors cursor-pointer">OpenAI API</button>
+                <button type="button" data-preset="slack" class="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors cursor-pointer">Slack</button>
+                <button type="button" data-preset="google" class="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors cursor-pointer">Google Workspace</button>
+                <button type="button" data-preset="github" class="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors cursor-pointer">GitHub</button>
+                <button type="button" data-preset="founder" class="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors cursor-pointer">Founder Salary</button>
+                <button type="button" data-preset="ads" class="px-2.5 py-1 text-[11px] font-medium rounded-full bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors cursor-pointer">Meta/Google Ads</button>
+              </div>
+
+              <!-- Input fields for new expense -->
+              <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+                <div class="sm:col-span-4 space-y-1.5">
+                  <label for="new-expense-name" class="block text-[10px] font-mono text-neutral-500 uppercase tracking-wider">Expense Name</label>
+                  <input type="text" id="new-expense-name" placeholder="e.g. Supabase..." class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded h-10 px-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-neutral-900 dark:focus:border-white" />
+                </div>
+                <div class="sm:col-span-3 space-y-1.5">
+                  <label for="new-expense-amount" class="block text-[10px] font-mono text-neutral-500 uppercase tracking-wider">Amount ($/mo)</label>
+                  <div class="relative">
+                    <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-xs text-neutral-500 font-mono">$</span>
+                    <input type="number" id="new-expense-amount" placeholder="25" class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded h-10 pl-6 pr-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-neutral-900 dark:focus:border-white font-mono" />
+                  </div>
+                </div>
+                <div class="sm:col-span-3 space-y-1.5">
+                  <label for="new-expense-category" class="block text-[10px] font-mono text-neutral-500 uppercase tracking-wider">Category</label>
+                  <select id="new-expense-category" class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded h-10 px-2 text-xs text-neutral-900 dark:text-white outline-none focus:border-neutral-900 dark:focus:border-white cursor-pointer">
+                    <option value="infra">Infrastructure</option>
+                    <option value="saas-api">SaaS &amp; APIs</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="payroll">Payroll / Salary</option>
+                    <option value="other">Other Operations</option>
+                  </select>
+                </div>
+                <div class="sm:col-span-2">
+                  <button type="button" id="add-expense-btn" class="w-full h-10 bg-neutral-950 dark:bg-neutral-50 text-white dark:text-black font-semibold text-xs rounded hover:bg-neutral-900 dark:hover:bg-neutral-100 transition-colors border border-neutral-950 dark:border-neutral-50 cursor-pointer">
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Outputs & Charts (Right) -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Health Dashboard Status Widget -->
+          <div id="health-widget" class="relative overflow-hidden rounded-xl border p-6 flex flex-col justify-between transition-all duration-300 bg-neutral-50/50 dark:bg-neutral-900/10 border-neutral-200 dark:border-neutral-800 shadow-sm">
+            <!-- Background glow -->
+            <div id="health-glow" class="absolute top-0 right-0 -mt-6 -mr-6 w-44 h-44 blur-3xl rounded-full pointer-events-none opacity-40 transition-all duration-300 bg-brand-blue"></div>
+
+            <div class="relative z-10 space-y-5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono uppercase tracking-widest text-neutral-500">Runway Forecast</span>
+                <span id="health-badge" class="text-[10px] font-mono font-bold uppercase py-0.5 px-2.5 rounded-full border">
+                  Calculating...
+                </span>
+              </div>
+
+              <!-- Main Runway Number -->
+              <div class="space-y-1">
+                <div class="flex items-baseline gap-2">
+                  <span id="runway-value" class="text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white font-mono">
+                    --
+                  </span>
+                  <span id="runway-unit" class="text-sm font-mono text-neutral-500">Months</span>
+                </div>
+                <p id="runway-summary" class="text-xs text-neutral-500 leading-relaxed font-light">
+                  Input coordinates to forecast cash longevity.
+                </p>
+              </div>
+
+              <!-- Details Grid -->
+              <div class="grid grid-cols-2 gap-4 pt-4 border-t border-neutral-200/50 dark:border-neutral-800/50 text-xs">
+                <div class="space-y-1">
+                  <span class="block text-neutral-400 font-mono uppercase text-[10px]">Gross Burn</span>
+                  <span id="gross-burn-val" class="font-bold text-neutral-900 dark:text-white font-mono text-sm">--</span>
+                </div>
+                <div class="space-y-1">
+                  <span class="block text-neutral-400 font-mono uppercase text-[10px]">Net Burn</span>
+                  <span id="net-burn-val" class="font-bold text-neutral-900 dark:text-white font-mono text-sm">--</span>
+                </div>
+                <div class="space-y-1 col-span-2">
+                  <span class="block text-neutral-400 font-mono uppercase text-[10px]">Break-even Target</span>
+                  <span id="break-even-val" class="font-bold text-neutral-900 dark:text-white font-mono text-sm">--</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scenario Ajustment Levers -->
+          <div class="premium-glass-card rounded-xl p-6 space-y-5">
+            <h2 class="text-xs font-mono text-neutral-400 uppercase tracking-widest">Scenario Adjustments</h2>
+            
+            <!-- Expense cut level slider -->
+            <div class="space-y-2">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="text-neutral-400">Software/Ops Cost Cut</span>
+                <span class="text-neutral-900 dark:text-white font-semibold" id="cost-cut-val">0%</span>
+              </div>
+              <input 
+                type="range" 
+                id="cost-cut" 
+                min="0" 
+                max="50" 
+                step="5" 
+                value="0" 
+                class="w-full accent-neutral-900 dark:accent-white cursor-pointer h-1.5 bg-neutral-200 dark:bg-neutral-800 rounded-lg appearance-none"
+                aria-label="Software and Operations Cost Cut Slider"
+              />
+              <span class="block text-[10px] text-neutral-500 font-light">Applies only to non-payroll/non-salary operating expenses.</span>
+            </div>
+
+            <!-- Quick Presets -->
+            <div class="grid grid-cols-3 gap-2 pt-2">
+              <button type="button" id="scenario-conser" class="px-2 py-1.5 text-[10px] font-mono border border-neutral-200 dark:border-neutral-800 hover:border-neutral-900 dark:hover:border-white rounded bg-neutral-50 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 transition-colors cursor-pointer">Conservative</button>
+              <button type="button" id="scenario-base" class="px-2 py-1.5 text-[10px] font-mono border border-neutral-200 dark:border-neutral-800 hover:border-neutral-900 dark:hover:border-white rounded bg-neutral-50 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 transition-colors cursor-pointer">Base Case</button>
+              <button type="button" id="scenario-optim" class="px-2 py-1.5 text-[10px] font-mono border border-neutral-200 dark:border-neutral-800 hover:border-neutral-900 dark:hover:border-white rounded bg-neutral-50 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 transition-colors cursor-pointer">High Growth</button>
+            </div>
+          </div>
+
+          <!-- Sharing & Utilities -->
+          <div class="premium-glass-card rounded-xl p-5 flex flex-col sm:flex-row gap-3">
+            <button 
+              type="button" 
+              id="share-btn" 
+              class="flex-1 inline-flex items-center justify-center gap-2 h-10 px-4 rounded bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200 transition-all duration-150 cursor-pointer"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 10.742l4.622-2.311m0 0a3 3 0 114.243 4.243l-4.622 2.311m0 0a3 3 0 11-4.243-4.243m4.622-2.311l4.622 2.311"></path>
+              </svg>
+              Share Configuration
+            </button>
+            <button 
+              type="button" 
+              id="print-btn" 
+              class="flex-1 inline-flex items-center justify-center gap-2 h-10 px-4 rounded bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200 transition-all duration-150 cursor-pointer"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+              </svg>
+              Export Report / Print
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graph & Table Projections (Full width underneath) -->
+      <div class="grid grid-cols-1 gap-8">
+        
+        <!-- Interactive Projection Graph Card -->
+        <div class="premium-glass-card rounded-xl p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-lg font-bold text-neutral-900 dark:text-white">Cash &amp; Revenue Projection (24-Month)</h2>
+              <p class="text-xs text-neutral-500 font-light">Interactive trajectory showing cash reserves and monthly recurring revenue.</p>
+            </div>
+            <div class="flex items-center gap-4 text-[10px] font-mono uppercase tracking-wider text-neutral-400">
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-0.5 bg-brand-blue inline-block"></span> Cash</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-0.5 bg-brand-green inline-block"></span> MRR</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-0.5 border-t border-dashed border-neutral-400 dark:border-neutral-600 inline-block"></span> Burn</span>
+            </div>
+          </div>
+
+          <!-- Dynamic SVG Graph Container -->
+          <div class="relative w-full h-[260px] sm:h-[300px] bg-neutral-50/25 dark:bg-neutral-900/5 rounded-lg border border-neutral-100 dark:border-neutral-900 p-2 sm:p-4 overflow-hidden select-none" id="chart-container">
+            <svg id="projection-chart" class="w-full h-full" viewBox="0 0 600 240" preserveAspectRatio="none">
+              <!-- Grid lines & content populated dynamically via JS -->
+            </svg>
+            
+            <!-- Hover Tooltip -->
+            <div id="chart-tooltip" class="hidden absolute top-4 left-4 z-30 bg-neutral-950/95 dark:bg-neutral-50/95 text-white dark:text-black text-xs rounded shadow-lg p-2.5 border border-neutral-800 dark:border-neutral-200 pointer-events-none space-y-1 font-mono">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabular breakdown of the projections -->
+        <div class="premium-glass-card rounded-xl overflow-hidden">
+          <button type="button" id="toggle-table-btn" class="w-full p-6 flex items-center justify-between bg-neutral-50/20 dark:bg-neutral-900/10 hover:bg-neutral-50/45 dark:hover:bg-neutral-900/25 transition-colors font-bold text-left text-neutral-900 dark:text-white cursor-pointer">
+            <span class="text-sm uppercase font-mono tracking-wider">Show Monthly Breakdown Sheet</span>
+            <svg id="table-arrow-icon" class="w-4 h-4 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+
+          <div id="projection-table-container" class="hidden border-t border-neutral-200 dark:border-neutral-800">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="bg-neutral-50/40 dark:bg-[#0c0c0e] text-neutral-400 font-mono uppercase tracking-wider border-b border-neutral-200 dark:border-neutral-800 text-[10px]">
+                    <th class="py-3.5 px-4 font-semibold">Month</th>
+                    <th class="py-3.5 px-4 font-semibold text-right">Cash Balance</th>
+                    <th class="py-3.5 px-4 font-semibold text-right">MRR</th>
+                    <th class="py-3.5 px-4 font-semibold text-right">Gross Burn</th>
+                    <th class="py-3.5 px-4 font-semibold text-right">Net Burn</th>
+                    <th class="py-3.5 px-4 font-semibold text-right">Runway Status</th>
+                  </tr>
+                </thead>
+                <tbody id="projection-table-body" class="divide-y divide-neutral-200/50 dark:divide-neutral-800/50 font-mono">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Informative Article/FAQ section (SEO) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-neutral-200 dark:border-neutral-900">
+          <div class="space-y-4 text-pretty">
+            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">Understanding SaaS Financial Runway</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+              Your runway is the length of time your startup can remain operational before running out of cash reserves, assuming current monthly expenses and revenue collections remain unchanged.
+            </p>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+              Gross Monthly Burn represents the sum of all monthly outgoing cash payments (such as infrastructure hosts, vendor subscriptions, and founder payroll). Net Monthly Burn represents Gross Burn minus your Monthly Recurring Revenue (MRR).
+            </p>
+          </div>
+          <div class="space-y-4 text-pretty">
+            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">Default Alive vs. Default Dead</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+              Coined by Y Combinator's Paul Graham, <strong class="font-medium text-neutral-900 dark:text-neutral-100">Default Alive</strong> answers a simple question: assuming expenses stay flat and historical growth curves continue, will your startup reach profitability before running out of money?
+            </p>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+              If the answer is yes, you are Default Alive. If the answer is no, you are <strong class="font-medium text-neutral-900 dark:text-neutral-100">Default Dead</strong>—meaning you will need to accelerate growth, reduce expenses, or secure additional equity financing to prevent insolvency.
+            </p>
+          </div>
+        </div>
+
+        <SocialShare shareText="Check out this Premium SaaS Cost Burn & Runway Calculator to track expenses and runway for indie startups!" />
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    function initSaaSCalculator() {
+      // Elements
+      const startingCashInput = document.getElementById('starting-cash');
+      const startingMRRInput = document.getElementById('starting-mrr');
+      const mrrGrowthSlider = document.getElementById('mrr-growth');
+      const mrrGrowthVal = document.getElementById('mrr-growth-val');
+      const costCutSlider = document.getElementById('cost-cut');
+      const costCutVal = document.getElementById('cost-cut-val');
+      
+      const newExpenseName = document.getElementById('new-expense-name');
+      const newExpenseAmount = document.getElementById('new-expense-amount');
+      const newExpenseCategory = document.getElementById('new-expense-category');
+      const addExpenseBtn = document.getElementById('add-expense-btn');
+      
+      const expenseListContainer = document.getElementById('expense-list');
+      const expenseCountEl = document.getElementById('expense-count');
+      
+      const healthWidget = document.getElementById('health-widget');
+      const healthGlow = document.getElementById('health-glow');
+      const healthBadge = document.getElementById('health-badge');
+      const runwayValue = document.getElementById('runway-value');
+      const runwayUnit = document.getElementById('runway-unit');
+      const runwaySummary = document.getElementById('runway-summary');
+      
+      const grossBurnVal = document.getElementById('gross-burn-val');
+      const netBurnVal = document.getElementById('net-burn-val');
+      const breakEvenVal = document.getElementById('break-even-val');
+      
+      const scenarioConserBtn = document.getElementById('scenario-conser');
+      const scenarioBaseBtn = document.getElementById('scenario-base');
+      const scenarioOptimBtn = document.getElementById('scenario-optim');
+      
+      const shareBtn = document.getElementById('share-btn');
+      const printBtn = document.getElementById('print-btn');
+      
+      const chartContainer = document.getElementById('chart-container');
+      const chartSvg = document.getElementById('projection-chart');
+      const chartTooltip = document.getElementById('chart-tooltip');
+      
+      const toggleTableBtn = document.getElementById('toggle-table-btn');
+      const tableContainer = document.getElementById('projection-table-container');
+      const tableArrowIcon = document.getElementById('table-arrow-icon');
+      const tableBody = document.getElementById('projection-table-body');
+      
+      // Initial Expenses State (Fallback if no query param)
+      let expenses = [
+        { id: '1', name: 'Founder Salaries', amount: 6000, category: 'payroll' },
+        { id: '2', name: 'AWS Cloud Hosting', amount: 350, category: 'infra' },
+        { id: '3', name: 'OpenAI API Costs', amount: 200, category: 'saas-api' },
+        { id: '4', name: 'Google Workspace & Slack', amount: 120, category: 'saas-api' },
+        { id: '5', name: 'Meta & Search Ads', amount: 1000, category: 'marketing' }
+      ];
+
+      // Preset expenses data map
+      const presetsMap = {
+        aws: { name: 'AWS Cloud Hosting', amount: 350, category: 'infra' },
+        supabase: { name: 'Supabase Database', amount: 25, category: 'infra' },
+        vercel: { name: 'Vercel Pro', amount: 20, category: 'infra' },
+        openai: { name: 'OpenAI API Tokens', amount: 200, category: 'saas-api' },
+        slack: { name: 'Slack Subscription', amount: 80, category: 'saas-api' },
+        google: { name: 'Google Workspace', amount: 36, category: 'saas-api' },
+        github: { name: 'GitHub Team License', amount: 20, category: 'saas-api' },
+        founder: { name: 'Founder Salaries', amount: 5000, category: 'payroll' },
+        ads: { name: 'Meta & Search Ads', amount: 1500, category: 'marketing' }
+      };
+
+      // Load query parameters if available
+      function parseUrlState() {
+        const hash = window.location.hash || window.location.search;
+        if (!hash) return;
+        
+        try {
+          const params = new URLSearchParams(hash.substring(1));
+          const stateData = params.get('state');
+          if (!stateData) return;
+          
+          const decoded = JSON.parse(atob(stateData));
+          if (decoded.startingCash !== undefined) startingCashInput.value = decoded.startingCash;
+          if (decoded.startingMrr !== undefined) startingMRRInput.value = decoded.startingMrr;
+          if (decoded.mrrGrowth !== undefined) {
+            mrrGrowthSlider.value = decoded.mrrGrowth;
+            mrrGrowthVal.textContent = decoded.mrrGrowth + '%';
+          }
+          if (decoded.costCut !== undefined) {
+            costCutSlider.value = decoded.costCut;
+            costCutVal.textContent = decoded.costCut + '%';
+          }
+          if (Array.isArray(decoded.expenses)) {
+            expenses = decoded.expenses;
+          }
+        } catch (e) {
+          console.error('Error parsing shared state parameters', e);
+        }
+      }
+
+      // Format currency utility
+      function formatCurrency(val) {
+        return '$' + Math.round(val).toLocaleString('en-US');
+      }
+
+      // Capitalize first letter of category tag
+      function getCategoryLabel(cat) {
+        switch(cat) {
+          case 'infra': return 'Infrastructure';
+          case 'saas-api': return 'SaaS & APIs';
+          case 'marketing': return 'Marketing';
+          case 'payroll': return 'Payroll / Salary';
+          default: return 'Other';
+        }
+      }
+
+      // Render the expense items builder UI
+      function renderExpenses() {
+        expenseListContainer.innerHTML = '';
+        expenseCountEl.textContent = `${expenses.length} item${expenses.length === 1 ? '' : 's'}`;
+
+        expenses.forEach(exp => {
+          const item = document.createElement('div');
+          item.className = 'flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 bg-neutral-50/50 dark:bg-neutral-900/50 border border-neutral-200/50 dark:border-neutral-800/50 rounded-lg hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors';
+          
+          // Left portion: Category badge & Name
+          let badgeColor = 'bg-neutral-100 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400';
+          if (exp.category === 'infra') badgeColor = 'bg-blue-50 dark:bg-blue-950/20 border-blue-200/30 dark:border-blue-900/30 text-blue-700 dark:text-blue-400';
+          if (exp.category === 'saas-api') badgeColor = 'bg-purple-50 dark:bg-purple-950/20 border-purple-200/30 dark:border-purple-900/30 text-purple-700 dark:text-purple-400';
+          if (exp.category === 'marketing') badgeColor = 'bg-orange-50 dark:bg-orange-950/20 border-orange-200/30 dark:border-orange-900/30 text-orange-700 dark:text-orange-400';
+          if (exp.category === 'payroll') badgeColor = 'bg-green-50 dark:bg-green-950/20 border-green-200/30 dark:border-green-900/30 text-green-700 dark:text-green-400';
+
+          item.innerHTML = `
+            <div class="flex flex-col sm:flex-row sm:items-center gap-2.5 w-full sm:w-auto">
+              <span class="text-[9px] font-mono font-bold uppercase tracking-widest py-0.5 px-2 rounded border ${badgeColor} inline-block self-start sm:self-auto">${getCategoryLabel(exp.category)}</span>
+              <span class="text-xs font-semibold text-neutral-800 dark:text-neutral-200 text-pretty">${exp.name}</span>
+            </div>
+            <div class="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto border-t sm:border-t-0 border-neutral-200/50 dark:border-neutral-800/50 pt-2 sm:pt-0">
+              <div class="relative w-28">
+                <span class="absolute left-2 top-1/2 -translate-y-1/2 text-xs text-neutral-500 font-mono">$</span>
+                <input 
+                  type="number" 
+                  min="0"
+                  value="${exp.amount}"
+                  class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded h-8 pl-5 pr-2 text-xs text-neutral-800 dark:text-neutral-200 outline-none focus:border-neutral-900 dark:focus:border-white font-mono text-right font-semibold edit-amount"
+                  data-id="${exp.id}"
+                  aria-label="Edit amount for ${exp.name}"
+                />
+              </div>
+              <button 
+                type="button" 
+                class="p-1.5 rounded hover:bg-red-50 dark:hover:bg-red-950/20 text-neutral-400 hover:text-red-600 dark:hover:text-red-400 transition-colors remove-btn cursor-pointer" 
+                data-id="${exp.id}"
+                aria-label="Delete ${exp.name} expense"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+              </button>
+            </div>
+          `;
+          expenseListContainer.appendChild(item);
+        });
+
+        // Add event listeners on new items
+        expenseListContainer.querySelectorAll('.remove-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const id = btn.getAttribute('data-id');
+            expenses = expenses.filter(exp => exp.id !== id);
+            renderExpenses();
+            calculateRunway();
+          });
+        });
+
+        expenseListContainer.querySelectorAll('.edit-amount').forEach(input => {
+          input.addEventListener('input', (e) => {
+            const id = input.getAttribute('data-id');
+            const val = parseFloat(input.value) || 0;
+            const expense = expenses.find(exp => exp.id === id);
+            if (expense) {
+              expense.amount = val;
+              calculateRunway();
+            }
+          });
+        });
+      }
+
+      // Add a preset expense item
+      function addPreset(presetKey) {
+        const item = presetsMap[presetKey];
+        if (item) {
+          expenses.push({
+            id: Date.now().toString(),
+            name: item.name,
+            amount: item.amount,
+            category: item.category
+          });
+          renderExpenses();
+          calculateRunway();
+        }
+      }
+
+      // Preset click bindings
+      document.querySelectorAll('#expense-presets button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const presetKey = btn.getAttribute('data-preset');
+          addPreset(presetKey);
+        });
+      });
+
+      // Add custom expense
+      addExpenseBtn.addEventListener('click', () => {
+        const name = newExpenseName.value.trim();
+        const amt = parseFloat(newExpenseAmount.value) || 0;
+        const cat = newExpenseCategory.value;
+
+        if (!name) {
+          alert('Please input a valid name for the expense.');
+          return;
+        }
+
+        expenses.push({
+          id: Date.now().toString(),
+          name: name,
+          amount: amt,
+          category: cat
+        });
+
+        // Clear inputs
+        newExpenseName.value = '';
+        newExpenseAmount.value = '';
+
+        renderExpenses();
+        calculateRunway();
+      });
+
+      // Core calculation logic & rendering projections
+      function calculateRunway() {
+        const cash = parseFloat(startingCashInput.value) || 0;
+        const mrr = parseFloat(startingMRRInput.value) || 0;
+        const growthRate = (parseFloat(mrrGrowthSlider.value) || 0) / 100;
+        const costCut = (parseFloat(costCutSlider.value) || 0) / 100;
+
+        // Segregate expenses into payroll and non-payroll
+        let payrollSum = 0;
+        let nonPayrollSum = 0;
+        expenses.forEach(exp => {
+          if (exp.category === 'payroll') {
+            payrollSum += exp.amount;
+          } else {
+            nonPayrollSum += exp.amount;
+          }
+        });
+
+        // Apply optimization cut to non-payroll items
+        const optimizedNonPayroll = nonPayrollSum * (1 - costCut);
+        const totalExpenses = payrollSum + optimizedNonPayroll;
+        const netBurn = totalExpenses - mrr;
+
+        // Populate basic stats in dashboard
+        grossBurnVal.textContent = formatCurrency(totalExpenses);
+        
+        let netBurnText = formatCurrency(netBurn);
+        if (netBurn < 0) {
+          netBurnText = formatCurrency(Math.abs(netBurn)) + ' net profit';
+        }
+        netBurnVal.textContent = netBurnText;
+
+        // Perform Projection simulation
+        const monthsRange = 24;
+        let currentCash = cash;
+        let currentMrr = mrr;
+        const projections = [];
+        let runwayMonths = -1;
+        let brokenEvenMonth = -1;
+
+        for (let t = 0; t <= monthsRange; t++) {
+          const monthlyNonPayroll = nonPayrollSum * (1 - costCut);
+          const monthlyExpenses = payrollSum + monthlyNonPayroll;
+          const monthlyNetBurn = monthlyExpenses - currentMrr;
+
+          projections.push({
+            month: t,
+            cash: currentCash,
+            mrr: currentMrr,
+            expenses: monthlyExpenses,
+            netBurn: monthlyNetBurn
+          });
+
+          // If current cash is exhausted, mark runway end if not already marked
+          if (currentCash <= 0 && runwayMonths === -1 && t > 0) {
+            // Linear interpolation for decimals between t-1 and t
+            const prevCash = projections[t-1].cash;
+            const diff = prevCash - currentCash; // positive difference representing burn
+            if (diff > 0) {
+              runwayMonths = (t - 1) + (prevCash / diff);
+            } else {
+              runwayMonths = t;
+            }
+          }
+
+          // If current cash is positive and profit occurs, record break-even month
+          if (monthlyNetBurn <= 0 && brokenEvenMonth === -1) {
+            brokenEvenMonth = t;
+          }
+
+          // Update for next month
+          currentCash -= monthlyNetBurn;
+          currentMrr = currentMrr * (1 + growthRate);
+        }
+
+        // Render runway result badge & values
+        // Case 1: Startup is already profitable right now
+        if (netBurn <= 0) {
+          runwayValue.textContent = '∞';
+          runwayUnit.textContent = '';
+          runwaySummary.textContent = 'You are already profitable! Your revenue covers all operating expenses. You are Default Alive.';
+          
+          updateHealthWidgetStyles('alive');
+          breakEvenVal.textContent = 'Already Profitable';
+        } else {
+          // Startup is burning money
+          // Run long projection (60 months) to check PG's Default Alive status
+          let isDefaultAlive = false;
+          let testCash = cash;
+          let testMrr = mrr;
+          let bEvenMonthTest = -1;
+
+          for (let m = 0; m <= 60; m++) {
+            const monthlyExpenses = payrollSum + (nonPayrollSum * (1 - costCut));
+            const monthlyNetBurn = monthlyExpenses - testMrr;
+            
+            if (testCash <= 0) {
+              break; // ran out of money
+            }
+            if (monthlyNetBurn <= 0) {
+              bEvenMonthTest = m;
+              isDefaultAlive = true;
+              break;
+            }
+            testCash -= monthlyNetBurn;
+            testMrr = testMrr * (1 + growthRate);
+          }
+
+          // Format Runway Value
+          let displayRunway = runwayMonths;
+          if (runwayMonths === -1) {
+            // Didn't run out in 24 months
+            runwayValue.textContent = '24+';
+            runwayUnit.textContent = 'Months';
+            
+            if (isDefaultAlive) {
+              runwaySummary.textContent = `Cash lasts over 24 months. Based on your growth, you will break even in Month ${bEvenMonthTest}. You are Default Alive.`;
+              updateHealthWidgetStyles('alive');
+            } else {
+              runwaySummary.textContent = 'Cash lasts over 24 months, but your revenue growth is too slow to cover expenses before you eventually run out. You are Default Dead.';
+              updateHealthWidgetStyles('warning');
+            }
+          } else {
+            // Ran out within 24 months
+            runwayValue.textContent = displayRunway.toFixed(1);
+            runwayUnit.textContent = 'Months';
+
+            if (isDefaultAlive) {
+              runwaySummary.textContent = `You run out of cash in ${displayRunway.toFixed(1)} months, but you reach break-even in Month ${bEvenMonthTest}. You are Default Alive!`;
+              updateHealthWidgetStyles('alive');
+            } else {
+              runwaySummary.textContent = `Your cash runs out in ${displayRunway.toFixed(1)} months before you reach break-even. You are Default Dead.`;
+              updateHealthWidgetStyles('dead');
+            }
+          }
+
+          // Render break-even metric
+          if (isDefaultAlive) {
+            const beMonthVal = brokenEvenMonth !== -1 ? brokenEvenMonth : bEvenMonthTest;
+            breakEvenVal.textContent = `Month ${beMonthVal} (MRR: ${formatCurrency(payrollSum + (nonPayrollSum * (1 - costCut)))})`;
+          } else {
+            // Default Dead - how much MRR growth is needed to survive
+            const neededMrr = payrollSum + (nonPayrollSum * (1 - costCut));
+            const diffMrr = neededMrr - mrr;
+            breakEvenVal.textContent = `Requires +${formatCurrency(diffMrr)} MRR (Target: ${formatCurrency(neededMrr)})`;
+          }
+        }
+
+        // Render SVG Projection Graph
+        renderChart(projections, cash, mrr, totalExpenses);
+
+        // Render Projections Table
+        renderTable(projections);
+      }
+
+      // Helper to update CSS styling of the Health Widget based on status
+      function updateHealthWidgetStyles(status) {
+        // Clear old classes
+        healthWidget.classList.remove(
+          'border-emerald-200', 'dark:border-emerald-800/80', 'bg-emerald-50/10', 'dark:bg-emerald-950/5',
+          'border-rose-200', 'dark:border-rose-800/80', 'bg-rose-50/10', 'dark:bg-rose-950/5',
+          'border-amber-200', 'dark:border-amber-800/80', 'bg-amber-50/10', 'dark:bg-amber-950/5'
+        );
+        healthGlow.classList.remove('bg-emerald-500', 'bg-rose-500', 'bg-amber-500');
+        healthBadge.classList.remove(
+          'bg-emerald-50', 'text-emerald-700', 'border-emerald-200/50', 'dark:bg-emerald-950/30', 'dark:text-emerald-400', 'dark:border-emerald-900/40',
+          'bg-rose-50', 'text-rose-700', 'border-rose-200/50', 'dark:bg-rose-950/30', 'dark:text-rose-400', 'dark:border-rose-900/40',
+          'bg-amber-50', 'text-amber-700', 'border-amber-200/50', 'dark:bg-amber-950/30', 'dark:text-amber-400', 'dark:border-amber-900/40'
+        );
+
+        if (status === 'alive') {
+          healthWidget.classList.add('border-emerald-200', 'dark:border-emerald-800/80', 'bg-emerald-50/10', 'dark:bg-emerald-950/5');
+          healthGlow.classList.add('bg-emerald-500');
+          healthBadge.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200/50', 'dark:bg-emerald-950/30', 'dark:text-emerald-400', 'dark:border-emerald-900/40');
+          healthBadge.textContent = 'Default Alive';
+        } else if (status === 'dead') {
+          healthWidget.classList.add('border-rose-200', 'dark:border-rose-800/80', 'bg-rose-50/10', 'dark:bg-rose-950/5');
+          healthGlow.classList.add('bg-rose-500');
+          healthBadge.classList.add('bg-rose-50', 'text-rose-700', 'border-rose-200/50', 'dark:bg-rose-950/30', 'dark:text-rose-400', 'dark:border-rose-900/40');
+          healthBadge.textContent = 'Default Dead';
+        } else { // warning/neutral
+          healthWidget.classList.add('border-amber-200', 'dark:border-amber-800/80', 'bg-amber-50/10', 'dark:bg-amber-950/5');
+          healthGlow.classList.add('bg-amber-500');
+          healthBadge.classList.add('bg-amber-50', 'text-amber-700', 'border-amber-200/50', 'dark:bg-amber-950/30', 'dark:text-amber-400', 'dark:border-amber-900/40');
+          healthBadge.textContent = 'Warning';
+        }
+      }
+
+      // Draw SVG interactive chart
+      function renderChart(data, initialCash, initialMrr, initialExpenses) {
+        // Clear SVG
+        chartSvg.innerHTML = '';
+
+        const width = 600;
+        const height = 240;
+        const padding = { top: 20, right: 30, bottom: 30, left: 55 };
+
+        // Find max limits for scaling
+        let maxCash = Math.max(...data.map(d => d.cash), initialCash);
+        let maxRevenue = Math.max(...data.map(d => d.mrr), initialMrr);
+        let maxBurn = Math.max(...data.map(d => d.expenses), initialExpenses);
+        let maxY = Math.max(maxCash, maxRevenue, maxBurn);
+
+        // Make sure maxY isn't 0
+        if (maxY === 0) maxY = 10000;
+
+        const monthsCount = data.length - 1;
+
+        // Scaling functions
+        function getX(month) {
+          return padding.left + (month / monthsCount) * (width - padding.left - padding.right);
+        }
+
+        function getY(val) {
+          const clampedVal = Math.max(0, val);
+          return height - padding.bottom - (clampedVal / maxY) * (height - padding.top - padding.bottom);
+        }
+
+        // Draw horizontal grid lines & Y labels
+        const gridLines = 4;
+        for (let i = 0; i <= gridLines; i++) {
+          const val = (maxY / gridLines) * i;
+          const y = getY(val);
+          
+          // Line
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', padding.left);
+          line.setAttribute('y1', y);
+          line.setAttribute('x2', width - padding.right);
+          line.setAttribute('y2', y);
+          line.setAttribute('stroke', 'currentColor');
+          line.setAttribute('class', 'text-neutral-200 dark:text-neutral-900');
+          line.setAttribute('stroke-width', '1');
+          chartSvg.appendChild(line);
+
+          // Label
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.setAttribute('x', padding.left - 8);
+          text.setAttribute('y', y + 4);
+          text.setAttribute('text-anchor', 'end');
+          text.setAttribute('class', 'fill-neutral-400 dark:fill-neutral-500 font-mono text-[9px]');
+          text.textContent = formatCurrencyAbbreviated(val);
+          chartSvg.appendChild(text);
+        }
+
+        // Draw X Axis labels
+        for (let month = 0; month <= monthsCount; month += 4) {
+          const x = getX(month);
+          
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.setAttribute('x', x);
+          text.setAttribute('y', height - 10);
+          text.setAttribute('text-anchor', 'middle');
+          text.setAttribute('class', 'fill-neutral-400 dark:fill-neutral-500 font-mono text-[9px]');
+          text.textContent = 'M' + month;
+          chartSvg.appendChild(text);
+        }
+
+        // Define gradients inside SVG
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        defs.innerHTML = `
+          <linearGradient id="cash-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#6468cb" stop-opacity="0.12" />
+            <stop offset="100%" stop-color="#6468cb" stop-opacity="0.0" />
+          </linearGradient>
+          <linearGradient id="mrr-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#7fcb64" stop-opacity="0.08" />
+            <stop offset="100%" stop-color="#7fcb64" stop-opacity="0.0" />
+          </linearGradient>
+        `;
+        chartSvg.appendChild(defs);
+
+        // Construct Path coordinate strings
+        let cashPoints = '';
+        let mrrPoints = '';
+        let burnPoints = '';
+        
+        let cashFillPoints = `M ${getX(0)} ${getY(0)} `;
+        let mrrFillPoints = `M ${getX(0)} ${getY(0)} `;
+
+        data.forEach((d, idx) => {
+          const x = getX(d.month);
+          const yCash = getY(d.cash);
+          const yMrr = getY(d.mrr);
+          const yBurn = getY(d.expenses);
+
+          if (idx === 0) {
+            cashPoints += `M ${x} ${yCash} `;
+            mrrPoints += `M ${x} ${yMrr} `;
+            burnPoints += `M ${x} ${yBurn} `;
+          } else {
+            cashPoints += `L ${x} ${yCash} `;
+            mrrPoints += `L ${x} ${yMrr} `;
+            burnPoints += `L ${x} ${yBurn} `;
+          }
+          cashFillPoints += `L ${x} ${yCash} `;
+          mrrFillPoints += `L ${x} ${yMrr} `;
+        });
+
+        cashFillPoints += `L ${getX(monthsCount)} ${getY(0)} Z`;
+        mrrFillPoints += `L ${getX(monthsCount)} ${getY(0)} Z`;
+
+        // Render filled gradient polygons
+        const cashArea = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        cashArea.setAttribute('d', cashFillPoints);
+        cashArea.setAttribute('fill', 'url(#cash-grad)');
+        chartSvg.appendChild(cashArea);
+
+        const mrrArea = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        mrrArea.setAttribute('d', mrrFillPoints);
+        mrrArea.setAttribute('fill', 'url(#mrr-grad)');
+        chartSvg.appendChild(mrrArea);
+
+        // Render Lines
+        const cashLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        cashLine.setAttribute('d', cashPoints);
+        cashLine.setAttribute('fill', 'none');
+        cashLine.setAttribute('stroke', '#6468cb');
+        cashLine.setAttribute('stroke-width', '2.5');
+        cashLine.setAttribute('stroke-linecap', 'round');
+        chartSvg.appendChild(cashLine);
+
+        const mrrLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        mrrLine.setAttribute('d', mrrPoints);
+        mrrLine.setAttribute('fill', 'none');
+        mrrLine.setAttribute('stroke', '#7fcb64');
+        mrrLine.setAttribute('stroke-width', '2.5');
+        mrrLine.setAttribute('stroke-linecap', 'round');
+        chartSvg.appendChild(mrrLine);
+
+        const burnLine = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        burnLine.setAttribute('d', burnPoints);
+        burnLine.setAttribute('fill', 'none');
+        burnLine.setAttribute('stroke', '#706354');
+        burnLine.setAttribute('stroke-width', '1.5');
+        burnLine.setAttribute('stroke-dasharray', '4,4');
+        chartSvg.appendChild(burnLine);
+
+        // Hover Interactive vertical line & points indicator
+        const hoverLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        hoverLine.setAttribute('y1', padding.top);
+        hoverLine.setAttribute('y2', height - padding.bottom);
+        hoverLine.setAttribute('stroke', 'currentColor');
+        hoverLine.setAttribute('class', 'text-neutral-300 dark:text-neutral-700 hidden');
+        hoverLine.setAttribute('stroke-width', '1');
+        chartSvg.appendChild(hoverLine);
+
+        const hoverCircleCash = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        hoverCircleCash.setAttribute('r', '4');
+        hoverCircleCash.setAttribute('fill', '#6468cb');
+        hoverCircleCash.setAttribute('stroke', '#ffffff');
+        hoverCircleCash.setAttribute('stroke-width', '1.5');
+        hoverCircleCash.setAttribute('class', 'hidden');
+        chartSvg.appendChild(hoverCircleCash);
+
+        const hoverCircleMrr = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        hoverCircleMrr.setAttribute('r', '4');
+        hoverCircleMrr.setAttribute('fill', '#7fcb64');
+        hoverCircleMrr.setAttribute('stroke', '#ffffff');
+        hoverCircleMrr.setAttribute('stroke-width', '1.5');
+        hoverCircleMrr.setAttribute('class', 'hidden');
+        chartSvg.appendChild(hoverCircleMrr);
+
+        // Interactive mouse movement handling
+        chartContainer.addEventListener('mousemove', (e) => {
+          const rect = chartSvg.getBoundingClientRect();
+          const scaleX = width / rect.width;
+          const mouseX = (e.clientX - rect.left) * scaleX;
+
+          // Convert mouseX back to month
+          const innerWidth = width - padding.left - padding.right;
+          let month = Math.round(((mouseX - padding.left) / innerWidth) * monthsCount);
+          month = Math.max(0, Math.min(monthsCount, month));
+
+          const d = data[month];
+          if (!d) return;
+
+          const cx = getX(d.month);
+          const cyCash = getY(d.cash);
+          const cyMrr = getY(d.mrr);
+
+          // Position line & points
+          hoverLine.setAttribute('x1', cx);
+          hoverLine.setAttribute('x2', cx);
+          hoverLine.classList.remove('hidden');
+
+          hoverCircleCash.setAttribute('cx', cx);
+          hoverCircleCash.setAttribute('cy', cyCash);
+          hoverCircleCash.classList.remove('hidden');
+
+          hoverCircleMrr.setAttribute('cx', cx);
+          hoverCircleMrr.setAttribute('cy', cyMrr);
+          hoverCircleMrr.classList.remove('hidden');
+
+          // Tooltip Position and Content
+          chartTooltip.innerHTML = `
+            <div class="text-neutral-400 font-bold mb-1">Month ${d.month}</div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand-blue"></span>Cash: <strong class="text-white dark:text-neutral-900">${formatCurrency(d.cash)}</strong></div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span>MRR: <strong class="text-white dark:text-neutral-900">${formatCurrency(d.mrr)}</strong></div>
+            <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>Net Burn: <strong class="text-white dark:text-neutral-900">${formatCurrency(d.netBurn)}</strong></div>
+          `;
+          chartTooltip.classList.remove('hidden');
+
+          // Position the tooltip card relative to container
+          const tipWidth = chartTooltip.offsetWidth;
+          let tipX = (e.clientX - rect.left) + 15;
+          if (tipX + tipWidth > rect.width) {
+            tipX = (e.clientX - rect.left) - tipWidth - 15;
+          }
+          chartTooltip.style.left = tipX + 'px';
+          chartTooltip.style.top = '15px';
+        });
+
+        chartContainer.addEventListener('mouseleave', () => {
+          hoverLine.classList.add('hidden');
+          hoverCircleCash.classList.add('hidden');
+          hoverCircleMrr.classList.add('hidden');
+          chartTooltip.classList.add('hidden');
+        });
+      }
+
+      // Format utility to convert high numbers (e.g. 100000 -> 100k)
+      function formatCurrencyAbbreviated(val) {
+        if (val >= 1000000) {
+          return '$' + (val / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        }
+        if (val >= 1000) {
+          return '$' + (val / 1000).toFixed(0) + 'k';
+        }
+        return '$' + val;
+      }
+
+      // Render data rows in the projections table
+      function renderTable(projections) {
+        tableBody.innerHTML = '';
+        projections.forEach(p => {
+          const row = document.createElement('tr');
+          row.className = 'border-b border-neutral-200/40 dark:border-neutral-800/40 hover:bg-neutral-50/40 dark:hover:bg-[#0c0c0e]/30 transition-colors text-xs text-neutral-800 dark:text-neutral-200';
+          
+          let runwayBadge = '<span class="text-emerald-500 font-bold">Alive</span>';
+          if (p.cash <= 0) {
+            runwayBadge = '<span class="text-rose-500">Exhausted</span>';
+          } else if (p.netBurn > 0 && p.cash / p.netBurn <= 3) {
+            runwayBadge = '<span class="text-amber-500">Critical</span>';
+          }
+
+          row.innerHTML = `
+            <td class="py-3 px-4 font-semibold text-neutral-500">Month ${p.month}</td>
+            <td class="py-3 px-4 text-right">${formatCurrency(p.cash)}</td>
+            <td class="py-3 px-4 text-right">${formatCurrency(p.mrr)}</td>
+            <td class="py-3 px-4 text-right">${formatCurrency(p.expenses)}</td>
+            <td class="py-3 px-4 text-right">${p.netBurn > 0 ? formatCurrency(p.netBurn) : '-' + formatCurrency(Math.abs(p.netBurn))}</td>
+            <td class="py-3 px-4 text-right uppercase text-[10px]">${runwayBadge}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      }
+
+      // Slider visual synchronization
+      mrrGrowthSlider.addEventListener('input', (e) => {
+        mrrGrowthVal.textContent = e.target.value + '%';
+        calculateRunway();
+      });
+
+      costCutSlider.addEventListener('input', (e) => {
+        costCutVal.textContent = e.target.value + '%';
+        calculateRunway();
+      });
+
+      // Quick adjustment buttons
+      scenarioConserBtn.addEventListener('click', () => {
+        mrrGrowthSlider.value = '2.0';
+        mrrGrowthVal.textContent = '2%';
+        costCutSlider.value = '15';
+        costCutVal.textContent = '15%';
+        calculateRunway();
+      });
+
+      scenarioBaseBtn.addEventListener('click', () => {
+        mrrGrowthSlider.value = '6.5';
+        mrrGrowthVal.textContent = '6.5%';
+        costCutSlider.value = '0';
+        costCutVal.textContent = '0%';
+        calculateRunway();
+      });
+
+      scenarioOptimBtn.addEventListener('click', () => {
+        mrrGrowthSlider.value = '15.0';
+        mrrGrowthVal.textContent = '15%';
+        costCutSlider.value = '0';
+        costCutVal.textContent = '0%';
+        calculateRunway();
+      });
+
+      // Financial Coordinates changes
+      startingCashInput.addEventListener('input', calculateRunway);
+      startingMRRInput.addEventListener('input', calculateRunway);
+
+      // Collapsible Projections Table
+      toggleTableBtn.addEventListener('click', () => {
+        const isHidden = tableContainer.classList.contains('hidden');
+        if (isHidden) {
+          tableContainer.classList.remove('hidden');
+          tableArrowIcon.classList.add('rotate-180');
+        } else {
+          tableContainer.classList.add('hidden');
+          tableArrowIcon.classList.remove('rotate-180');
+        }
+      });
+
+      // Sharing Action Button
+      shareBtn.addEventListener('click', () => {
+        const state = {
+          startingCash: parseFloat(startingCashInput.value) || 0,
+          startingMrr: parseFloat(startingMRRInput.value) || 0,
+          mrrGrowth: parseFloat(mrrGrowthSlider.value) || 0,
+          costCut: parseFloat(costCutSlider.value) || 0,
+          expenses: expenses
+        };
+        
+        const base64State = btoa(JSON.stringify(state));
+        const shareUrl = `${window.location.origin}${window.location.pathname}?state=${base64State}`;
+        
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          const origText = shareBtn.innerHTML;
+          shareBtn.innerHTML = `
+            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Link Copied!
+          `;
+          setTimeout(() => {
+            shareBtn.innerHTML = origText;
+          }, 2000);
+        }).catch(err => {
+          console.error('Failed to copy share link', err);
+          alert('Could not copy share URL. Here it is: ' + shareUrl);
+        });
+      });
+
+      // Export Report/Print Button
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+
+      // Init Flow
+      parseUrlState();
+      renderExpenses();
+      calculateRunway();
+    }
+
+    // Bind event hooks for Astro swaps & load
+    document.addEventListener('astro:page-load', initSaaSCalculator);
+  </script>
+
+  <style>
+    /* Slider Track Style Overrides */
+    input[type="range"]::-webkit-slider-runnable-track {
+      background: transparent;
+    }
+    input[type="range"]::-moz-range-track {
+      background: transparent;
+    }
+    
+    /* Scrollbar Styling for scrollable expense lists */
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 4px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 9px;
+    }
+
+    /* Print styles to ensure print report looks stellar */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      nav, #expense-presets, #expense-presets + div, #share-btn, #print-btn, #toggle-table-btn svg, .social-share-section {
+        display: none !important;
+      }
+      #projection-table-container {
+        display: block !important;
+      }
+      .premium-glass-card, #health-widget {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        background: white !important;
+      }
+      #projection-chart {
+        max-width: 100% !important;
+      }
+    }
+  </style>
+</Layout>

@@ -1,0 +1,1364 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SocialShare from '../components/SocialShare.astro';
+---
+
+<Layout 
+  title="Days Between Two Dates Calculator"
+  description="Calculate the exact number of days, weeks, months, and business days between any two dates. Add or subtract days from a date to model future timelines."
+>
+  <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Days Between Two Dates Calculator",
+      "url": "https://www.cloudyunicorn.com/days-calculator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "description": "Calculate date durations, total days, business days excluding weekends and US holidays, and add/subtract offsets from a starting date.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+
+  <div class="relative min-h-[calc(100vh-16rem)] bg-background py-12">
+    <div class="absolute inset-0 bg-grid-pattern bg-grid-fade pointer-events-none opacity-20"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs font-mono text-neutral-500">
+        <a href="/" class="hover:text-neutral-600 dark:hover:text-neutral-300">Tools</a>
+        <span>/</span>
+        <span class="text-neutral-600 dark:text-neutral-300">Days Calculator</span>
+      </nav>
+
+      <!-- Section Header -->
+      <div class="space-y-4">
+        <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white text-pretty">
+          Days Between Two Dates Calculator
+        </h1>
+        <p class="text-neutral-400 max-w-2xl text-sm sm:text-base">
+          Determine duration intervals down to the exact days, weeks, or business days. Switch modes to add/subtract offsets to forecast milestones.
+        </p>
+      </div>
+
+      <!-- Main Columns -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Inputs & Setup (Left) -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Mode Tabs (Pill tabs) -->
+          <div class="flex p-1 rounded-lg bg-neutral-100 dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800" role="tablist" aria-label="Calculator Mode">
+            <button
+              type="button"
+              id="mode-diff"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-diff"
+              class="flex-1 text-center text-xs font-semibold py-2.5 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-neutral-50 dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none cursor-pointer"
+            >
+              Days Between Dates
+            </button>
+            <button
+              type="button"
+              id="mode-offset"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-offset"
+              class="flex-1 text-center text-xs font-semibold py-2.5 rounded-md transition-all outline-none border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white aria-selected:bg-neutral-50 dark:aria-selected:bg-neutral-900 aria-selected:text-neutral-900 dark:aria-selected:text-white aria-selected:border-neutral-200 dark:aria-selected:border-neutral-800 aria-selected:shadow-sm dark:aria-selected:shadow-none cursor-pointer"
+            >
+              Add / Subtract Days
+            </button>
+          </div>
+
+          <!-- Mode 1 Panel: Days Between Dates -->
+          <div id="panel-diff" role="tabpanel" class="premium-glass-card rounded-xl p-6 space-y-5">
+            <h2 class="text-lg font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+              <svg class="w-5 h-5 text-neutral-400 dark:text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              Date Range Coordinates
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Start Date -->
+              <div class="space-y-2 relative" id="start-date-container">
+                <label for="start-date" class="block text-xs font-mono text-neutral-400 uppercase tracking-widest">
+                  Start Date
+                </label>
+                <div class="relative">
+                  <input 
+                    type="text" 
+                    id="start-date" 
+                    readonly
+                    placeholder="Select start date…"
+                    class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 pl-3 pr-10 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none cursor-pointer transition-colors"
+                  />
+                  <button
+                    type="button"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-900 dark:hover:text-white focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white outline-none rounded cursor-pointer"
+                    aria-label="Open start date calendar"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                  </button>
+                </div>
+                <!-- Calendar Popup -->
+                <div class="hidden absolute left-0 mt-2 z-50 w-72 bg-neutral-50 dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl p-4 space-y-3 calendar-popup" role="dialog" aria-modal="true" aria-label="Start date calendar picker">
+                  <div class="flex items-center justify-between gap-1">
+                    <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white prev-month-btn" aria-label="Previous month animate-all">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <div class="flex items-center gap-1.5">
+                      <select class="bg-background border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white px-1.5 py-1 rounded outline-none cursor-pointer month-select" aria-label="Select month"></select>
+                      <select class="bg-background border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white px-1.5 py-1 rounded outline-none cursor-pointer year-select" aria-label="Select year"></select>
+                    </div>
+                    <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white next-month-btn" aria-label="Next month animate-all">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                  </div>
+                  <div class="grid grid-cols-7 text-center text-[10px] font-mono text-neutral-400 dark:text-neutral-500 font-bold border-b border-neutral-200 dark:border-neutral-900 pb-1.5">
+                    <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                  </div>
+                  <div class="grid grid-cols-7 gap-1 text-center text-xs days-grid"></div>
+                  <div class="flex items-center justify-between border-t border-neutral-200 dark:border-neutral-900 pt-2.5">
+                    <button type="button" class="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white today-btn font-semibold px-1 py-0.5 rounded cursor-pointer">Today</button>
+                    <button type="button" class="text-[10px] font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white close-btn font-semibold px-1 py-0.5 rounded cursor-pointer">Close</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- End Date -->
+              <div class="space-y-2 relative" id="end-date-container">
+                <label for="end-date" class="block text-xs font-mono text-neutral-400 uppercase tracking-widest">
+                  End Date
+                </label>
+                <div class="relative">
+                  <input 
+                    type="text" 
+                    id="end-date" 
+                    readonly
+                    placeholder="Select end date…"
+                    class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 pl-3 pr-10 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none cursor-pointer transition-colors"
+                  />
+                  <button
+                    type="button"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-900 dark:hover:text-white focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white outline-none rounded cursor-pointer"
+                    aria-label="Open end date calendar"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                  </button>
+                </div>
+                <!-- Calendar Popup -->
+                <div class="hidden absolute left-0 mt-2 z-50 w-72 bg-neutral-50 dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl p-4 space-y-3 calendar-popup" role="dialog" aria-modal="true" aria-label="End date calendar picker">
+                  <div class="flex items-center justify-between gap-1">
+                    <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white prev-month-btn" aria-label="Previous month animate-all">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <div class="flex items-center gap-1.5">
+                      <select class="bg-background border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white px-1.5 py-1 rounded outline-none cursor-pointer month-select" aria-label="Select month"></select>
+                      <select class="bg-background border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white px-1.5 py-1 rounded outline-none cursor-pointer year-select" aria-label="Select year"></select>
+                    </div>
+                    <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white next-month-btn" aria-label="Next month animate-all">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                  </div>
+                  <div class="grid grid-cols-7 text-center text-[10px] font-mono text-neutral-400 dark:text-neutral-500 font-bold border-b border-neutral-200 dark:border-neutral-900 pb-1.5">
+                    <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                  </div>
+                  <div class="grid grid-cols-7 gap-1 text-center text-xs days-grid"></div>
+                  <div class="flex items-center justify-between border-t border-neutral-200 dark:border-neutral-900 pt-2.5">
+                    <button type="button" class="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white today-btn font-semibold px-1 py-0.5 rounded cursor-pointer">Today</button>
+                    <button type="button" class="text-[10px] font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white close-btn font-semibold px-1 py-0.5 rounded cursor-pointer">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Date shortcut buttons -->
+            <div class="flex flex-wrap gap-2 pt-1">
+              <button type="button" id="shortcut-1w" class="px-2.5 py-1.5 text-[10px] font-mono border border-neutral-200 dark:border-neutral-800 hover:border-neutral-900 dark:hover:border-white rounded bg-neutral-50 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer">+1 Week</button>
+              <button type="button" id="shortcut-1m" class="px-2.5 py-1.5 text-[10px] font-mono border border-neutral-200 dark:border-neutral-800 hover:border-neutral-900 dark:hover:border-white rounded bg-neutral-50 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer">+1 Month</button>
+              <button type="button" id="shortcut-3m" class="px-2.5 py-1.5 text-[10px] font-mono border border-neutral-200 dark:border-neutral-800 hover:border-neutral-900 dark:hover:border-white rounded bg-neutral-50 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer">+3 Months</button>
+              <button type="button" id="shortcut-1y" class="px-2.5 py-1.5 text-[10px] font-mono border border-neutral-200 dark:border-neutral-800 hover:border-neutral-900 dark:hover:border-white rounded bg-neutral-50 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer">+1 Year</button>
+            </div>
+
+            <!-- Calculation Exclusions Options -->
+            <div class="border-t border-neutral-200 dark:border-neutral-800 pt-5 space-y-4">
+              <h3 class="text-xs font-mono text-neutral-400 uppercase tracking-widest">Calculation Modifiers</h3>
+              
+              <div class="space-y-3">
+                <!-- Include end date checkbox -->
+                <label class="flex items-center gap-3 cursor-pointer group text-xs text-neutral-600 dark:text-neutral-400">
+                  <input 
+                    type="checkbox" 
+                    id="include-end-date" 
+                    class="rounded border-neutral-300 dark:border-neutral-800 bg-background text-neutral-900 dark:text-white focus:ring-0 w-4 h-4 cursor-pointer"
+                  />
+                  <span>Include end date in calculation (adds 1 day)</span>
+                </label>
+
+                <!-- Exclude weekends checkbox -->
+                <label class="flex items-center gap-3 cursor-pointer group text-xs text-neutral-600 dark:text-neutral-400">
+                  <input 
+                    type="checkbox" 
+                    id="exclude-weekends" 
+                    class="rounded border-neutral-300 dark:border-neutral-800 bg-background text-neutral-900 dark:text-white focus:ring-0 w-4 h-4 cursor-pointer"
+                  />
+                  <span>Exclude weekends (calculate business days)</span>
+                </label>
+
+                <!-- Exclude US holidays checkbox -->
+                <label class="flex items-center gap-3 cursor-pointer group text-xs text-neutral-600 dark:text-neutral-400" id="holidays-wrapper">
+                  <input 
+                    type="checkbox" 
+                    id="exclude-holidays" 
+                    class="rounded border-neutral-300 dark:border-neutral-800 bg-background text-neutral-900 dark:text-white focus:ring-0 w-4 h-4 cursor-pointer"
+                  />
+                  <span>Exclude major US Federal holidays</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode 2 Panel: Add/Subtract Days (Hidden by default) -->
+          <div id="panel-offset" role="tabpanel" class="hidden premium-glass-card rounded-xl p-6 space-y-5">
+            <h2 class="text-lg font-bold text-neutral-900 dark:text-white flex items-center gap-2">
+              <svg class="w-5 h-5 text-neutral-400 dark:text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Offset Adjustments
+            </h2>
+
+            <!-- Base Date -->
+            <div class="space-y-2 relative" id="offset-base-date-container">
+              <label for="offset-base-date" class="block text-xs font-mono text-neutral-400 uppercase tracking-widest">
+                Starting Base Date
+              </label>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  id="offset-base-date" 
+                  readonly
+                  placeholder="Select starting date…"
+                  class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded-md h-11 pl-3 pr-10 text-sm text-neutral-900 dark:text-white focus:border-neutral-900 dark:focus:border-white focus:ring-1 focus:ring-neutral-900 dark:focus:ring-white outline-none cursor-pointer transition-colors"
+                />
+                <button
+                  type="button"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-900 dark:hover:text-white focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white outline-none rounded cursor-pointer"
+                  aria-label="Open starting date calendar"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </button>
+              </div>
+              <!-- Calendar Popup -->
+              <div class="hidden absolute left-0 mt-2 z-50 w-72 bg-neutral-50 dark:bg-[#0e0e0e] border border-neutral-200 dark:border-neutral-800 rounded-lg shadow-2xl p-4 space-y-3 calendar-popup" role="dialog" aria-modal="true" aria-label="Starting base date calendar picker">
+                <div class="flex items-center justify-between gap-1">
+                  <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white prev-month-btn" aria-label="Previous month animate-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                  </button>
+                  <div class="flex items-center gap-1.5">
+                    <select class="bg-background border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white px-1.5 py-1 rounded outline-none cursor-pointer month-select" aria-label="Select month"></select>
+                    <select class="bg-background border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-900 dark:text-white px-1.5 py-1 rounded outline-none cursor-pointer year-select" aria-label="Select year"></select>
+                  </div>
+                  <button type="button" class="p-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white next-month-btn" aria-label="Next month animate-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </button>
+                </div>
+                <div class="grid grid-cols-7 text-center text-[10px] font-mono text-neutral-400 dark:text-neutral-500 font-bold border-b border-neutral-200 dark:border-neutral-900 pb-1.5">
+                  <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                </div>
+                <div class="grid grid-cols-7 gap-1 text-center text-xs days-grid"></div>
+                <div class="flex items-center justify-between border-t border-neutral-200 dark:border-neutral-900 pt-2.5">
+                  <button type="button" class="text-[10px] font-mono text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white today-btn font-semibold px-1 py-0.5 rounded cursor-pointer">Today</button>
+                  <button type="button" class="text-[10px] font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white close-btn font-semibold px-1 py-0.5 rounded cursor-pointer">Close</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Offsets input grid -->
+            <div class="grid grid-cols-3 gap-4 border-t border-neutral-200 dark:border-neutral-800 pt-5">
+              <div class="space-y-2">
+                <label for="offset-years" class="block text-[10px] font-mono text-neutral-400 uppercase tracking-wider">Years</label>
+                <input type="number" id="offset-years" value="0" class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded h-10 px-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-neutral-900 dark:focus:border-white font-mono" />
+              </div>
+              <div class="space-y-2">
+                <label for="offset-months" class="block text-[10px] font-mono text-neutral-400 uppercase tracking-wider">Months</label>
+                <input type="number" id="offset-months" value="0" class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded h-10 px-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-neutral-900 dark:focus:border-white font-mono" />
+              </div>
+              <div class="space-y-2">
+                <label for="offset-days" class="block text-[10px] font-mono text-neutral-400 uppercase tracking-wider">Days</label>
+                <input type="number" id="offset-days" value="30" class="w-full bg-background border border-neutral-200 dark:border-neutral-800 rounded h-10 px-3 text-xs text-neutral-900 dark:text-white outline-none focus:border-neutral-900 dark:focus:border-white font-mono" />
+              </div>
+            </div>
+
+            <!-- Direction selector -->
+            <div class="flex p-0.5 rounded-lg bg-neutral-100 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800" role="tablist">
+              <button type="button" id="offset-direction-add" class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all border border-transparent text-neutral-900 dark:text-white bg-neutral-50 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 shadow-sm cursor-pointer">Add Duration</button>
+              <button type="button" id="offset-direction-sub" class="flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer">Subtract Duration</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Outputs & Charts (Right) -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Primary result dashboard widget -->
+          <div id="result-widget" class="relative overflow-hidden rounded-xl border p-6 flex flex-col justify-between transition-all duration-300 bg-neutral-50/50 dark:bg-neutral-900/10 border-neutral-200 dark:border-neutral-800 shadow-sm">
+            <div id="result-glow" class="absolute top-0 right-0 -mt-6 -mr-6 w-44 h-44 blur-3xl rounded-full pointer-events-none opacity-20 bg-brand-blue"></div>
+
+            <div class="relative z-10 space-y-5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono uppercase tracking-widest text-neutral-500" id="result-title">Duration Span</span>
+                <span id="result-badge" class="text-[10px] font-mono font-bold uppercase py-0.5 px-2.5 rounded-full border bg-neutral-100 dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800">
+                  Active
+                </span>
+              </div>
+
+              <!-- Main Large count -->
+              <div class="space-y-1">
+                <div class="flex items-baseline gap-2">
+                  <span id="result-big-value" class="text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white font-mono">
+                    --
+                  </span>
+                  <span id="result-big-unit" class="text-sm font-mono text-neutral-500">Days</span>
+                </div>
+                <p id="result-summary" class="text-xs text-neutral-500 leading-relaxed font-light">
+                  Forecasted interval calculations.
+                </p>
+              </div>
+
+              <!-- Detailed breakdowns grid -->
+              <div class="grid grid-cols-2 gap-4 pt-4 border-t border-neutral-200/50 dark:border-neutral-800/50 text-xs font-mono">
+                <div class="space-y-1">
+                  <span class="block text-neutral-400 font-mono uppercase text-[9px]">Years, Months, Days</span>
+                  <span id="breakdown-ymd" class="font-bold text-neutral-800 dark:text-neutral-200 text-sm">--</span>
+                </div>
+                <div class="space-y-1">
+                  <span class="block text-neutral-400 font-mono uppercase text-[9px]">Total Weeks</span>
+                  <span id="breakdown-weeks" class="font-bold text-neutral-800 dark:text-neutral-200 text-sm">--</span>
+                </div>
+                <div class="space-y-1">
+                  <span class="block text-neutral-400 font-mono uppercase text-[9px]">Total Hours</span>
+                  <span id="breakdown-hours" class="font-bold text-neutral-800 dark:text-neutral-200 text-sm">--</span>
+                </div>
+                <div class="space-y-1">
+                  <span class="block text-neutral-400 font-mono uppercase text-[9px]">Business vs Weekend</span>
+                  <span id="breakdown-working" class="font-bold text-neutral-800 dark:text-neutral-200 text-xs">--</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sharing & Utilities -->
+          <div class="premium-glass-card rounded-xl p-5 flex flex-col sm:flex-row gap-3">
+            <button 
+              type="button" 
+              id="share-btn" 
+              class="flex-1 inline-flex items-center justify-center gap-2 h-10 px-4 rounded bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200 transition-all duration-150 cursor-pointer"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 10.742l4.622-2.311m0 0a3 3 0 114.243 4.243l-4.622 2.311m0 0a3 3 0 11-4.243-4.243m4.622-2.311l4.622 2.311"></path>
+              </svg>
+              Share Configuration
+            </button>
+            <button 
+              type="button" 
+              id="print-btn" 
+              class="flex-1 inline-flex items-center justify-center gap-2 h-10 px-4 rounded bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200 transition-all duration-150 cursor-pointer"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+              </svg>
+              Export Report / Print
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline & Milestones Sheet (Full width underneath) -->
+      <div class="grid grid-cols-1 gap-8">
+        
+        <!-- visual timeline illustration -->
+        <div class="premium-glass-card rounded-xl p-6 space-y-4" id="timeline-card-wrapper">
+          <h2 class="text-lg font-bold text-neutral-900 dark:text-white">Date Progress Timeline</h2>
+          
+          <div class="relative w-full h-[100px] bg-neutral-50/25 dark:bg-neutral-900/5 rounded-lg border border-neutral-100 dark:border-neutral-900 p-6 flex flex-col justify-center select-none" id="timeline-container">
+            <!-- Timeline SVG -->
+            <svg id="timeline-svg" class="w-full h-8" viewBox="0 0 600 30" preserveAspectRatio="none">
+              <!-- Dynamically populated via JS -->
+            </svg>
+            <div class="flex justify-between items-center text-[10px] font-mono text-neutral-400 mt-2">
+              <span id="timeline-label-start">Start Date</span>
+              <span id="timeline-label-percent" class="font-bold text-neutral-800 dark:text-neutral-200"></span>
+              <span id="timeline-label-end">End Date</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Milestones list -->
+        <div class="premium-glass-card rounded-xl overflow-hidden">
+          <button type="button" id="toggle-milestones-btn" class="w-full p-6 flex items-center justify-between bg-neutral-50/20 dark:bg-neutral-900/10 hover:bg-neutral-50/45 dark:hover:bg-neutral-900/25 transition-colors font-bold text-left text-neutral-900 dark:text-white cursor-pointer">
+            <span class="text-sm uppercase font-mono tracking-wider">Show Future Target Milestones</span>
+            <svg id="milestones-arrow-icon" class="w-4 h-4 transform transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+
+          <div id="milestones-table-container" class="border-t border-neutral-200 dark:border-neutral-800">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="bg-neutral-50/40 dark:bg-[#0c0c0e] text-neutral-400 font-mono uppercase tracking-wider border-b border-neutral-200 dark:border-neutral-800 text-[10px]">
+                    <th class="py-3.5 px-4 font-semibold">Milestone Offset</th>
+                    <th class="py-3.5 px-4 font-semibold">Target Date</th>
+                    <th class="py-3.5 px-4 font-semibold">Day of Week</th>
+                    <th class="py-3.5 px-4 font-semibold text-right">Days Remaining</th>
+                  </tr>
+                </thead>
+                <tbody id="milestones-table-body" class="divide-y divide-neutral-200/50 dark:divide-neutral-800/50 font-mono">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Informative Article/FAQ section (SEO) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-neutral-200 dark:border-neutral-900">
+          <div class="space-y-4 text-pretty">
+            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">Days Count Methodologies</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+              Calculating durations between calendar dates seems simple but requires precise arithmetic handling. Standard Gregorian coordinates shift to accommodate leap years (like adding February 29th) and daylight saving timezone changes, which alter the duration of a calendar day.
+            </p>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+              Our tool enforces midnight local-time offsets to eliminate daylight savings off-by-one errors. You can toggle the inclusion of the end date depending on whether you are calculating calendar span days or timeline counts (e.g. project sprint days).
+            </p>
+          </div>
+          <div class="space-y-4 text-pretty">
+            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">Business Days and Holiday Exclusions</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+              In business, finance, and legal contracts, weekends and federal holidays are excluded from turnaround time calculations. Business days calculations isolate Saturdays and Sundays, ensuring deadlines represent actual operating days.
+            </p>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+              When holiday exclusions are checked, our algorithm calculates floating US Federal Holidays dynamically—including New Year's Day, Memorial Day, Juneteenth, Independence Day, Labor Day, Thanksgiving, and Christmas—ensuring precise working-day metrics.
+            </p>
+          </div>
+        </div>
+
+        <SocialShare shareText="Check out this Premium Date & Days Between Dates Calculator to calculate durations and business days!" />
+      </div>
+    </div>
+  </div>
+
+    <script>
+    // Reusable Custom Vercel-style Date Picker Calendar
+    class CustomDatePicker {
+      container: HTMLDivElement;
+      input: HTMLInputElement;
+      button: HTMLButtonElement;
+      popup: HTMLDivElement;
+      monthSelect: HTMLSelectElement;
+      yearSelect: HTMLSelectElement;
+      prevBtn: HTMLButtonElement;
+      nextBtn: HTMLButtonElement;
+      daysGrid: HTMLDivElement;
+      todayBtn: HTMLButtonElement;
+      closeBtn: HTMLButtonElement;
+
+      selectedDate: Date | null;
+      viewDate: Date;
+      months: string[];
+      allowFuture: boolean;
+
+      constructor(containerId: string, initialDateStr: string | null, allowFuture: boolean = true) {
+        this.container = document.getElementById(containerId) as HTMLDivElement;
+        this.input = this.container.querySelector('input') as HTMLInputElement;
+        this.button = this.container.querySelector('button') as HTMLButtonElement;
+        this.popup = this.container.querySelector('.calendar-popup') as HTMLDivElement;
+        this.monthSelect = this.container.querySelector('.month-select') as HTMLSelectElement;
+        this.yearSelect = this.container.querySelector('.year-select') as HTMLSelectElement;
+        this.prevBtn = this.container.querySelector('.prev-month-btn') as HTMLButtonElement;
+        this.nextBtn = this.container.querySelector('.next-month-btn') as HTMLButtonElement;
+        this.daysGrid = this.container.querySelector('.days-grid') as HTMLDivElement;
+        this.todayBtn = this.container.querySelector('.today-btn') as HTMLButtonElement;
+        this.closeBtn = this.container.querySelector('.close-btn') as HTMLButtonElement;
+
+        this.selectedDate = initialDateStr ? new Date(initialDateStr + 'T00:00:00') : null;
+        this.viewDate = this.selectedDate ? new Date(this.selectedDate) : new Date();
+
+        this.months = [
+          'January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        this.allowFuture = allowFuture;
+
+        this.init();
+      }
+
+      init() {
+        // Populate months select
+        this.months.forEach((m, idx) => {
+          const opt = document.createElement('option');
+          opt.value = idx.toString();
+          opt.textContent = m.slice(0, 3);
+          this.monthSelect.appendChild(opt);
+        });
+
+        // Populate years select (1900 to current year + 30)
+        const currentYear = new Date().getFullYear();
+        const maxYear = this.allowFuture ? currentYear + 30 : currentYear;
+        for (let y = maxYear; y >= 1900; y--) {
+          const opt = document.createElement('option');
+          opt.value = y.toString();
+          opt.textContent = y.toString();
+          this.yearSelect.appendChild(opt);
+        }
+
+        // Bind click events
+        this.input.addEventListener('click', () => this.togglePopup());
+        this.button.addEventListener('click', () => this.togglePopup());
+        
+        this.prevBtn.addEventListener('click', () => this.navigateMonth(-1));
+        this.nextBtn.addEventListener('click', () => this.navigateMonth(1));
+        
+        this.monthSelect.addEventListener('change', () => {
+          this.viewDate.setMonth(parseInt(this.monthSelect.value));
+          this.render();
+        });
+
+        this.yearSelect.addEventListener('change', () => {
+          this.viewDate.setFullYear(parseInt(this.yearSelect.value));
+          this.render();
+        });
+
+        this.todayBtn.addEventListener('click', () => {
+          const today = new Date();
+          this.selectDate(today);
+          this.closePopup();
+        });
+
+        this.closeBtn.addEventListener('click', () => this.closePopup());
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!this.container.contains(e.target as Node)) {
+            this.closePopup();
+          }
+        });
+
+        // Set initial value
+        if (this.selectedDate) {
+          this.updateInputValue();
+        }
+        this.render();
+      }
+
+      togglePopup() {
+        const isHidden = this.popup.classList.contains('hidden');
+        // Hide all other popups
+        document.querySelectorAll('.calendar-popup').forEach((p) => p.classList.add('hidden'));
+
+        if (isHidden) {
+          this.popup.classList.remove('hidden');
+          this.input.setAttribute('aria-expanded', 'true');
+          if (this.selectedDate) {
+            this.viewDate = new Date(this.selectedDate);
+          } else {
+            this.viewDate = new Date();
+          }
+          this.render();
+        } else {
+          this.closePopup();
+        }
+      }
+
+      closePopup() {
+        this.popup.classList.add('hidden');
+        this.input.setAttribute('aria-expanded', 'false');
+      }
+
+      navigateMonth(offset: number) {
+        this.viewDate.setMonth(this.viewDate.getMonth() + offset);
+        this.render();
+      }
+
+      selectDate(date: Date) {
+        this.selectedDate = new Date(date);
+        this.updateInputValue();
+        // Fire input event for the form listeners
+        const event = new Event('input', { bubbles: true });
+        this.input.dispatchEvent(event);
+      }
+
+      updateInputValue() {
+        if (!this.selectedDate) return;
+        const y = this.selectedDate.getFullYear();
+        const m = String(this.selectedDate.getMonth() + 1).padStart(2, '0');
+        const d = String(this.selectedDate.getDate()).padStart(2, '0');
+        this.input.value = y + '-' + m + '-' + d;
+      }
+
+      render() {
+        const year = this.viewDate.getFullYear();
+        const month = this.viewDate.getMonth();
+
+        // Update selects
+        this.monthSelect.value = month.toString();
+        this.yearSelect.value = year.toString();
+
+        // Clear grid
+        this.daysGrid.innerHTML = '';
+
+        // Day offsets
+        const firstDayIdx = new Date(year, month, 1).getDay();
+        const totalDays = new Date(year, month + 1, 0).getDate();
+        const prevTotalDays = new Date(year, month, 0).getDate();
+
+        // Render previous month days padding
+        for (let i = firstDayIdx; i > 0; i--) {
+          const dayNum = prevTotalDays - i + 1;
+          const btn = this.createDayButton(dayNum, new Date(year, month - 1, dayNum), true);
+          this.daysGrid.appendChild(btn);
+        }
+
+        // Render current month days
+        for (let i = 1; i <= totalDays; i++) {
+          const btn = this.createDayButton(i, new Date(year, month, i), false);
+          this.daysGrid.appendChild(btn);
+        }
+
+        // Next month padding to keep grid consistent (6 rows of 7 = 42 cells)
+        const totalCells = 42;
+        const cellsFilled = firstDayIdx + totalDays;
+        const cellsRemaining = totalCells - cellsFilled;
+        for (let i = 1; i <= cellsRemaining; i++) {
+          const btn = this.createDayButton(i, new Date(year, month + 1, i), true);
+          this.daysGrid.appendChild(btn);
+        }
+
+        // Disable next month button if viewing current or future month and allowFuture is false
+        if (!this.allowFuture) {
+          const today = new Date();
+          if (year > today.getFullYear() || (year === today.getFullYear() && month >= today.getMonth())) {
+            this.nextBtn.disabled = true;
+            this.nextBtn.classList.add('opacity-30', 'cursor-not-allowed', 'pointer-events-none');
+          } else {
+            this.nextBtn.disabled = false;
+            this.nextBtn.classList.remove('opacity-30', 'cursor-not-allowed', 'pointer-events-none');
+          }
+        }
+      }
+
+      createDayButton(dayNum: number, date: Date, isNeighbor: boolean): HTMLButtonElement {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = dayNum.toString();
+        btn.className = 'w-8 h-8 flex items-center justify-center text-center font-mono rounded-md outline-none transition-all focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white cursor-pointer ';
+
+        if (isNeighbor) {
+          btn.className += 'text-neutral-400 dark:text-neutral-600 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800';
+        } else {
+          btn.className += 'text-neutral-800 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800';
+        }
+
+        // Active highlighted selected state
+        if (this.selectedDate && 
+            this.selectedDate.getFullYear() === date.getFullYear() &&
+            this.selectedDate.getMonth() === date.getMonth() &&
+            this.selectedDate.getDate() === date.getDate()) {
+          btn.className += ' !bg-neutral-950 dark:!bg-white !text-white dark:!text-black font-semibold';
+        }
+
+        // Border outline for today
+        const today = new Date();
+        if (today.getFullYear() === date.getFullYear() &&
+            today.getMonth() === date.getMonth() &&
+            today.getDate() === date.getDate()) {
+          btn.className += ' border border-neutral-300 dark:border-neutral-700';
+        }
+
+        // Disable future dates if allowFuture is false
+        if (!this.allowFuture) {
+          const todayCompare = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59, 999);
+          if (date > todayCompare) {
+            btn.disabled = true;
+            btn.className += ' opacity-20 cursor-not-allowed pointer-events-none';
+          }
+        }
+
+        btn.addEventListener('click', () => {
+          this.selectDate(date);
+          this.closePopup();
+        });
+
+        return btn;
+      }
+    }
+
+    function initDaysCalculator() {
+      // Inputs
+      const modeDiffTab = document.getElementById('mode-diff') as HTMLButtonElement;
+      const modeOffsetTab = document.getElementById('mode-offset') as HTMLButtonElement;
+      const panelDiff = document.getElementById('panel-diff') as HTMLDivElement;
+      const panelOffset = document.getElementById('panel-offset') as HTMLDivElement;
+
+      const startDateInput = document.getElementById('start-date') as HTMLInputElement;
+      const endDateInput = document.getElementById('end-date') as HTMLInputElement;
+      const includeEndDateCheck = document.getElementById('include-end-date') as HTMLInputElement;
+      const excludeWeekendsCheck = document.getElementById('exclude-weekends') as HTMLInputElement;
+      const excludeHolidaysCheck = document.getElementById('exclude-holidays') as HTMLInputElement;
+      const holidaysWrapper = document.getElementById('holidays-wrapper') as HTMLDivElement;
+
+      const offsetBaseDateInput = document.getElementById('offset-base-date') as HTMLInputElement;
+      const offsetYearsInput = document.getElementById('offset-years') as HTMLInputElement;
+      const offsetMonthsInput = document.getElementById('offset-months') as HTMLInputElement;
+      const offsetDaysInput = document.getElementById('offset-days') as HTMLInputElement;
+      const offsetDirectionAdd = document.getElementById('offset-direction-add') as HTMLButtonElement;
+      const offsetDirectionSub = document.getElementById('offset-direction-sub') as HTMLButtonElement;
+
+      // Results
+      const resultWidget = document.getElementById('result-widget') as HTMLDivElement;
+      const resultGlow = document.getElementById('result-glow') as HTMLDivElement;
+      const resultTitle = document.getElementById('result-title') as HTMLSpanElement;
+      const resultBadge = document.getElementById('result-badge') as HTMLSpanElement;
+      const resultBigValue = document.getElementById('result-big-value') as HTMLSpanElement;
+      const resultBigUnit = document.getElementById('result-big-unit') as HTMLSpanElement;
+      const resultSummary = document.getElementById('result-summary') as HTMLParagraphElement;
+
+      const breakdownYmd = document.getElementById('breakdown-ymd') as HTMLSpanElement;
+      const breakdownWeeks = document.getElementById('breakdown-weeks') as HTMLSpanElement;
+      const breakdownHours = document.getElementById('breakdown-hours') as HTMLSpanElement;
+      const breakdownWorking = document.getElementById('breakdown-working') as HTMLSpanElement;
+
+      const shareBtn = document.getElementById('share-btn') as HTMLButtonElement;
+      const printBtn = document.getElementById('print-btn') as HTMLButtonElement;
+
+      const timelineCardWrapper = document.getElementById('timeline-card-wrapper') as HTMLDivElement;
+      const timelineSvg = document.getElementById('timeline-svg') as unknown as SVGSVGElement;
+      const timelineLabelStart = document.getElementById('timeline-label-start') as HTMLSpanElement;
+      const timelineLabelEnd = document.getElementById('timeline-label-end') as HTMLSpanElement;
+      const timelineLabelPercent = document.getElementById('timeline-label-percent') as HTMLSpanElement;
+
+      const toggleMilestonesBtn = document.getElementById('toggle-milestones-btn') as HTMLButtonElement;
+      const milestonesArrowIcon = document.getElementById('milestones-arrow-icon') as unknown as SVGElement;
+      const milestonesTableContainer = document.getElementById('milestones-table-container') as HTMLDivElement;
+      const milestonesTableBody = document.getElementById('milestones-table-body') as HTMLTableSectionElement;
+
+      if (!modeDiffTab) return;
+
+      // State
+      let activeMode = 'diff'; // 'diff' or 'offset'
+      let offsetDirection = 'add'; // 'add' or 'sub'
+      let isMilestonesCollapsed = false;
+
+      // Default Date setup
+      const today = new Date();
+      const todayStr = today.toISOString().split('T')[0];
+      
+      const nextMonth = new Date();
+      nextMonth.setDate(today.getDate() + 30);
+      const nextMonthStr = nextMonth.toISOString().split('T')[0];
+
+      let initialStartVal = todayStr;
+      let initialEndVal = nextMonthStr;
+      let initialOffsetBaseVal = todayStr;
+
+      // US Federal Holidays Calculation helper
+      function getUsHolidays(year: number): string[] {
+        const holidays: Date[] = [];
+        
+        // Helper for Nth day of week in month
+        function getNthDayOfWeek(yr: number, month: number, dayOfWeek: number, n: number): Date | null {
+          let count = 0;
+          const d = new Date(yr, month, 1);
+          while (d.getMonth() === month) {
+            if (d.getDay() === dayOfWeek) {
+              count++;
+              if (count === n) {
+                return new Date(d);
+              }
+            }
+            d.setDate(d.getDate() + 1);
+          }
+          return null;
+        }
+
+        // Helper for last Day of week in month
+        function getLastDayOfWeek(yr: number, month: number, dayOfWeek: number): Date | null {
+          const d = new Date(yr, month + 1, 0); // last day of month
+          while (d.getMonth() === month) {
+            if (d.getDay() === dayOfWeek) {
+              return new Date(d);
+            }
+            d.setDate(d.getDate() - 1);
+          }
+          return null;
+        }
+
+        // Fixed Holidays
+        holidays.push(new Date(year, 0, 1)); // New Year's Day (Jan 1)
+        holidays.push(new Date(year, 5, 19)); // Juneteenth (June 19)
+        holidays.push(new Date(year, 6, 4)); // Independence Day (July 4)
+        holidays.push(new Date(year, 10, 11)); // Veterans Day (Nov 11)
+        holidays.push(new Date(year, 11, 25)); // Christmas Day (Dec 25)
+
+        // Floating Holidays (0 = Sunday, 1 = Monday, ..., 4 = Thursday)
+        const mlk = getNthDayOfWeek(year, 0, 1, 3);
+        if (mlk) holidays.push(mlk);
+
+        const pres = getNthDayOfWeek(year, 1, 1, 3);
+        if (pres) holidays.push(pres);
+
+        const mem = getLastDayOfWeek(year, 4, 1);
+        if (mem) holidays.push(mem);
+
+        const lab = getNthDayOfWeek(year, 8, 1, 1);
+        if (lab) holidays.push(lab);
+
+        const col = getNthDayOfWeek(year, 9, 1, 2);
+        if (col) holidays.push(col);
+
+        const thg = getNthDayOfWeek(year, 10, 4, 4);
+        if (thg) holidays.push(thg);
+
+        return holidays.map(d => d.toDateString());
+      }
+
+      // Sync checkboxes
+      excludeWeekendsCheck.addEventListener('change', () => {
+        if (excludeWeekendsCheck.checked) {
+          holidaysWrapper.classList.remove('opacity-40', 'pointer-events-none');
+        } else {
+          excludeHolidaysCheck.checked = false;
+          holidaysWrapper.classList.add('opacity-40', 'pointer-events-none');
+        }
+        calculateDays();
+      });
+
+      // Load query parameters if available
+      function parseUrlState() {
+        const hash = window.location.hash || window.location.search;
+        if (!hash) return;
+        
+        try {
+          const params = new URLSearchParams(hash.substring(1));
+          const stateData = params.get('state');
+          if (!stateData) return;
+          
+          const decoded = JSON.parse(atob(stateData));
+          if (decoded.mode !== undefined) {
+            activeMode = decoded.mode;
+            updateModeUI();
+          }
+          if (decoded.start !== undefined) initialStartVal = decoded.start;
+          if (decoded.end !== undefined) initialEndVal = decoded.end;
+          if (decoded.incEnd !== undefined) includeEndDateCheck.checked = decoded.incEnd;
+          if (decoded.excWe !== undefined) {
+            excludeWeekendsCheck.checked = decoded.excWe;
+            if (decoded.excWe) {
+              holidaysWrapper.classList.remove('opacity-40', 'pointer-events-none');
+            }
+          }
+          if (decoded.excHoli !== undefined) excludeHolidaysCheck.checked = decoded.excHoli;
+          if (decoded.offBase !== undefined) initialOffsetBaseVal = decoded.offBase;
+          if (decoded.offY !== undefined) offsetYearsInput.value = decoded.offY;
+          if (decoded.offM !== undefined) offsetMonthsInput.value = decoded.offM;
+          if (decoded.offD !== undefined) offsetDaysInput.value = decoded.offD;
+          if (decoded.offDir !== undefined) {
+            offsetDirection = decoded.offDir;
+            updateOffsetDirectionUI();
+          }
+        } catch (e) {
+          console.error('Error parsing shared state parameters', e);
+        }
+      }
+
+      function updateModeUI() {
+        if (activeMode === 'diff') {
+          modeDiffTab.setAttribute('aria-selected', 'true');
+          modeOffsetTab.setAttribute('aria-selected', 'false');
+          panelDiff.classList.remove('hidden');
+          panelOffset.classList.add('hidden');
+          timelineCardWrapper.classList.remove('hidden');
+          resultTitle.textContent = 'Duration Span';
+          resultBigUnit.textContent = 'Days';
+        } else {
+          modeDiffTab.setAttribute('aria-selected', 'false');
+          modeOffsetTab.setAttribute('aria-selected', 'true');
+          panelDiff.classList.add('hidden');
+          panelOffset.classList.remove('hidden');
+          timelineCardWrapper.classList.add('hidden');
+          resultTitle.textContent = 'Target Date';
+          resultBigUnit.textContent = '';
+        }
+      }
+
+      function updateOffsetDirectionUI() {
+        if (offsetDirection === 'add') {
+          offsetDirectionAdd.className = 'flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all border border-transparent text-neutral-900 dark:text-white bg-neutral-50 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 shadow-sm cursor-pointer';
+          offsetDirectionSub.className = 'flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer';
+        } else {
+          offsetDirectionSub.className = 'flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all border border-transparent text-neutral-900 dark:text-white bg-neutral-50 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 shadow-sm cursor-pointer';
+          offsetDirectionAdd.className = 'flex-1 text-center text-xs font-semibold py-2 rounded-md transition-all border border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer';
+        }
+      }
+
+      // Mode toggles
+      modeDiffTab.addEventListener('click', () => {
+        activeMode = 'diff';
+        updateModeUI();
+        calculateDays();
+      });
+
+      modeOffsetTab.addEventListener('click', () => {
+        activeMode = 'offset';
+        updateModeUI();
+        calculateDays();
+      });
+
+      // Direction toggles
+      offsetDirectionAdd.addEventListener('click', () => {
+        offsetDirection = 'add';
+        updateOffsetDirectionUI();
+        calculateDays();
+      });
+
+      offsetDirectionSub.addEventListener('click', () => {
+        offsetDirection = 'sub';
+        updateOffsetDirectionUI();
+        calculateDays();
+      });
+
+      // Recalculate triggers
+      [startDateInput, endDateInput, includeEndDateCheck, excludeHolidaysCheck, offsetBaseDateInput, offsetYearsInput, offsetMonthsInput, offsetDaysInput].forEach(el => {
+        if (el) el.addEventListener('input', calculateDays);
+      });
+
+      // Add shortcut additions
+      function applyShortcut(days: number) {
+        const start = new Date(startDateInput.value + 'T00:00:00');
+        if (!isNaN(start.getTime())) {
+          start.setDate(start.getDate() + days);
+          endDatePicker.selectDate(start);
+          calculateDays();
+        }
+      }
+
+      const shortcut1w = document.getElementById('shortcut-1w');
+      const shortcut1m = document.getElementById('shortcut-1m');
+      const shortcut3m = document.getElementById('shortcut-3m');
+      const shortcut1y = document.getElementById('shortcut-1y');
+
+      if (shortcut1w) shortcut1w.addEventListener('click', () => applyShortcut(7));
+      if (shortcut1m) shortcut1m.addEventListener('click', () => applyShortcut(30));
+      if (shortcut3m) shortcut3m.addEventListener('click', () => applyShortcut(90));
+      if (shortcut1y) shortcut1y.addEventListener('click', () => applyShortcut(365));
+
+      // Core calculation logic
+      function calculateDays() {
+        if (activeMode === 'diff') {
+          calculateDifference();
+        } else {
+          calculateOffset();
+        }
+      }
+
+      // Calculate difference between dates
+      function calculateDifference() {
+        const sVal = startDateInput.value;
+        const eVal = endDateInput.value;
+
+        if (!sVal || !eVal) {
+          resultBigValue.textContent = '--';
+          resultSummary.textContent = 'Please enter valid start and end dates.';
+          return;
+        }
+
+        const start = new Date(sVal + 'T00:00:00');
+        const end = new Date(eVal + 'T00:00:00');
+
+        if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+          resultBigValue.textContent = '--';
+          resultSummary.textContent = 'Invalid date format.';
+          return;
+        }
+
+        const dStart = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+        const dEnd = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+        
+        const utcStart = Date.UTC(dStart.getFullYear(), dStart.getMonth(), dStart.getDate());
+        const utcEnd = Date.UTC(dEnd.getFullYear(), dEnd.getMonth(), dEnd.getDate());
+
+        let diffDays = Math.floor((utcEnd - utcStart) / (1000 * 60 * 60 * 24));
+
+        const includeEnd = includeEndDateCheck.checked;
+        const adjustDays = includeEnd ? (diffDays >= 0 ? diffDays + 1 : diffDays - 1) : diffDays;
+        
+        resultBigValue.textContent = String(Math.abs(adjustDays));
+        resultBigUnit.textContent = Math.abs(adjustDays) === 1 ? 'Day' : 'Days';
+
+        const startFormat = dStart.toLocaleDateString('en-US', { dateStyle: 'medium' });
+        const endFormat = dEnd.toLocaleDateString('en-US', { dateStyle: 'medium' });
+        
+        let directionTxt = 'between';
+        if (diffDays < 0) directionTxt = 'backward from';
+        resultSummary.textContent = `${Math.abs(adjustDays)} calendar day${Math.abs(adjustDays) === 1 ? '' : 's'} ${directionTxt} ${startFormat} and ${endFormat}${includeEnd ? ' (including the end date)' : ''}.`;
+
+        // Detailed breakdowns
+        let yearsDiff = dEnd.getFullYear() - dStart.getFullYear();
+        let monthsDiff = dEnd.getMonth() - dStart.getMonth();
+        let daysDiff = dEnd.getDate() - dStart.getDate();
+
+        if (daysDiff < 0) {
+          const prevMonth = new Date(dEnd.getFullYear(), dEnd.getMonth(), 0);
+          daysDiff += prevMonth.getDate();
+          monthsDiff--;
+        }
+        if (monthsDiff < 0) {
+          monthsDiff += 12;
+          yearsDiff--;
+        }
+
+        if (includeEnd) {
+          daysDiff += (diffDays >= 0 ? 1 : -1);
+          const limitMonth = new Date(dEnd.getFullYear(), dEnd.getMonth() + 1, 0).getDate();
+          if (Math.abs(daysDiff) >= limitMonth) {
+            daysDiff = 0;
+            monthsDiff++;
+          }
+          if (monthsDiff >= 12) {
+            monthsDiff = 0;
+            yearsDiff++;
+          }
+        }
+
+        let ymdText = '';
+        if (diffDays < 0) {
+          ymdText = '-';
+        }
+        ymdText += `${Math.abs(yearsDiff)}y, ${Math.abs(monthsDiff)}m, ${Math.abs(daysDiff)}d`;
+        breakdownYmd.textContent = ymdText;
+
+        const totalWeeks = Math.floor(Math.abs(adjustDays) / 7);
+        const remWeeksDays = Math.abs(adjustDays) % 7;
+        breakdownWeeks.textContent = `${totalWeeks}w, ${remWeeksDays}d`;
+
+        const totalHours = Math.abs(adjustDays) * 24;
+        breakdownHours.textContent = totalHours.toLocaleString('en-US') + ' hrs';
+
+        let workingCount = 0;
+        let weekendCount = 0;
+        let holidayCount = 0;
+
+        const loopStart = new Date(Math.min(utcStart, utcEnd));
+        const loopEnd = new Date(Math.max(utcStart, utcEnd));
+
+        const listHolidays: string[] = [];
+        if (excludeHolidaysCheck.checked) {
+          for (let yr = loopStart.getFullYear(); yr <= loopEnd.getFullYear(); yr++) {
+            listHolidays.push(...getUsHolidays(yr));
+          }
+        }
+
+        const dIter = new Date(loopStart);
+        while (dIter <= loopEnd) {
+          const day = dIter.getDay();
+          const dateStr = dIter.toDateString();
+
+          if (!includeEnd && dIter.getTime() === loopEnd.getTime()) {
+            break;
+          }
+
+          if (day === 0 || day === 6) {
+            weekendCount++;
+          } else if (excludeHolidaysCheck.checked && listHolidays.includes(dateStr)) {
+            holidayCount++;
+          } else {
+            workingCount++;
+          }
+          dIter.setDate(dIter.getDate() + 1);
+        }
+
+        if (excludeWeekendsCheck.checked) {
+          let workText = `${workingCount} Business`;
+          if (excludeHolidaysCheck.checked && holidayCount > 0) {
+            workText += ` (Excl. ${holidayCount} Holiday${holidayCount === 1 ? '' : 's'})`;
+          }
+          breakdownWorking.textContent = workText;
+          resultBigValue.textContent = String(workingCount);
+          resultBigUnit.textContent = workingCount === 1 ? 'Business Day' : 'Business Days';
+        } else {
+          breakdownWorking.textContent = `${workingCount} Work / ${weekendCount} Wknd`;
+        }
+
+        renderTimeline(dStart, dEnd, includeEnd);
+        renderMilestonesTable(dStart);
+      }
+
+      // Calculate future/past date based on offset adjustments
+      function calculateOffset() {
+        const sVal = offsetBaseDateInput.value;
+        const yearsOffset = parseInt(offsetYearsInput.value) || 0;
+        const monthsOffset = parseInt(offsetMonthsInput.value) || 0;
+        const daysOffset = parseInt(offsetDaysInput.value) || 0;
+
+        if (!sVal) {
+          resultBigValue.textContent = '--';
+          resultSummary.textContent = 'Please enter a valid base date.';
+          return;
+        }
+
+        const base = new Date(sVal + 'T00:00:00');
+        if (isNaN(base.getTime())) {
+          resultBigValue.textContent = '--';
+          resultSummary.textContent = 'Invalid date format.';
+          return;
+        }
+
+        const target = new Date(base.getFullYear(), base.getMonth(), base.getDate());
+        const directionFactor = offsetDirection === 'add' ? 1 : -1;
+
+        target.setFullYear(target.getFullYear() + (yearsOffset * directionFactor));
+        target.setMonth(target.getMonth() + (monthsOffset * directionFactor));
+        target.setDate(target.getDate() + (daysOffset * directionFactor));
+
+        const baseFormat = base.toLocaleDateString('en-US', { dateStyle: 'medium' });
+        const targetFormat = target.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        
+        resultBigValue.textContent = target.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        resultBigValue.className = 'text-4xl font-extrabold tracking-tight text-neutral-900 dark:text-white font-mono';
+        resultBigUnit.textContent = '';
+
+        const sign = offsetDirection === 'add' ? '+' : '-';
+        const offsetString = `${yearsOffset > 0 ? `${yearsOffset}y ` : ''}${monthsOffset > 0 ? `${monthsOffset}m ` : ''}${daysOffset > 0 ? `${daysOffset}d ` : ''}`;
+        resultSummary.textContent = `Applying offset of ${sign}${offsetString || '0d'} to ${baseFormat} lands on ${targetFormat}.`;
+
+        breakdownYmd.textContent = target.toLocaleDateString('en-US', { weekday: 'long' });
+        
+        const totalDiffMs = target.getTime() - base.getTime();
+        const totalDiffDays = Math.round(totalDiffMs / (1000 * 60 * 60 * 24));
+        const absDiffDays = Math.abs(totalDiffDays);
+
+        breakdownWeeks.textContent = `${Math.floor(absDiffDays / 7)}w, ${absDiffDays % 7}d`;
+        breakdownHours.textContent = absDiffDays.toLocaleString('en-US') + ' calendar days';
+        
+        const currentMsDiff = target.getTime() - today.getTime();
+        const currentDaysDiff = Math.ceil(currentMsDiff / (1000 * 60 * 60 * 24));
+
+        if (currentDaysDiff === 0) {
+          breakdownWorking.textContent = 'Target is Today';
+        } else if (currentDaysDiff > 0) {
+          breakdownWorking.textContent = `In ${currentDaysDiff} days`;
+        } else {
+          breakdownWorking.textContent = `${Math.abs(currentDaysDiff)} days ago`;
+        }
+
+        renderMilestonesTable(target);
+      }
+
+      // Draw SVG timeline line
+      function renderTimeline(start: Date, end: Date, includeEnd: boolean) {
+        timelineSvg.innerHTML = '';
+
+        timelineLabelStart.textContent = start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        timelineLabelEnd.textContent = end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', '10');
+        line.setAttribute('y1', '15');
+        line.setAttribute('x2', '590');
+        line.setAttribute('y2', '15');
+        line.setAttribute('stroke', 'currentColor');
+        line.setAttribute('class', 'text-neutral-200 dark:text-neutral-800');
+        line.setAttribute('stroke-width', '4');
+        line.setAttribute('stroke-linecap', 'round');
+        timelineSvg.appendChild(line);
+
+        const tStart = start.getTime();
+        const tEnd = end.getTime();
+        const tNow = today.getTime();
+
+        const range = tEnd - tStart;
+        if (range > 0 && tNow >= tStart && tNow <= tEnd) {
+          const percent = (tNow - tStart) / range;
+          const xProgress = 10 + percent * 580;
+
+          const progressLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          progressLine.setAttribute('x1', '10');
+          progressLine.setAttribute('y1', '15');
+          progressLine.setAttribute('x2', String(xProgress));
+          progressLine.setAttribute('y2', '15');
+          progressLine.setAttribute('stroke', '#6468cb');
+          progressLine.setAttribute('stroke-width', '4');
+          progressLine.setAttribute('stroke-linecap', 'round');
+          timelineSvg.appendChild(progressLine);
+
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('cx', String(xProgress));
+          circle.setAttribute('cy', '15');
+          circle.setAttribute('r', '6');
+          circle.setAttribute('fill', '#6468cb');
+          circle.setAttribute('stroke', '#ffffff');
+          circle.setAttribute('stroke-width', '2');
+          timelineSvg.appendChild(circle);
+
+          timelineLabelPercent.textContent = `Today: ${Math.round(percent * 100)}% completed`;
+        } else {
+          timelineLabelPercent.textContent = '';
+          
+          const startNode = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          startNode.setAttribute('cx', '10');
+          startNode.setAttribute('cy', '15');
+          startNode.setAttribute('r', '5');
+          startNode.setAttribute('fill', '#706354');
+          timelineSvg.appendChild(startNode);
+
+          const endNode = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          endNode.setAttribute('cx', '590');
+          endNode.setAttribute('cy', '15');
+          endNode.setAttribute('r', '5');
+          endNode.setAttribute('fill', '#706354');
+          timelineSvg.appendChild(endNode);
+        }
+      }
+
+      // Populate future offsets milestones table
+      function renderMilestonesTable(baseDate: Date) {
+        milestonesTableBody.innerHTML = '';
+        
+        const offsets = [7, 30, 90, 180, 365, 1000, 10000];
+        
+        offsets.forEach(days => {
+          const target = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate());
+          target.setDate(target.getDate() + days);
+
+          const dateStr = target.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+          const dayOfWeek = target.toLocaleDateString('en-US', { weekday: 'long' });
+          
+          const remMs = target.getTime() - today.getTime();
+          const remDays = Math.ceil(remMs / (1000 * 60 * 60 * 24));
+          
+          let remText = '--';
+          if (remDays === 0) {
+            remText = 'Today';
+          } else if (remDays > 0) {
+            remText = remDays.toLocaleString() + ' days';
+          } else {
+            remText = Math.abs(remDays).toLocaleString() + ' days ago';
+          }
+
+          const row = document.createElement('tr');
+          row.className = 'border-b border-neutral-200/40 dark:border-neutral-800/40 hover:bg-neutral-50/40 dark:hover:bg-[#0c0c0e]/30 transition-colors text-xs text-neutral-800 dark:text-neutral-200';
+          row.innerHTML = `
+            <td class="py-3.5 px-4 font-semibold text-neutral-500">+${days.toLocaleString()} Days</td>
+            <td class="py-3.5 px-4">${dateStr}</td>
+            <td class="py-3.5 px-4 text-neutral-500">${dayOfWeek}</td>
+            <td class="py-3.5 px-4 text-right font-semibold">${remText}</td>
+          `;
+          milestonesTableBody.appendChild(row);
+        });
+      }
+
+      // Collapsible milestones table
+      toggleMilestonesBtn.addEventListener('click', () => {
+        isMilestonesCollapsed = !isMilestonesCollapsed;
+        if (isMilestonesCollapsed) {
+          milestonesTableContainer.classList.add('hidden');
+          milestonesArrowIcon.classList.remove('rotate-180');
+        } else {
+          milestonesTableContainer.classList.remove('hidden');
+          milestonesArrowIcon.classList.add('rotate-180');
+        }
+      });
+
+      // Sharing Action Button
+      shareBtn.addEventListener('click', () => {
+        const state = {
+          mode: activeMode,
+          start: startDateInput.value,
+          end: endDateInput.value,
+          incEnd: includeEndDateCheck.checked,
+          excWe: excludeWeekendsCheck.checked,
+          excHoli: excludeHolidaysCheck.checked,
+          offBase: offsetBaseDateInput.value,
+          offY: parseInt(offsetYearsInput.value) || 0,
+          offM: parseInt(offsetMonthsInput.value) || 0,
+          offD: parseInt(offsetDaysInput.value) || 0,
+          offDir: offsetDirection
+        };
+        
+        const base64State = btoa(JSON.stringify(state));
+        const shareUrl = `${window.location.origin}${window.location.pathname}?state=${base64State}`;
+        
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          const origText = shareBtn.innerHTML;
+          shareBtn.innerHTML = `
+            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Link Copied!
+          `;
+          setTimeout(() => {
+            shareBtn.innerHTML = origText;
+          }, 2000);
+        }).catch(err => {
+          console.error('Failed to copy share link', err);
+          alert('Could not copy share URL. Here it is: ' + shareUrl);
+        });
+      });
+
+      // Export Report/Print Button
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+
+      // Init Flow
+      parseUrlState();
+
+      // Initialize custom date pickers
+      const startDatePicker = new CustomDatePicker('start-date-container', initialStartVal, true);
+      const endDatePicker = new CustomDatePicker('end-date-container', initialEndVal, true);
+      const offsetBaseDatePicker = new CustomDatePicker('offset-base-date-container', initialOffsetBaseVal, true);
+
+      calculateDays();
+    }
+
+    // Bind event hooks for Astro page loads
+    document.addEventListener('astro:page-load', initDaysCalculator);
+  </script>
+
+  <style>
+    /* Print styles to ensure report looks stellar */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      nav, [role="tablist"], #share-btn, #print-btn, #toggle-milestones-btn svg, .social-share-section {
+        display: none !important;
+      }
+      #milestones-table-container {
+        display: block !important;
+      }
+      .premium-glass-card, #result-widget {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        background: white !important;
+      }
+      #timeline-svg {
+        max-width: 100% !important;
+      }
+    }
+  </style>
+</Layout>

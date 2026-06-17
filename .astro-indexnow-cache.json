@@ -1,9 +1,12 @@
 {
-  "https://www.cloudyunicorn.com/about/": "sha256:8a46696888e870d32ea64bab7e28b48e91c58aa66ff0e8ece2f96c6a43022130",
-  "https://www.cloudyunicorn.com/age-calculator/": "sha256:d04dfde9ff57fc116dd12fef523e166f3a8ffea96d10a8f83bb623bfadea2f3b",
-  "https://www.cloudyunicorn.com/bmi-calculator/": "sha256:d54184002359f0fb8e9444f7953d6322559b22fed058f1dfacebbfeed470a1d7",
-  "https://www.cloudyunicorn.com/calories-calculator/": "sha256:b6c96c6f4c999cbd3e5cac86ddb97da43bdac854a0d06c83c902252058a49a17",
-  "https://www.cloudyunicorn.com/": "sha256:f96096dd757495e21be7bf9f25a557086f1f9e7d7a70fa8e3a2a07fb3fb95239",
-  "https://www.cloudyunicorn.com/privacy-policy/": "sha256:117a3bc2bcbb0e7ca7dc6fe411c2c9cdf269aae7bf768b160fd19239a36270ab",
-  "https://www.cloudyunicorn.com/terms-of-service/": "sha256:01c4f44c2d4643f9871a7747a5863406766f91b681394f40dcafcfb6db17de1f"
+  "https://www.cloudyunicorn.com/about/": "sha256:fc30f66d5169be3591223bb1bc2477383d140c91feb6b4dd3d90b0922fd1c416",
+  "https://www.cloudyunicorn.com/age-calculator/": "sha256:5c71d144b1222e2038cd096d9a92ec12ba2c9c56d33d839a3dfbed73d650c322",
+  "https://www.cloudyunicorn.com/bmi-calculator/": "sha256:9e837e671b35d24775174a2cef2f01abfb45d904b961025b6f6d5454f68259c4",
+  "https://www.cloudyunicorn.com/calories-calculator/": "sha256:e814e16d156dd22c2e085b0f3e9bd42f2dcd427260eaa8a4c8a233b5966bd712",
+  "https://www.cloudyunicorn.com/days-calculator/": "sha256:d880fefd3ebeb2338fef89e3dc2cb5792266161a4baa4524ec918ea0f869304d",
+  "https://www.cloudyunicorn.com/": "sha256:5556082cfe77b7a23aae5b7764cfb55ad8eb4080c18c1f3bbabed740343b507c",
+  "https://www.cloudyunicorn.com/mortgage-calculator/": "sha256:53502b8b2f27fb0cba68928c1005fd479b45bcdc26b79e9d297d68cfd499d0c3",
+  "https://www.cloudyunicorn.com/privacy-policy/": "sha256:fcebcb2dae3fa1b221bd16b2c23d5ce99852c0d5cf1617bfb8974dca7ca18fce",
+  "https://www.cloudyunicorn.com/saas-cost-burn-calculator/": "sha256:c5027e19f5884bb6d09656a2ad5819d6e062bc843b3dc53768e7aca0663cd590",
+  "https://www.cloudyunicorn.com/terms-of-service/": "sha256:733b276dd3794ad9c9bde90074b65d9619fa1d5f4286c6350967a6daf0902776"
 }

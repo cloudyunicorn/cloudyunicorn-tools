@@ -137,7 +137,7 @@ import SocialShare from '../components/SocialShare.astro';
             <button data-filter="all" class="category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all bg-neutral-950 dark:bg-white text-white dark:text-black border border-neutral-300 dark:border-neutral-700 cursor-pointer whitespace-nowrap shadow-sm">All Utilities</button>
             <button data-filter="fitness" class="category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer whitespace-nowrap border border-transparent">⚡ Fitness & Diet</button>
             <button data-filter="time" class="category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer whitespace-nowrap border border-transparent">📅 Time & Milestones</button>
-            <button data-filter="digital" class="category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer whitespace-nowrap border border-transparent">💼 Digital Utilities</button>
+            <button data-filter="finance" class="category-tab px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white cursor-pointer whitespace-nowrap border border-transparent">💼 Finance Utilities</button>
           </div>
         </div>
 
@@ -205,7 +205,7 @@ import SocialShare from '../components/SocialShare.astro';
               <span class="text-xs text-neutral-500 font-mono">Input: Date of Birth</span>
               <a 
                 href="/age-calculator" 
-                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer"
+                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer whitespace-nowrap"
                 aria-label="Use the Age Calculator tool"
               >
                 Calculate Age
@@ -239,7 +239,7 @@ import SocialShare from '../components/SocialShare.astro';
               <span class="text-xs text-neutral-500 font-mono">Input: Height & Weight</span>
               <a 
                 href="/bmi-calculator" 
-                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer"
+                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer whitespace-nowrap"
                 aria-label="Use the BMI Calculator tool"
               >
                 Calculate BMI
@@ -273,7 +273,7 @@ import SocialShare from '../components/SocialShare.astro';
               <span class="text-xs text-neutral-500 font-mono">Input: Stats & Activity</span>
               <a 
                 href="/calories-calculator" 
-                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer"
+                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer whitespace-nowrap"
                 aria-label="Use the Calories Calculator tool"
               >
                 Calculate Calories
@@ -281,36 +281,105 @@ import SocialShare from '../components/SocialShare.astro';
             </div>
           </div>
 
-          <!-- Tool 4: SaaS Cost Burn Calculator (Coming Soon) -->
-          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px] opacity-70 tool-card" data-category="digital">
+          <!-- Tool 4: SaaS Cost Burn Calculator -->
+          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px] tool-card" data-category="finance">
             <div class="space-y-4">
               <!-- Icon/Header -->
               <div class="flex items-center justify-between">
-                <div class="w-10 h-10 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 flex items-center justify-center text-neutral-400 dark:text-neutral-600" aria-hidden="true">
+                <div class="w-10 h-10 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 flex items-center justify-center text-neutral-900 dark:text-white" aria-hidden="true">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
                 </div>
-                <span class="text-[10px] font-mono text-brand-blue-text uppercase py-0.5 px-2 border border-brand-blue/20 rounded bg-brand-blue/5">In Development</span>
+                <span class="text-[11px] font-mono text-neutral-500 uppercase py-0.5 px-2 border border-neutral-200 dark:border-neutral-900 rounded bg-neutral-50 dark:bg-neutral-950">Runway &amp; Break-even</span>
               </div>
               
               <!-- Title & Info -->
               <div class="space-y-2">
                 <h3 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">SaaS Cost Burn Calculator</h3>
-                <p class="text-sm text-neutral-600 dark:text-neutral-500 leading-relaxed font-light">
-                  Track runtime SaaS expenses, employee costs, and general runway estimations for early-stage startups and indie builders.
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Track runtime SaaS expenses, payroll/contractor costs, and project cash runway. Estimate default alive status, break-even timelines, and growth metrics.
                 </p>
               </div>
             </div>
 
             <div class="pt-4 border-t border-neutral-100 dark:border-neutral-900 flex items-center justify-between">
-              <span class="text-xs text-neutral-500 font-mono">Input: Expenses & Runway</span>
-              <button 
-                disabled
-                class="px-4 py-2 rounded-md bg-neutral-200 dark:bg-neutral-900 text-neutral-400 dark:text-neutral-600 font-medium text-xs border border-neutral-200 dark:border-neutral-800 cursor-not-allowed"
+              <span class="text-xs text-neutral-500 font-mono">Input: Finances &amp; Expenses</span>
+              <a 
+                href="/saas-cost-burn-calculator" 
+                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer whitespace-nowrap"
+                aria-label="Use the SaaS Cost Burn Calculator tool"
               >
-                Coming Soon
-              </button>
+                Calculate Runway
+              </a>
+            </div>
+          </div>
+
+          <!-- Tool 5: Mortgage Calculator -->
+          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px] tool-card" data-category="finance">
+            <div class="space-y-4">
+              <!-- Icon/Header -->
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 flex items-center justify-center text-neutral-900 dark:text-white" aria-hidden="true">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                  </svg>
+                </div>
+                <span class="text-[11px] font-mono text-neutral-500 uppercase py-0.5 px-2 border border-neutral-200 dark:border-neutral-900 rounded bg-neutral-50 dark:bg-neutral-950">Amortization &amp; PMI</span>
+              </div>
+              
+              <!-- Title & Info -->
+              <div class="space-y-2">
+                <h3 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">Mortgage Calculator</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Calculate comprehensive monthly home payments including principal, interest, taxes, insurance, HOA, and PMI. Model amortization schedules with extra payments.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-neutral-100 dark:border-neutral-900 flex items-center justify-between">
+              <span class="text-xs text-neutral-500 font-mono">Input: Rates &amp; Down Payment</span>
+              <a 
+                href="/mortgage-calculator" 
+                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer whitespace-nowrap"
+                aria-label="Use the Mortgage Calculator tool"
+              >
+                Calculate Mortgage
+              </a>
+            </div>
+          </div>
+
+          <!-- Tool 6: Days Calculator -->
+          <div class="vercel-glow-card rounded-xl p-6 flex flex-col justify-between h-[340px] tool-card" data-category="time">
+            <div class="space-y-4">
+              <!-- Icon/Header -->
+              <div class="flex items-center justify-between">
+                <div class="w-10 h-10 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 flex items-center justify-center text-neutral-900 dark:text-white" aria-hidden="true">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <span class="text-[11px] font-mono text-neutral-500 uppercase py-0.5 px-2 border border-neutral-200 dark:border-neutral-900 rounded bg-neutral-50 dark:bg-neutral-950">Calendar &amp; Business Days</span>
+              </div>
+              
+              <!-- Title & Info -->
+              <div class="space-y-2">
+                <h3 class="text-xl font-bold text-neutral-900 dark:text-white tracking-tight">Days Calculator</h3>
+                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  Calculate calendar days, business days excluding weekends, and floating US federal holidays between two dates. Model date offset projections.
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-neutral-100 dark:border-neutral-900 flex items-center justify-between">
+              <span class="text-xs text-neutral-500 font-mono">Input: Two Dates &amp; Offsets</span>
+              <a 
+                href="/days-calculator" 
+                class="px-4 py-2 rounded-md bg-neutral-950 dark:bg-neutral-900 hover:bg-neutral-900 dark:hover:bg-neutral-800 text-white font-medium text-xs border border-neutral-900 dark:border-neutral-800 hover:border-neutral-800 dark:hover:border-neutral-700 transition-all duration-150 cursor-pointer whitespace-nowrap"
+                aria-label="Use the Days Calculator tool"
+              >
+                Calculate Days
+              </a>
             </div>
           </div>
         </div>
@@ -517,7 +586,7 @@ import SocialShare from '../components/SocialShare.astro';
         <div class="space-y-4">
           <h3 class="text-base font-semibold text-neutral-900 dark:text-white font-mono">7. Ecosystem Integration &amp; Standalone Projects</h3>
           <p>
-            Our ecosystem is built for discovery. We separate tools into logical suites (such as Fitness &amp; Diet, Time &amp; Milestones, and Digital Utilities) and link them under a unified, premium theme. In addition, we actively spotlight standalone digital assets built on the same client-side foundations, like our sister project <strong>Alcohol Detect</strong> (accessible at <code>alcoholdetect.com</code>). This outbound link helps users find additional high-precision calculators without leaving our platform behind.
+            Our ecosystem is built for discovery. We separate tools into logical suites (such as Fitness &amp; Diet, Time &amp; Milestones, and Finance Utilities) and link them under a unified, premium theme. In addition, we actively spotlight standalone digital assets built on the same client-side foundations, like our sister project <strong>Alcohol Detect</strong> (accessible at <code>alcoholdetect.com</code>). This outbound link helps users find additional high-precision calculators without leaving our platform behind.
           </p>
         </div>
 
