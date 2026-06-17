@@ -8,7 +8,7 @@ import indexnow from 'astro-indexnow';
 
 // Load environment variables (reads from .env files)
 const env = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
-const INDEXNOW_KEY = env.INDEXNOW_KEY || process.env.INDEXNOW_KEY || '8521d9be856644f192b0c5cb2cb7ffc7';
+const INDEXNOW_KEY = env.INDEXNOW_KEY || process.env.INDEXNOW_KEY || '63743cc717e04302b487de772f59a49f';
 
 // https://astro.build/config
 export default defineConfig({
