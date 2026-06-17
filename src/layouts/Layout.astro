@@ -37,10 +37,12 @@ const mobileLinks = [
       const isDark = getThemePreference() === 'dark';
       document.documentElement.classList.toggle('dark', isDark);
 
-      if (window.hasLoadedSplash) {
+      // Session-level splash screen skip to optimize repeat visit FCP/LCP
+      if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('hasLoadedSplash')) {
         document.documentElement.classList.add('splash-loaded');
       }
     </script>
+    <link rel="preload" href="/logo.png" as="image" />
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="apple-touch-icon" href="/logo.png" />
     <meta name="viewport" content="width=device-width" />
@@ -89,7 +91,7 @@ const mobileLinks = [
     <!-- Initial Splash Loader (identical to Softryt) -->
     <div
       id="initial-splash-loader"
-      class="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-background transition-all duration-700 ease-in-out"
+      class="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-background transition-all duration-300 ease-in-out"
     >
       <div class="absolute inset-0 bg-hero-glow opacity-50 pointer-events-none"></div>
 
@@ -370,8 +372,10 @@ const mobileLinks = [
 
         // Initial Splash Loader fadeout (Softryt transition logic)
         const splash = document.getElementById('initial-splash-loader');
+        const hasSessionSplash = typeof sessionStorage !== 'undefined' && sessionStorage.getItem('hasLoadedSplash');
+        
         if (splash) {
-          if ((window as any).hasLoadedSplash) {
+          if ((window as any).hasLoadedSplash || hasSessionSplash) {
             splash.remove();
           } else {
             setTimeout(() => {
@@ -379,8 +383,11 @@ const mobileLinks = [
               setTimeout(() => {
                 splash.remove();
                 (window as any).hasLoadedSplash = true;
-              }, 700); // 700ms transition time
-            }, 450); // 450ms initial delay
+                if (typeof sessionStorage !== 'undefined') {
+                  sessionStorage.setItem('hasLoadedSplash', 'true');
+                }
+              }, 300); // 300ms transition time (matches duration-300)
+            }, 150); // 150ms initial delay (down from 450ms)
           }
         }
 
@@ -410,7 +417,8 @@ const mobileLinks = [
 
       // Restore splash status and theme preference after swap
       document.addEventListener('astro:after-swap', () => {
-        if ((window as any).hasLoadedSplash) {
+        const hasSessionSplash = typeof sessionStorage !== 'undefined' && sessionStorage.getItem('hasLoadedSplash');
+        if ((window as any).hasLoadedSplash || hasSessionSplash) {
           document.documentElement.classList.add('splash-loaded');
         }
         const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
