@@ -1,12 +1,12 @@
 {
   "https://www.cloudyunicorn.com/about/": "sha256:4e69cc212d19ac638cd0fb1aaf4a80e154da8a746d4a3e9be51929914d3a4b88",
-  "https://www.cloudyunicorn.com/age-calculator/": "sha256:3253caabff699f13837e36c7bb6ffaa8df84a41b4fcbbb411e513cf826c6394d",
-  "https://www.cloudyunicorn.com/bmi-calculator/": "sha256:e8c582be1d747b418819a2bc273d47c65ce0e60a1f9188c1de03ad8a84b0cf02",
-  "https://www.cloudyunicorn.com/calories-calculator/": "sha256:2cc23debd5cdf025285091727ca9c3e1432c9a4d5969591e2a7b5c8d7bcbf7e4",
-  "https://www.cloudyunicorn.com/days-calculator/": "sha256:7e8a1ac63dae99c67af5e08740ae81817296ce2b49978daf72c2f2f97f6a4ab9",
+  "https://www.cloudyunicorn.com/age-calculator/": "sha256:743695fed120daf274a65d903825f33198cfe7e5a9ae1ec7bfb08069a67a9bfd",
+  "https://www.cloudyunicorn.com/bmi-calculator/": "sha256:31c7e84498ac1afc7b10bc5391f0b2de619a00e9df91aa04ebfd358405e92d24",
+  "https://www.cloudyunicorn.com/calories-calculator/": "sha256:c12ba35086f040685db61d3beeacc60315190842d3e6c2f3d36df52abcf4a835",
+  "https://www.cloudyunicorn.com/days-calculator/": "sha256:49f97c0d06cef557dd9edf8666e936df3f162223ef0cd6ecbf6f35eee9efff8e",
   "https://www.cloudyunicorn.com/": "sha256:74e32b7732561a838b19f0c86ff52f5785c82a333bf5144764b1a9c45ac67604",
-  "https://www.cloudyunicorn.com/mortgage-calculator/": "sha256:ab0d9af415a5d1428b0734d224fc8938d204dff200f9a6b347fe566ecd34e9e7",
+  "https://www.cloudyunicorn.com/mortgage-calculator/": "sha256:fc262737b152bbc7741a3c066a72d9a61fcbdd940543c7432be30785716530aa",
   "https://www.cloudyunicorn.com/privacy-policy/": "sha256:87a3785ba143f18866289a4988ae1592bd74d977dd6e92af67b37dc8acfbd4f6",
-  "https://www.cloudyunicorn.com/saas-cost-burn-calculator/": "sha256:d2a33d13a55022450e75885e4725e7d19b2ed92299e8184cc6356907b675fecd",
+  "https://www.cloudyunicorn.com/saas-cost-burn-calculator/": "sha256:ffb71c81b2e537844d898dc441ba5a54dd3b80ef62cae9d3c6f07d5d8052bec0",
   "https://www.cloudyunicorn.com/terms-of-service/": "sha256:539934902ea475cd75da826dc2af18166237b83c30a8091857d26b917c8cbbae"
 }

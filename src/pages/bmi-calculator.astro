@@ -516,23 +516,27 @@ for (let inches = 36; inches <= 90; inches += 2) {
           <div class="divide-y divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
             
             <!-- Question 1 -->
-            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden" open>
               <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
                 <span class="flex items-center gap-3">
                   <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">01</span>
-                  What is the standard BMI formula used by the calculator?
+                  What is the standard BMI formula?
                 </span>
                 <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                The standard <strong>bmi formula</strong> to <strong>calculate bmi formula</strong> parameters is: <em>Weight (kg) / [Height (m)]²</em>. For imperial units, the formula is: <em>703 × Weight (lbs) / [Height (in)]²</em>. When you <strong>figure out bmi</strong> using our <strong>height and weight calculator</strong>, it performs these equations behind the scenes, serving as a reliable <strong>body bmi calculator</strong> and <strong>bmi calculator calculator</strong>.
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                The standard formula for calculating Body Mass Index (BMI) is:
+                <code class="block mt-2 p-2 bg-neutral-50 dark:bg-neutral-900 rounded font-mono border border-neutral-150 dark:border-neutral-850">Weight (kg) / [Height (m)]²</code>
+                For those using imperial measurements (pounds and inches), the calculation is:
+                <code class="block mt-2 p-2 bg-neutral-50 dark:bg-neutral-900 rounded font-mono border border-neutral-150 dark:border-neutral-850">703 × Weight (lbs) / [Height (in)]²</code>
+                Our tool handles both metric and imperial conversions automatically to estimate your score.
               </div>
             </details>
 
             <!-- Question 2 -->
-            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden" open>
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
               <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
                 <span class="flex items-center gap-3">
                   <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">02</span>
@@ -542,8 +546,19 @@ for (let inches = 36; inches <= 90; inches += 2) {
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                According to the World Health Organization (WHO) and <strong>cdc bmi calculator</strong> standards, a <strong>normal bmi</strong> score is between 18.5 and 24.9. A score below 18.5 is underweight, 25.0 to 29.9 is overweight, and 30.0 or above indicates <strong>bmi obese</strong>. Refer to the <strong>bmi scale</strong> or <strong>body mass index scale</strong> on our results panel to find your exact <strong>healthy bmi range</strong> or <strong>bmi normal range</strong>.
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-2">
+                <p>
+                  According to the World Health Organization (WHO), adults over 20 years old typically fall into the following categories:
+                </p>
+                <ul class="list-disc pl-5 space-y-1">
+                  <li><strong>Underweight</strong>: BMI below 18.5</li>
+                  <li><strong>Normal / Healthy</strong>: BMI between 18.5 and 24.9</li>
+                  <li><strong>Overweight</strong>: BMI between 25.0 and 29.9</li>
+                  <li><strong>Obese</strong>: BMI of 30.0 or higher</li>
+                </ul>
+                <p>
+                  While BMI is a useful general screening tool, it does not directly measure body fat percentage or muscle mass.
+                </p>
               </div>
             </details>
 
@@ -552,14 +567,14 @@ for (let inches = 36; inches <= 90; inches += 2) {
               <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
                 <span class="flex items-center gap-3">
                   <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">03</span>
-                  Is there a difference in BMI calculation for men and women?
+                  Does BMI calculate differently for men and women?
                 </span>
                 <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                The standard formula for <strong>bmi body mass index</strong> is identical for adult males and females. However, muscle and fat distribution varies. Women typically have higher body fat percentages than men at the same BMI. You can use our <strong>bmi calculator women</strong>, <strong>womens bmi calculator</strong>, <strong>bmi calculator female</strong>, or <strong>bmi calculator men</strong> / <strong>bmi calculator male</strong> to compute the basic score, but you should reference a specific <strong>bmi chart women</strong> or <strong>bmi chart men</strong> for context.
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                The mathematical formula for calculating BMI is identical for both men and women. However, because body composition differs between genders (women naturally tend to carry a higher percentage of body fat than men at the same BMI, while men often have more muscle mass), your resulting score should be interpreted within your specific physiological context.
               </div>
             </details>
 
@@ -568,14 +583,14 @@ for (let inches = 36; inches <= 90; inches += 2) {
               <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
                 <span class="flex items-center gap-3">
                   <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">04</span>
-                  Can I calculate my BMI by age?
+                  Why does muscle mass affect my BMI results?
                 </span>
                 <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                Yes, using a <strong>bmi calculator by age</strong> or <strong>bmi calculator kg with age</strong> helps account for natural changes in body composition over time. While the primary index depends on height and weight, comparing your results to a <strong>bmi average range</strong> for your age group can provide deeper insights, making it a comprehensive <strong>bmi and age calculator</strong>.
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                Because BMI relies solely on height and weight, it cannot distinguish between muscle weight and fat weight. Muscle tissue is significantly denser than fat tissue. Consequently, athletes, bodybuilders, or highly active individuals may have a high BMI that classifies them as "overweight" or "obese" despite having very low body fat percentages.
               </div>
             </details>
 
@@ -584,35 +599,19 @@ for (let inches = 36; inches <= 90; inches += 2) {
               <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
                 <span class="flex items-center gap-3">
                   <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">05</span>
-                  How does the ideal body weight calculator work?
+                  How is my Ideal Body Weight calculated?
                 </span>
                 <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                When you submit your heights, our <strong>ideal weight calculator</strong> automatically computes the upper and lower bounds of a healthy weight for your height. This represents your <strong>ideal body weight</strong> range. Whether you use the <strong>healthy body weight calculator</strong> or <strong>perfect body weight calculator</strong> mode, it highlights target weights in both kilograms and pounds.
-              </div>
-            </details>
-
-            <!-- Question 6 -->
-            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
-                <span class="flex items-center gap-3">
-                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">06</span>
-                  What other charts are available on this tool?
-                </span>
-                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </span>
-              </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                Our tool displays a visual <strong>bmi indicator</strong> scale. You can reference the <strong>bmi chart</strong>, <strong>bmi index chart</strong>, <strong>body index chart</strong>, or <strong>body bmi chart</strong> to see where your score stands. We also feature details similar to the <strong>bmi table women</strong>, <strong>body mass index chart female</strong>, <strong>bmi chart female</strong>, <strong>obese chart</strong>, and <strong>male bmi chart</strong> to cover all user demographics.
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                The calculator determines your Ideal Body Weight (IBW) range by finding the weights that correspond to a healthy BMI range (18.5 to 24.9) for your height. This provides a baseline healthy weight range rather than a single fixed number, helping you set realistic wellness goals.
               </div>
             </details>
           </div>
-
-          <!-- Features Highlight -->
+          
+                    <!-- Features Highlight -->
           <div class="space-y-6">
             <h3 class="text-xs font-mono font-bold text-neutral-900 dark:text-white uppercase tracking-widest text-center">
               Key Features of the CloudyUnicorn BMI Finder

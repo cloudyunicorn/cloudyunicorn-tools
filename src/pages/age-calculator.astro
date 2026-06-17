@@ -298,34 +298,34 @@ import SocialShare from '../components/SocialShare.astro';
           <div class="divide-y divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
             
             <!-- Question 1 -->
-            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden" open>
               <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
                 <span class="flex items-center gap-3">
                   <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">01</span>
-                  How do I use this online age calculator by birth date?
+                  How does the age calculation algorithm work?
                 </span>
                 <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                To <strong>calculate current age</strong> or run a <strong>date to date age calculator</strong> query, simply select your DOB in the first field. Then choose the target reference date (it defaults to the <strong>age calculator today</strong>). Our tool acts as an <strong>age finder</strong>, immediately computing the years, months, and days elapsed.
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                Age is calculated by subtracting your birth date from a target date (which defaults to today). The formula processes this calculation by first subtracting days, borrowing from the preceding month if necessary, then subtracting months, and finally subtracting years. The tool automatically accounts for leap years (which add a 29th day to February every four years) to ensure all elapsed days, weeks, and total seconds lived are mathematically precise.
               </div>
             </details>
 
             <!-- Question 2 -->
-            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden" open>
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
               <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
                 <span class="flex items-center gap-3">
                   <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">02</span>
-                  Can I calculate my age using date of birth on mobile?
+                  Why might different calculators show different age results?
                 </span>
                 <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                Absolutely! This site is built with a responsive design, functioning seamlessly like an <strong>age finder app</strong> or <strong>age calculator app</strong> on any smartphone. Whether you need to <strong>find age by dob</strong> or <strong>work out age from dob</strong> on the move, the layout adjusts beautifully.
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                Some basic age calculators count only the difference in years, or fail to account for the varying number of days in months (e.g., 28, 30, or 31 days) or leap years. Additionally, timezone offsets can sometimes cause a date to shift by a day depending on whether the system parses input using UTC or local time. Our calculator uses timezone-safe date parsing to represent your age exactly as it is in your local timezone.
               </div>
             </details>
 
@@ -334,14 +334,14 @@ import SocialShare from '../components/SocialShare.astro';
               <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
                 <span class="flex items-center gap-3">
                   <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">03</span>
-                  Can I work out my birth year from age?
+                  Can I calculate what my age will be at a specific date in the future?
                 </span>
                 <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                Yes, if you know your current age, you can easily use this tool as a <strong>birth year calculator by age</strong> or <strong>year born calculator</strong>. By placing your target reference age and working backwards, you can determine the exact calendar year you were born, acting as a handy <strong>born date calculator</strong>.
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                Yes. By default, the calculator computes your age relative to the current day. However, you can change the target date field to any future date (for example, to see exactly how old you will be when you graduate, retire, or travel) or past date (to calculate how old you were at a specific historical event).
               </div>
             </details>
 
@@ -350,54 +350,19 @@ import SocialShare from '../components/SocialShare.astro';
               <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
                 <span class="flex items-center gap-3">
                   <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">04</span>
-                  How does the date-to-date age calculation math function?
+                  What chronological milestones does this tool show?
                 </span>
                 <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </span>
               </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                To mathematically <strong>calculate your age</strong> between two dates, the algorithm performs standard calendar subtraction:
-                1. First, subtract the days. If the reference day is less than the birth day, we "borrow" days from the preceding month (e.g., 28, 30, or 31 days depending on the month).
-                2. Second, subtract the months. If the reference month is less than the birth month, we "borrow" 12 months from the years column.
-                3. Finally, subtract the years column. Our tool accounts for leap years (which add a 29th day to February every four years) when breaking down your age into total elapsed days, weeks, or seconds, serving as an exact <strong>dob calculator</strong> and <strong>birthday calculator</strong>.
-              </div>
-            </details>
-
-            <!-- Question 5 -->
-            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
-                <span class="flex items-center gap-3">
-                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">05</span>
-                  What other details does the birthday and age calculator provide?
-                </span>
-                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </span>
-              </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                Beyond the basic years, months, and days, this tool serves as an <strong>age birthday calculator</strong>. It details your lifespan breakdown in terms of total months, weeks, days, hours, and minutes lived. It also features a real-time countdown to your next birthday and shows your exact age down to the second with a live-ticking counter.
-              </div>
-            </details>
-
-            <!-- Question 6 -->
-            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
-                <span class="flex items-center gap-3">
-                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">06</span>
-                  Are search terms like "agecaluter" or "age age calculator" supported?
-                </span>
-                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </span>
-              </summary>
-              <div class="mt-3 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
-                Whether you searched for common typos like <strong>agecaluter</strong>, <strong>born calculator</strong>, <strong>date of age calculator</strong>, or typed <strong>age age calculator</strong> / <strong>google calculator age</strong> / <strong>age calculator google</strong>, you are in the right place. Our system computes chronological milestones for any <strong>dating age calculator</strong> query or <strong>age calculator with year</strong> parameters.
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4">
+                Beyond the standard years, months, and days format, this tool provides a detailed breakdown of your life in alternative units (total months, total weeks, total days, hours, and minutes). It also includes a real-time, live-ticking counter showing your age down to the second, alongside a countdown to your next birthday.
               </div>
             </details>
           </div>
-
-          <!-- Features Highlight -->
+          
+                    <!-- Features Highlight -->
           <div class="space-y-6">
             <h3 class="text-xs font-mono font-bold text-neutral-900 dark:text-white uppercase tracking-widest text-center">
               Key Features of the CloudyUnicorn Age Finder
