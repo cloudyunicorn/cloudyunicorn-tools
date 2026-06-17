@@ -4,8 +4,8 @@ import SocialShare from '../components/SocialShare.astro';
 ---
 
 <Layout 
-  title="Days Between Two Dates Calculator"
-  description="Calculate the exact number of days, weeks, months, and business days between any two dates. Add or subtract days from a date to model future timelines."
+  title="Days Between Dates Calculator | Business Day Counter"
+  description="Free online date calculator to count days between two dates, calculate business days, and add or subtract offsets from a starting base date."
 >
   <script type="application/ld+json" is:inline>
     {
@@ -435,24 +435,163 @@ import SocialShare from '../components/SocialShare.astro';
         </div>
 
         <!-- Informative Article/FAQ section (SEO) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-neutral-200 dark:border-neutral-900">
-          <div class="space-y-4 text-pretty">
-            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">Days Count Methodologies</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              Calculating durations between calendar dates seems simple but requires precise arithmetic handling. Standard Gregorian coordinates shift to accommodate leap years (like adding February 29th) and daylight saving timezone changes, which alter the duration of a calendar day.
-            </p>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              Our tool enforces midnight local-time offsets to eliminate daylight savings off-by-one errors. You can toggle the inclusion of the end date depending on whether you are calculating calendar span days or timeline counts (e.g. project sprint days).
+        <div class="space-y-12 pt-12 border-t border-neutral-200 dark:border-neutral-900">
+          
+          <!-- Section Header -->
+          <div class="text-center space-y-4">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-semibold bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300">
+              <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+              TIME &amp; DATE COORDINATES GUIDE
+            </span>
+            <h2 class="text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight animate-fade-in">
+              The Ultimate Guide to Calculating Dates &amp; Days
+            </h2>
+            <p class="text-neutral-555 dark:text-neutral-400 max-w-2xl mx-auto text-sm text-pretty">
+              Learn how to count days between dates, calculate business days, factor in US Federal Holidays, and project future dates using mathematical offsets.
             </p>
           </div>
-          <div class="space-y-4 text-pretty">
-            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">Business Days and Holiday Exclusions</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              In business, finance, and legal contracts, weekends and federal holidays are excluded from turnaround time calculations. Business days calculations isolate Saturdays and Sundays, ensuring deadlines represent actual operating days.
-            </p>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              When holiday exclusions are checked, our algorithm calculates floating US Federal Holidays dynamically—including New Year's Day, Memorial Day, Juneteenth, Independence Day, Labor Day, Thanksgiving, and Christmas—ensuring precise working-day metrics.
-            </p>
+
+          <!-- FAQ Accordion -->
+          <div class="max-w-4xl mx-auto divide-y divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
+            
+            <!-- Section 1: How to Count Days Between Dates -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden" open>
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">01</span>
+                  How do I calculate the exact number of days between two dates?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  To figure out the <strong>no of days between dates</strong> or the <strong>no of days between two dates</strong>, you can use our online <strong>days calculator</strong>. This tool acts as a <strong>day counter</strong>, allowing you to establish a starting and ending point to compute the exact span. Whether you call it a <strong>days between calculator</strong>, a <strong>day counter between dates</strong>, a <strong>between dates calculator</strong>, a <strong>two dates calculator</strong>, or a <strong>date calculator between dates</strong>, the underlying math calculates the midnight local timestamp difference.
+                </p>
+                <p>
+                  To manually <strong>calculate between two dates</strong> or <strong>calculate date difference</strong> metrics, you subtract the earlier date serial value from the later one. If you want to <strong>calculate date online</strong>, our tool provides a comprehensive breakdown showing the <strong>number of days between dates</strong>, the <strong>number of days between two dates</strong>, the elapsed weeks, total hours, and a visual SVG timeline. This allows you to <strong>count date</strong> periods with high accuracy.
+                </p>
+                <p>
+                  Our <strong>date and calculator</strong> system is designed to handle multiple modes, such as a <strong>date and time calculator</strong> or a <strong>date count calculator</strong> to determine the duration. Whether you need to figure out the exact <strong>days between</strong> two dates, use our <strong>count days calculator</strong> to find the answer.
+                </p>
+              </div>
+            </details>
+
+            <!-- Section 2: Days Between Dates Formulas & Math -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">02</span>
+                  How does the date duration and time between dates math function?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  When <strong>calculating date</strong> spans, our system converts inputs to UTC milliseconds at midnight, avoiding daylight saving hour shifts. The algorithm for the <strong>time between dates calculator</strong> or <strong>time calculator between two dates</strong> subtracts the two values:
+                </p>
+                <div class="bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg font-mono text-[11px] border border-neutral-150 dark:border-neutral-850">
+                  <strong>Days Between Dates</strong> = (End Date UTC Milliseconds - Start Date UTC Milliseconds) / 86,400,000
+                </div>
+                <p>
+                  This formula determines <strong>how many days between dates</strong> exist. If you check "Include end date," the tool adds 1 day. This is useful when figuring out <strong>how many days are between two dates</strong> for project schedules, legal contracts, or travel planning. The <strong>calculator date duration</strong> details years, months, and days (YMD), helping you read the exact <strong>time between dates</strong>.
+                </p>
+                <p>
+                  If you want to <strong>calculate days between dates</strong> or <strong>calculate days between two dates</strong>, this mathematical approach is standard. It helps you <strong>calculate date between two dates</strong> by looking at the timestamp differences. If you wonder <strong>how many days are there between</strong> major project milestones, our formula delivers precise answers.
+                </p>
+              </div>
+            </details>
+
+            <!-- Section 3: Business Days vs. Calendar Days -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">03</span>
+                  How do I calculate business days and exclude holidays?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  To filter weekends and calculate working-day spans, you can use our <strong>business day calculator</strong>. Standard calendar counting represents a simple <strong>calendar day counter</strong> or <strong>day to day counter</strong>, whereas a business counter tracks only Mondays through Fridays.
+                </p>
+                <p>
+                  If you need a <strong>calendar calculator working days</strong> tool, check the "Exclude weekends" option. This activates the <strong>day counter from date to date</strong> working-day logic. If you also check "Exclude major US Federal holidays," the <strong>calendar calculator</strong> automatically calculates floating holidays (like Memorial Day, Labor Day, and Thanksgiving) for each year in the range and subtracts them. The <strong>date and day calculator</strong> will then show the adjusted working days, helping you model service level agreements (SLAs).
+                </p>
+                <p>
+                  In financial modeling, knowing the exact day count is critical. For instance, a <strong>present day value calculator</strong> or <strong>compound interest calculator days</strong> tool relies on the exact number of days between periods to determine compounding effects and discounted cash flows.
+                </p>
+              </div>
+            </details>
+
+            <!-- Section 4: Adding/Subtracting Offsets -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">04</span>
+                  How do I add or subtract days to find a target date?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  To find a target date by applying a duration offset, switch to the "Add / Subtract Days" tab. This function serves as an <strong>add date calculator</strong> and <strong>add days calculator</strong>. By entering a starting base date and specifying the years, months, and days offset, the <strong>date calculator add days</strong> function moves forward or backward in time to resolve the target calendar date.
+                </p>
+                <p>
+                  This feature is useful as a <strong>time calculator by date</strong> and <strong>time to date calculator</strong>. It helps you project deadlines (e.g. `+90 days` from today) or look backward to calculate a <strong>day since calculator</strong> target. It also displays future milestones in an interactive table, showing how many days remain until key calendar marks, functioning as a <strong>days till calculator</strong> and <strong>days until calculator</strong>.
+                </p>
+              </div>
+            </details>
+
+            <!-- Section 5: DOB and Age Calculations -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">05</span>
+                  Can I use this tool to calculate age or birthdays?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  Yes! If you are performing a <strong>birth day calculation</strong> or trying to <strong>calculate dob</strong> metrics, you can use these date ranges. To find the exact day of the week you were born, you can input your date of birth as the starting date and check the breakdown. 
+                </p>
+                <p>
+                  However, if you want a detailed breakdown of your chronological milestones and find yourself asking "how old am i?", we recommend using our companion tool, the <a href="/age-calculator" class="font-medium hover:text-glow">Age Calculator</a>. It acts as an <strong>age calculator by birthdate</strong>, <strong>born date calculator</strong>, <strong>how old am i calculator</strong>, and <strong>birthday day calculator</strong>, providing details like a ticking live counter of seconds lived and a countdown showing exactly <strong>how many day till my birthday</strong> or <strong>how many day until my birthday</strong> remain.
+                </p>
+              </div>
+            </details>
+
+            <!-- Section 6: Specialized Calendar Calculations (Julian Dates & Easter) -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">06</span>
+                  What are Julian dates and how is Easter calculated?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-555 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  For historical and astronomical research, users often need to <strong>calculate julian date</strong> values. A <strong>julian day calculator</strong> converts calendar dates into a continuous count of days since the beginning of the Julian Period (January 1, 4713 BC). This is extremely useful for scientific date math where standard calendar irregularities are problematic.
+                </p>
+                <p>
+                  Another complex calendar calculation is determining ecclesiastical holidays. For example, <strong>how is the day of easter determined</strong>? Unlike fixed calendar dates, Easter is a moving feast determined by the ecclesiastical approximation of the March equinox, occurring on the first Sunday after the first full moon on or after March 21.
+                </p>
+              </div>
+            </details>
+
           </div>
         </div>
 

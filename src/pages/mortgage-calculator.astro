@@ -4,8 +4,8 @@ import SocialShare from '../components/SocialShare.astro';
 ---
 
 <Layout 
-  title="Comprehensive Mortgage Calculator"
-  description="Calculate your total monthly mortgage payment including principal, interest, taxes, insurance, HOA, and PMI. Model amortization schedules and extra payment savings."
+  title="Mortgage Payment Calculator with Amortization Schedule"
+  description="Calculate your monthly home payments including principal, interest, taxes, insurance, HOA, and PMI. Model amortization schedules, refinance loans, and extra payoffs."
 >
   <script type="application/ld+json" is:inline>
     {
@@ -547,24 +547,157 @@ import SocialShare from '../components/SocialShare.astro';
         </div>
 
         <!-- Informative Article/FAQ section (SEO) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-neutral-200 dark:border-neutral-900">
-          <div class="space-y-4 text-pretty">
-            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">Understanding Mortgage Components</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              A home mortgage payment consists of more than just repaying the balance. Real estate professionals reference the acronym <strong class="font-medium text-neutral-900 dark:text-neutral-100">PITI</strong>: Principal, Interest, Taxes, and Insurance.
-            </p>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              Principal represents the money repaying the loan balance, while Interest is the fee charged by your bank. Property taxes are mandated by municipalities, and home insurance protects the collateral. Private Mortgage Insurance (PMI) is required if your down payment is less than 20%, acting as lender protection.
+        <div class="space-y-12 pt-12 border-t border-neutral-200 dark:border-neutral-900">
+          
+          <!-- Section Header -->
+          <div class="text-center space-y-4">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-semibold bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300">
+              <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+              HOME FINANCING ENCYCLOPEDIA
+            </span>
+            <h2 class="text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight animate-fade-in">
+              The Ultimate Guide to Home Loan &amp; Mortgage Calculation
+            </h2>
+            <p class="text-neutral-555 dark:text-neutral-400 max-w-2xl mx-auto text-sm text-pretty">
+              Learn how to estimate your loan payments, utilize amortization schedules, compare refinance and HELOC options, and pay off your mortgage early.
             </p>
           </div>
-          <div class="space-y-4 text-pretty">
-            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">The Power of Extra Payments</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              Because mortgage interest compounds over long durations, even small additional principal payments result in massive savings. By making extra payments, the money goes 100% toward the loan principal, skipping the interest equation entirely.
-            </p>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              Applying a regular monthly or one-time annual extra payment effectively shortens the compound interest curve, allowing you to build equity faster, pay off the property years early, and save tens of thousands of dollars in lifetime interest.
-            </p>
+
+          <!-- FAQ Accordion -->
+          <div class="max-w-4xl mx-auto divide-y divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
+            
+            <!-- Section 1: Estimation & Payments -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden" open>
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">01</span>
+                  How do I figure out and calculate my monthly mortgage payment?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-505 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  To <strong>figure out mortgage payment</strong> options, you can use our <strong>free mortgage payment calculator</strong>. The total <strong>estimated monthly mortgage payment</strong> is made up of several components: principal, interest, property taxes, home insurance, HOA fees, and Private Mortgage Insurance (PMI). A <strong>simple mortgage calculator</strong> helps you run these values instantly to establish a baseline.
+                </p>
+                <p>
+                  To manually <strong>figure mortgage payment</strong> obligations or <strong>calculate a loan repayment</strong>, you can use the standard amortization formula. Alternatively, you can use an <strong>online mortgage calculator</strong> or <strong>mortgage price calculator</strong> to evaluate different price coordinates. While platforms like the <strong>google mortgage calculator</strong>, <strong>zillow mortgage calculator</strong>, and the <strong>mortgage payment calculator google</strong> provide basic estimates, our comprehensive <strong>home mortgage calculator</strong> also accounts for accelerated payoff and advanced escrow coordinates.
+                </p>
+              </div>
+            </details>
+
+            <!-- Section 2: Amortization -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">02</span>
+                  What is an amortization schedule and table?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-505 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  An <strong>amortization schedule</strong> is a complete table showing the progression of your loan repayment over time. Using an <strong>amortization table calculator</strong> or <strong>amortization schedule calculator</strong>, you can see how much of your monthly mortgage payment goes toward principal reduction versus interest expenses.
+                </p>
+                <p>
+                  Early in the loan term, the majority of your payment goes to interest. Over time, the principal portion increases. Our <strong>mortgage amortization calculator</strong> generates both an annual summary and a monthly detail view. You can also view this visually with our <strong>amortization chart calculator</strong>. This is similar to a <strong>home loan amortization schedule</strong> or <strong>mortgage amortization schedule</strong> you would receive from a lender, helping you analyze the long-term impact of your interest rate.
+                </p>
+              </div>
+            </details>
+
+            <!-- Section 3: Loan Types & Affordability -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">03</span>
+                  How do different loan types (FHA, VA, HELOC) affect payments?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-505 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  Different home loan structures have specific payment mechanics:
+                </p>
+                <ul class="list-disc pl-5 space-y-2">
+                  <li><strong>Conventional Loans</strong>: Commonly calculated using a standard <strong>fixed rate mortgage calculator</strong> or <strong>fixed mortgage calculator</strong> (like a 30-year or 15-year fixed loan). Private Mortgage Insurance (PMI) is required if your down payment is less than 20% (LTV ratio over 80%), which you can evaluate using our integrated <strong>ltv calculator</strong>.</li>
+                  <li><strong>FHA Loans</strong>: Designed for first-time buyers. Use our <strong>fha loan calculator</strong> or <strong>fha mortgage calculator</strong> to factor in the specific upfront and annual mortgage insurance premiums (MIP).</li>
+                  <li><strong>VA Loans</strong>: For military service members and veterans. The <strong>va loan calculator</strong>, <strong>va home loan calculator</strong>, and <strong>va mortgage calculator</strong> exclude down payments and PMI, replacing them with a VA funding fee.</li>
+                  <li><strong>Interest-Only Loans</strong>: Calculate monthly costs where you only repay interest for an initial period using our <strong>interest only mortgage calculator</strong> or <strong>interest only loan calculator</strong>.</li>
+                </ul>
+                <p>
+                  Determining what you can afford requires a <strong>mortgage affordability calculator</strong> or <strong>home affordability calculator</strong> to analyze your income and debts. Factors like closing costs (estimated via a <strong>closing cost calculator</strong>) and debt-to-income (DTI) metrics are essential before requesting official <strong>mortgage quotes</strong> or <strong>home loan quotes</strong>.
+                </p>
+              </div>
+            </details>
+
+            <!-- Section 4: Refinance & Heloc -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">04</span>
+                  How does refinancing or borrowing home equity work?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-505 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  Refinancing replaces your existing mortgage with a new one. A <strong>refinance calculator</strong>, <strong>refi calculator</strong>, or <strong>refinance mortgage calculator</strong> helps you evaluate if a lower interest rate offsets the closing costs. You can also run a <strong>cash out refinance calculator</strong> or <strong>cash out refi calculator</strong> to borrow against your home equity while refinancing.
+                </p>
+                <p>
+                  To borrow equity without replacing your primary mortgage, you can use a Home Equity Line of Credit (HELOC). Use a <strong>heloc calculator payment</strong> or <strong>heloc repayment calculator</strong> to estimate payments. Knowing your equity (via a <strong>home equity calculator</strong> or <strong>house equity calculator</strong>) is crucial. Seniors can also explore reverse mortgages using a <strong>reverse mortgage calculator</strong> or <strong>hecm calculator</strong> to convert home equity into tax-free cash flow.
+                </p>
+              </div>
+            </details>
+
+            <!-- Section 5: Extra Payments & payoff -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">05</span>
+                  How can I pay off my home loan early?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-505 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  To pay off your mortgage early, you can apply extra payments toward your principal balance. Even small monthly or annual overpayments significantly reduce the lifetime compound interest.
+                </p>
+                <p>
+                  Our <strong>mortgage calculator with extra payments</strong> lets you simulate monthly extra, annual extra, or one-time lump-sum payoffs. A <strong>paying off home loan early calculator</strong> or <strong>mortgage payoff calculator</strong> will show you exactly how many years you can shave off the term and how much interest is saved. This strategy is also referred to as a <strong>mortgage overpayment calculator</strong> projection, allowing you to build home equity at an accelerated rate.
+                </p>
+              </div>
+            </details>
+
+            <!-- Section 6: Specialty Calculations & Brands -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">06</span>
+                  How does this tool compare to Zillow, Bankrate, or Dave Ramsey?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-505 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  While third-party brand tools like the <strong>zillow mortgage calculator</strong>, <strong>bankrate mortgage calculator</strong>, <strong>nerdwallet mortgage calculator</strong>, or <strong>rocket mortgage calculator</strong> are excellent for quick quotes, they often omit critical local inputs like specific HOA fees, PMI drop-offs, or detailed extra payments.
+                </p>
+                <p>
+                  Our calculator functions as an all-in-one suite. Whether you are running calculations for a standard home loan, an FHA loan, a VA loan, or specialty property structures (such as a <strong>mobile home mortgage calculator</strong> or <strong>buy to let mortgage calculator</strong>), our tool computes complete principal, interest, taxes, and insurance (PITI) coordinates locally. This gives you the control of a professional <strong>estimated monthly mortgage payment</strong> estimator with the convenience of a <strong>lending calculator</strong>.
+                </p>
+              </div>
+            </details>
+
           </div>
         </div>
 

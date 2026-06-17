@@ -4,8 +4,8 @@ import SocialShare from '../components/SocialShare.astro';
 ---
 
 <Layout 
-  title="SaaS Cost Burn & Runway Calculator"
-  description="Calculate your startup runway, gross monthly burn, net burn, and default alive/dead status. Manage itemized SaaS expenses and model growth projections interactively."
+  title="SaaS Cash Burn Rate & Startup Runway Calculator"
+  description="Calculate your startup runway, gross monthly burn, net burn, and default alive status. Use our cash burn rate calculator to model expense and growth projections."
 >
   <script type="application/ld+json" is:inline>
     {
@@ -354,24 +354,93 @@ import SocialShare from '../components/SocialShare.astro';
         </div>
 
         <!-- Informative Article/FAQ section (SEO) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t border-neutral-200 dark:border-neutral-900">
-          <div class="space-y-4 text-pretty">
-            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">Understanding SaaS Financial Runway</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              Your runway is the length of time your startup can remain operational before running out of cash reserves, assuming current monthly expenses and revenue collections remain unchanged.
-            </p>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              Gross Monthly Burn represents the sum of all monthly outgoing cash payments (such as infrastructure hosts, vendor subscriptions, and founder payroll). Net Monthly Burn represents Gross Burn minus your Monthly Recurring Revenue (MRR).
+        <div class="space-y-12 pt-12 border-t border-neutral-200 dark:border-neutral-900">
+          <!-- Section Header -->
+          <div class="text-center space-y-4 animate-fade-in">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-semibold bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-300">
+              <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+              STARTUP FINANCE GUIDE
+            </span>
+            <h2 class="text-3xl font-extrabold text-neutral-900 dark:text-white tracking-tight">
+              Understanding Startup Cash Burn Rate &amp; Runway
+            </h2>
+            <p class="text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto text-sm text-pretty">
+              Use our guide to understand the key financial metrics, formulas, and terminology to keep your company healthy and calculate how long your cash will last.
             </p>
           </div>
-          <div class="space-y-4 text-pretty">
-            <h3 class="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white">Default Alive vs. Default Dead</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              Coined by Y Combinator's Paul Graham, <strong class="font-medium text-neutral-900 dark:text-neutral-100">Default Alive</strong> answers a simple question: assuming expenses stay flat and historical growth curves continue, will your startup reach profitability before running out of money?
-            </p>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
-              If the answer is yes, you are Default Alive. If the answer is no, you are <strong class="font-medium text-neutral-900 dark:text-neutral-100">Default Dead</strong>—meaning you will need to accelerate growth, reduce expenses, or secure additional equity financing to prevent insolvency.
-            </p>
+
+          <!-- FAQ Accordion -->
+          <div class="max-w-4xl mx-auto divide-y divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
+            
+            <!-- FAQ 1: Definition & Meaning -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden" open>
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">01</span>
+                  What is the burn rate and what does it mean?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-505 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-2">
+                <p>
+                  To <strong>define burn rate</strong>, it is the speed at which a new company or startup spends its venture capital or cash reserves before generating positive cash flow. 
+                </p>
+                <p>
+                  A standard <strong>burn rate definition</strong> separates it into gross burn and net burn. The <strong>cash burn definition</strong> focuses on net burn, which is the net amount of cash a business loses monthly. Understanding your <strong>burn rate meaning</strong> and <strong>cash burn meaning</strong> is critical for survival: it tells you how fast your runway is shrinking and when you need to raise more capital or reach break-even.
+                </p>
+              </div>
+            </details>
+
+            <!-- FAQ 2: Formulas -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">02</span>
+                  What is the burn rate formula?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-505 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-3">
+                <p>
+                  The standard <strong>burn rate formula</strong> or <strong>cash burn formula</strong> depends on whether you are calculating Gross Burn or Net Burn:
+                </p>
+                <div class="bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg space-y-2 font-mono text-[11px] border border-neutral-150 dark:border-neutral-850">
+                  <div><strong>Gross Burn Rate Formula</strong> = Total Monthly Operating Expenses</div>
+                  <div class="pt-2 border-t border-neutral-200 dark:border-neutral-800"><strong>Net Cash Burn Rate Formula</strong> = Total Monthly Operating Expenses - Monthly Revenue</div>
+                </div>
+                <p>
+                  For example, if your monthly expenses are $15,000 and your monthly recurring revenue is $5,000, your <strong>cash burn rate formula</strong> yields a net cash burn of $10,000 per month.
+                </p>
+              </div>
+            </details>
+
+            <!-- FAQ 3: Calculation and Projections -->
+            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex justify-between items-center font-semibold text-sm sm:text-base text-neutral-900 dark:text-white cursor-pointer select-none">
+                <span class="flex items-center gap-3">
+                  <span class="text-xs font-mono font-bold text-neutral-400 dark:text-neutral-500">03</span>
+                  How do I calculate my startup's cash burn rate?
+                </span>
+                <span class="transition-transform duration-200 group-open:rotate-180 text-neutral-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </span>
+              </summary>
+              <div class="mt-3 text-xs sm:text-sm text-neutral-505 dark:text-neutral-400 leading-relaxed pl-8 pr-4 space-y-2">
+                <p>
+                  To <strong>calculate cash burn rate</strong>, you need to review your cash balance over a specific period. The simplest <strong>cash burn calculation</strong> takes the starting cash balance, subtracts the ending cash balance, and divides it by the months elapsed:
+                </p>
+                <div class="bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg font-mono text-[11px] border border-neutral-150 dark:border-neutral-850">
+                  <strong>Monthly Cash Burn Rate</strong> = (Starting Cash - Ending Cash) / Months Elapsed
+                </div>
+                <p>
+                  Our interactive <strong>burn rate calculator</strong> automates this process by letting you itemize your software, infrastructure, marketing, and payroll costs. It calculates your <strong>monthly burn rate</strong>, <strong>monthly cash burn</strong>, and <strong>monthly cash burn rate</strong> in real-time, giving you a 24-month trajectory visual so you can simulate growth and cost cutting scenarios.
+                </p>
+              </div>
+            </details>
           </div>
         </div>
 
