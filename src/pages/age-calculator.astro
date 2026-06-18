@@ -251,6 +251,30 @@ import SocialShare from '../components/SocialShare.astro';
                 </div>
               </div>
             </div>
+
+            <!-- Sharing & Utilities -->
+            <div class="premium-glass-card rounded-xl p-5 flex flex-col sm:flex-row gap-3">
+              <button 
+                type="button" 
+                id="share-btn" 
+                class="w-full sm:flex-1 inline-flex items-center justify-center gap-2 h-10 px-4 rounded bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200 transition-all duration-150 cursor-pointer"
+              >
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 10.742l4.622-2.311m0 0a3 3 0 114.243 4.243l-4.622 2.311m0 0a3 3 0 11-4.243-4.243m4.622-2.311l4.622 2.311"></path>
+                </svg>
+                Share Results
+              </button>
+              <button 
+                type="button" 
+                id="print-btn" 
+                class="w-full sm:flex-1 inline-flex items-center justify-center gap-2 h-10 px-4 rounded bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200 transition-all duration-150 cursor-pointer"
+              >
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                </svg>
+                Export Report / Print
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -695,10 +719,25 @@ import SocialShare from '../components/SocialShare.astro';
 
       // Set default value for ref-date to today's date
       const todayStr = new Date().toISOString().split('T')[0];
+      let initialBirthVal: string | null = null;
+      let initialRefVal: string = todayStr;
+
+      // Load query parameters if available
+      const params = new URLSearchParams(window.location.search);
+      const stateData = params.get('state');
+      if (stateData) {
+        try {
+          const decoded = JSON.parse(atob(stateData));
+          if (decoded.birth) initialBirthVal = decoded.birth;
+          if (decoded.ref) initialRefVal = decoded.ref;
+        } catch (e) {
+          console.error('Error parsing shared state', e);
+        }
+      }
 
       // Initialize custom date pickers
-      const birthDatePicker = new CustomDatePicker('birth-date-container', null);
-      const refDatePicker = new CustomDatePicker('ref-date-container', todayStr);
+      const birthDatePicker = new CustomDatePicker('birth-date-container', initialBirthVal);
+      const refDatePicker = new CustomDatePicker('ref-date-container', initialRefVal);
 
       function formatNumber(num: number): string {
         return new Intl.NumberFormat().format(num);
@@ -854,6 +893,46 @@ import SocialShare from '../components/SocialShare.astro';
       // Bind form submission
       form.addEventListener('submit', calculateAge);
 
+      // Share & Print Button Handlers
+      const shareBtn = document.getElementById('share-btn') as HTMLButtonElement;
+      const printBtn = document.getElementById('print-btn') as HTMLButtonElement;
+
+      shareBtn.addEventListener('click', async () => {
+        const state = {
+          birth: birthInput.value,
+          ref: refInput.value
+        };
+        const base64State = btoa(JSON.stringify(state));
+        const shareUrl = `${window.location.origin}${window.location.pathname}?state=${base64State}`;
+
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          const origText = shareBtn.innerHTML;
+          shareBtn.innerHTML = `
+            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Link Copied!
+          `;
+          setTimeout(() => {
+            shareBtn.innerHTML = origText;
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy share link', err);
+          alert('Could not copy share URL. Here it is: ' + shareUrl);
+        }
+      });
+
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+
+      // Auto-calculate if parameters pre-filled
+      if (initialBirthVal) {
+        const dummyEvent = new Event('submit');
+        calculateAge(dummyEvent);
+      }
+
       // Clean up interval on page change / unmount
       document.addEventListener('astro:before-swap', () => {
         if (liveIntervalId) {
@@ -866,4 +945,22 @@ import SocialShare from '../components/SocialShare.astro';
     // Initialize on load and page swaps
     document.addEventListener('astro:page-load', initAgeCalculator);
   </script>
+
+  <style>
+    /* Print styles to ensure report looks stellar */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      nav, #share-btn, #print-btn, .social-share-section, #calc-btn, #age-form button {
+        display: none !important;
+      }
+      .premium-glass-card {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        background: white !important;
+      }
+    }
+  </style>
 </Layout>

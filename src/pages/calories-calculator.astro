@@ -354,6 +354,30 @@ import SocialShare from '../components/SocialShare.astro';
                 </table>
               </div>
             </div>
+
+            <!-- Sharing & Utilities -->
+            <div class="premium-glass-card rounded-xl p-5 flex flex-col sm:flex-row gap-3">
+              <button 
+                type="button" 
+                id="share-btn" 
+                class="w-full sm:flex-1 inline-flex items-center justify-center gap-2 h-10 px-4 rounded bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200 transition-all duration-150 cursor-pointer"
+              >
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 10.742l4.622-2.311m0 0a3 3 0 114.243 4.243l-4.622 2.311m0 0a3 3 0 11-4.243-4.243m4.622-2.311l4.622 2.311"></path>
+                </svg>
+                Share Results
+              </button>
+              <button 
+                type="button" 
+                id="print-btn" 
+                class="w-full sm:flex-1 inline-flex items-center justify-center gap-2 h-10 px-4 rounded bg-neutral-100 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 text-xs font-semibold text-neutral-800 dark:text-neutral-200 transition-all duration-150 cursor-pointer"
+              >
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                </svg>
+                Export Report / Print
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -763,9 +787,102 @@ import SocialShare from '../components/SocialShare.astro';
         macroFats.textContent = `${Math.round(fatsG)} g`;
         macroFatsKcal.textContent = `${Math.round(fatsKcalVal)} kcal`;
       });
+
+      // Share & Print Button Handlers
+      const shareBtn = document.getElementById('share-btn') as HTMLButtonElement;
+      const printBtn = document.getElementById('print-btn') as HTMLButtonElement;
+
+      shareBtn.addEventListener('click', async () => {
+        const state = {
+          unit: activeUnit,
+          age: ageInput.value,
+          gender: genderSelect.value,
+          hM: heightMetric.value,
+          wM: weightMetric.value,
+          hFt: heightFt.value,
+          hIn: heightIn.value,
+          wLbs: weightLbs.value,
+          act: activitySelect.value,
+          goal: goalSelect.value
+        };
+        const base64State = btoa(JSON.stringify(state));
+        const shareUrl = `${window.location.origin}${window.location.pathname}?state=${base64State}`;
+
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          const origText = shareBtn.innerHTML;
+          shareBtn.innerHTML = `
+            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Link Copied!
+          `;
+          setTimeout(() => {
+            shareBtn.innerHTML = origText;
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy share link', err);
+          alert('Could not copy share URL. Here it is: ' + shareUrl);
+        }
+      });
+
+      printBtn.addEventListener('click', () => {
+        window.print();
+      });
+
+      function parseUrlState() {
+        const hash = window.location.hash || window.location.search;
+        if (!hash) return;
+        
+        try {
+          const params = new URLSearchParams(hash.substring(1));
+          const stateData = params.get('state');
+          if (!stateData) return;
+          
+          const decoded = JSON.parse(atob(stateData));
+          if (decoded.unit !== undefined) {
+            activeUnit = decoded.unit;
+            switchUnit(activeUnit);
+          }
+          if (decoded.age !== undefined) ageInput.value = decoded.age;
+          if (decoded.gender !== undefined) genderSelect.value = decoded.gender;
+          if (decoded.hM !== undefined) heightMetric.value = decoded.hM;
+          if (decoded.wM !== undefined) weightMetric.value = decoded.wM;
+          if (decoded.hFt !== undefined) heightFt.value = decoded.hFt;
+          if (decoded.hIn !== undefined) heightIn.value = decoded.hIn;
+          if (decoded.wLbs !== undefined) weightLbs.value = decoded.wLbs;
+          if (decoded.act !== undefined) activitySelect.value = decoded.act;
+          if (decoded.goal !== undefined) goalSelect.value = decoded.goal;
+          
+          // Trigger calculation
+          form.dispatchEvent(new Event('submit'));
+        } catch (e) {
+          console.error('Error parsing shared state parameters', e);
+        }
+      }
+
+      parseUrlState();
     }
 
     // Initialize on page load and swaps
     document.addEventListener('astro:page-load', initCaloriesCalculator);
   </script>
+
+  <style>
+    /* Print styles to ensure report looks stellar */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      nav, #share-btn, #print-btn, .social-share-section, #calorie-form button[type="submit"], #unit-metric, #unit-imperial {
+        display: none !important;
+      }
+      .premium-glass-card {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        background: white !important;
+      }
+    }
+  </style>
 </Layout>
