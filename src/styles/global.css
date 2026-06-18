@@ -344,4 +344,99 @@
 :root.dark .premium-glass-card-subtle:hover {
   border-color: rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
+}
+
+/* Print Styles for High-Contrast Clean Reports */
+@media print {
+  /* Hide fixed navigation, footer, scrollbars, and sharing components */
+  header,
+  footer,
+  #share-btn,
+  #print-btn,
+  .social-share-section,
+  #theme-toggle,
+  #mobile-menu-container,
+  #initial-splash-loader {
+    display: none !important;
+  }
+
+  /* Reset body and enforce strict light background with dark text */
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    transition: none !important;
+  }
+
+  /* Shift main content to the top (removes header gap) */
+  main {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Darken headings and main typography */
+  h1, h2, h3, h4, h5, h6, p, span, label, th, td, li, a, div, strong, b {
+    color: #000000 !important;
+    text-shadow: none !important;
+  }
+
+  /* Override Tailwind neutral/muted classes to make text legible */
+  .text-neutral-400,
+  .text-neutral-500,
+  .text-neutral-600,
+  .text-neutral-700,
+  .text-neutral-800,
+  .text-muted-foreground {
+    color: #111111 !important;
+  }
+
+  /* Force boxes and cards to have clean, high-contrast borders and solid bg */
+  .premium-glass-card,
+  .vercel-glow-card,
+  .premium-glass-card-subtle {
+    border: 1.5px solid #222222 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Make forms, input tags, and selectors solid print elements */
+  input,
+  select,
+  textarea {
+    border: 1.5px solid #222222 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    opacity: 1 !important;
+    box-shadow: none !important;
+  }
+
+  /* Clean table borders and clear background colors */
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+  th, td {
+    border: 1.5px solid #222222 !important;
+    padding: 6px 10px !important;
+    color: #000000 !important;
+  }
+  th {
+    background-color: #f2f2f2 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Eliminate background designs and glowing effects */
+  .bg-grid-pattern,
+  .bg-grid-fade,
+  .bg-hero-glow {
+    background-image: none !important;
+    background: none !important;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+  }
 }

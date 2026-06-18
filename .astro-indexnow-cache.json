@@ -1,12 +1,12 @@
 {
-  "https://www.cloudyunicorn.com/about/": "sha256:d60766bbe9be08759ad64325a67ac520588fd0d2cbab461e6848fabafaf5b256",
-  "https://www.cloudyunicorn.com/age-calculator/": "sha256:de66ceb408cb9116abe0ea331389c0e49128481bedf3838288121575d78f12f8",
-  "https://www.cloudyunicorn.com/bmi-calculator/": "sha256:9f43f8b75f7a401cc68fb885a44a2e1a4b2c29243045df4b403c3e4ad3665d41",
-  "https://www.cloudyunicorn.com/calories-calculator/": "sha256:7a7cf1b2562657bcd85a45b7f54d674df67cc5fe2ef35991f47a32b9e1b2f479",
-  "https://www.cloudyunicorn.com/days-calculator/": "sha256:2b79856cd9f77cc80470562a718e074c9e768fe778386177f4a3a23187173721",
-  "https://www.cloudyunicorn.com/": "sha256:1180d86ab830813d64fe81e2a818d0515ccdc99bb150df4564158c35fddd496e",
-  "https://www.cloudyunicorn.com/mortgage-calculator/": "sha256:67dce28b7f309cd2739324036b5d6e43b91279995563af6bfd754e25d1602715",
-  "https://www.cloudyunicorn.com/privacy-policy/": "sha256:af9204f1eec1798fbd89350666375ae2b261311776525796498867a02b4e8d52",
-  "https://www.cloudyunicorn.com/saas-cost-burn-calculator/": "sha256:ce0156269aed93921efbcf1bbaea024e3bdb4830efab5aaa358f6a4a04074e3d",
-  "https://www.cloudyunicorn.com/terms-of-service/": "sha256:7f7ae60129cdcc1084313e9769ec7d04e89fb47ed1f84a29c4b047abfe75b83e"
+  "https://www.cloudyunicorn.com/about/": "sha256:75834463ca3effe08072dcae3fd51692e782983e3bb8d56fc8d5b29fc642ab9a",
+  "https://www.cloudyunicorn.com/age-calculator/": "sha256:2a25011c82aa9155d8abe3e02144c8c0fb7fcdf1e3245fa47916252e173ef256",
+  "https://www.cloudyunicorn.com/bmi-calculator/": "sha256:f257d71fa25e8c3eaf24ea617b212a4ceb7cab9d3f5c7b0bb02068ea92369b1c",
+  "https://www.cloudyunicorn.com/calories-calculator/": "sha256:15e056c2300dc7bbdf043afde407d574475037cf2264365b81109ad32678e62e",
+  "https://www.cloudyunicorn.com/days-calculator/": "sha256:71cef513795896eb74db69e62fbb730f6ddcee0acef3d20edf1a8640c89e590d",
+  "https://www.cloudyunicorn.com/": "sha256:656088562d7dc94da96447a3396ff16ec67916fae4ccc418cc9078a70365779a",
+  "https://www.cloudyunicorn.com/mortgage-calculator/": "sha256:0cdd59530bf01f4b4614dc2d5eeecc2c7912746ba7337d9abd4fa7c19bdc1eaf",
+  "https://www.cloudyunicorn.com/privacy-policy/": "sha256:c04167be660a831dbdd2e52d84cc38e6af5161157c5a549aa7445030c0d511a2",
+  "https://www.cloudyunicorn.com/saas-cost-burn-calculator/": "sha256:b949319a2dd3ff2227bee48b8fec47bbdb834a4f869be86b915aae3c709dc269",
+  "https://www.cloudyunicorn.com/terms-of-service/": "sha256:6b44cc35162327c08651bea03b4fc532b9c195ae5b32b317d6350d83ed015ba3"
 }
