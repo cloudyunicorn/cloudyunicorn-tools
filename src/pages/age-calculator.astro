@@ -828,12 +828,14 @@ import SocialShare from '../components/SocialShare.astro';
         resMonths.textContent = String(months);
         resDays.textContent = String(days);
 
-        // 2. Lifespan Breakdowns
-        const diffMs = refDate.getTime() - birthDate.getTime();
-        const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        // 2. Lifespan Breakdowns (Daylight Saving Safe)
+        const utcBirth = Date.UTC(birthDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+        const utcRef = Date.UTC(refDate.getFullYear(), refDate.getMonth(), refDate.getDate());
+        const totalDays = Math.floor((utcRef - utcBirth) / (1000 * 60 * 60 * 24));
         const totalWeeks = Math.floor(totalDays / 7);
         
         const totalMonths = (refDate.getFullYear() - birthDate.getFullYear()) * 12 + (refDate.getMonth() - birthDate.getMonth());
+        const diffMs = refDate.getTime() - birthDate.getTime();
         const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
         const totalMinutes = Math.floor(diffMs / (1000 * 60));
 
